@@ -1,0 +1,76 @@
+{
+  "schema": "independent_sctransnet_designated_baseline_results/v2",
+  "model": "SCTransNet baseline",
+  "threshold": 0.5,
+  "evaluation_protocol": "legacy_sctransnet_official_test_runner",
+  "metric_units": {
+    "miou_percent": "percent",
+    "niou_percent": "percent",
+    "f1_percent": "percent",
+    "pd_percent": "percent",
+    "fa_times_1e6": "fa multiplied by 1e6"
+  },
+  "checkpoint_semantics": "one user-designated baseline checkpoint per dataset; every metric vector comes from that same checkpoint",
+  "datasets": {
+    "NUAA-SIRST": {
+      "training_summary": "../baseline/logs/NUAA-SIRST_SCTransNet_Thu_Aug__6_11_34_33_2026.txt",
+      "baseline": {
+        "epoch": 740,
+        "source_selection": "historical_best_miou",
+        "checkpoint": "../baseline/checkpoints/NUAA-SIRST/SCTransNet.pth.tar",
+        "bytes": 45536963,
+        "sha256": "fe73b2c6ab523adbd880795d64b76f735d92f9600661edca24a3b777ce123556",
+        "evaluation_log": "../baseline/logs/test_NUAA-SIRST_best_mIoU.log",
+        "test_selected": true,
+        "selection_is_optimistic": true,
+        "metrics": {
+          "miou_percent": 76.69632329295745,
+          "niou_percent": 79.0235,
+          "f1_percent": 86.8109,
+          "pd_percent": 95.81749049429658,
+          "fa_times_1e6": 21.67786988138687
+        }
+      }
+    },
+    "NUDT-SIRST": {
+      "training_summary": "../baseline/logs/NUDT-SIRST_SCTransNet_Thu_Aug__6_11_34_33_2026.txt",
+      "baseline": {
+        "epoch": 1000,
+        "source_selection": "epoch1000_user_designated_baseline",
+        "checkpoint": "../baseline/checkpoints/NUDT-SIRST/SCTransNet.pth.tar",
+        "bytes": 45535091,
+        "sha256": "5baa4e0859060228f079e97f8ce4309a71c30f829c701f3c0b63ba0f67862172",
+        "evaluation_log": "../baseline/logs/test_NUDT-SIRST_checkpoint.log",
+        "test_selected": false,
+        "selection_is_optimistic": false,
+        "metrics": {
+          "miou_percent": 93.13000616142945,
+          "niou_percent": 93.8517,
+          "f1_percent": 96.4423,
+          "pd_percent": 98.83597883597883,
+          "fa_times_1e6": 6.825090622442076
+        }
+      }
+    },
+    "IRSTD-1K": {
+      "training_summary": "../baseline/logs/IRSTD-1K_SCTransNet_Thu_Aug__6_11_34_34_2026.txt",
+      "baseline": {
+        "epoch": 713,
+        "source_selection": "historical_best_miou",
+        "checkpoint": "../baseline/checkpoints/IRSTD-1K/SCTransNet.pth.tar",
+        "bytes": 45536899,
+        "sha256": "5f702bba036f43b62fc82d349b75344f9f6c04b2b68a143311a0b48050b3371b",
+        "evaluation_log": "../baseline/logs/test_IRSTD-1K_best_mIoU.log",
+        "test_selected": true,
+        "selection_is_optimistic": true,
+        "metrics": {
+          "miou_percent": 67.73579291877417,
+          "niou_percent": 67.164,
+          "f1_percent": 80.7586,
+          "pd_percent": 93.26599326599326,
+          "fa_times_1e6": 20.800538550247438
+        }
+      }
+    }
+  }
+}

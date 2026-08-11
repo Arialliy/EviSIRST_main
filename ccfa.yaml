@@ -1,0 +1,30 @@
+version: "0.4.0"
+project:
+  title: "EviSIRST"
+  short_name: "EviSIRST"
+  root: "."
+target_venue:
+  name: ""
+  year: ""
+  mode: "review"
+stage:
+  current: "sirst3_clean_joint_training"
+  gate: "fixed_epoch1000_then_three_source_evaluation"
+  updated_at: "2026-08-08"
+artifacts:
+  manuscript: ""
+  bibliography: ""
+  figures: ""
+  tables: "data/model_vs_baseline.csv"
+  experiments: "experiments/"
+  reviews: ""
+  submission: ""
+claims: []
+experiments: []
+reviews: []
+revision_ledger:
+  path: ""
+  status: "not_started"
+submission_checks:
+  path: ""
+  status: "not_started"

@@ -1,0 +1,7 @@
+model,checkpoint_role,source_selection,evaluation_protocol,dataset,epoch,miou_percent,niou_percent,f1_percent,pd_percent,fa_times_1e6,test_selected,selection_is_optimistic
+EviSIRST,final,historical_best_miou,historical_three_dataset_official_test_records,NUAA-SIRST,850,79.67610467610468,79.5635585305396,88.68859308780517,97.3384030418251,15.435192155794186,true,true
+EviSIRST,final,historical_best_miou,historical_three_dataset_official_test_records,NUDT-SIRST,420,94.43733351783306,94.63291066273267,97.13909547023449,99.04761904761905,2.780592585184488,true,true
+EviSIRST,final,historical_best_miou,historical_three_dataset_official_test_records,IRSTD-1K,830,66.02513983280207,66.55852044710193,79.53631588480347,93.26599326599326,11.728770697294776,true,true
+SCTransNet,baseline,historical_best_miou,legacy_sctransnet_official_test_runner,NUAA-SIRST,740,76.69632329295745,79.0235,86.8109,95.81749049429658,21.67786988138687,true,true
+SCTransNet,baseline,epoch1000_user_designated_baseline,legacy_sctransnet_official_test_runner,NUDT-SIRST,1000,93.13000616142945,93.8517,96.4423,98.83597883597883,6.825090622442076,false,false
+SCTransNet,baseline,historical_best_miou,legacy_sctransnet_official_test_runner,IRSTD-1K,713,67.73579291877417,67.164,80.7586,93.26599326599326,20.800538550247438,true,true

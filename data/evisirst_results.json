@@ -1,0 +1,67 @@
+{
+  "schema": "evisirst_final_results/v1",
+  "model": "EviSIRST",
+  "architecture": "SCTransNet + TPD8-MPRS-DCH + NER4 Tail-Aware + QFG2-CROA",
+  "checkpoint_role": "final",
+  "source_selection": "historical_best_miou",
+  "training_seed": 42,
+  "threshold": 0.5,
+  "evaluation_protocol": "historical_three_dataset_official_test_records",
+  "metric_units": {
+    "miou": "fraction",
+    "niou": "fraction",
+    "pixel_f1": "fraction",
+    "pd": "fraction",
+    "fa": "false-positive pixels / valid pixels"
+  },
+  "historical_selection": {
+    "test_selected": true,
+    "selection_is_optimistic": true,
+    "operational_checkpoint_only": true,
+    "unbiased_test_claim_allowed": false
+  },
+  "datasets": {
+    "NUAA-SIRST": {
+      "epoch": 850,
+      "package": "../results/NUAA-SIRST/EviSIRST.pth.tar",
+      "package_sha256": "01031f35811ec6ca23643da32d8acdf89ddd7d5cda01f1b525a37f3c8299bf14",
+      "evaluation_file": "evisirst_evaluation/NUAA-SIRST.json",
+      "evaluation_file_sha256": "e0020a695efc94d8d37dfd8983c198094ae9574ba0ef346dd926312af6546d3c",
+      "metrics": {
+        "miou": 0.7967610467610468,
+        "niou": 0.795635585305396,
+        "pixel_f1": 0.8868859308780517,
+        "pd": 0.973384030418251,
+        "fa": 0.000015435192155794186
+      }
+    },
+    "NUDT-SIRST": {
+      "epoch": 420,
+      "package": "../results/NUDT-SIRST/EviSIRST.pth.tar",
+      "package_sha256": "497b079c89c23b26c18c8812672bf77b4a99aeabd246c77a05cea9f67fe31610",
+      "evaluation_file": "evisirst_evaluation/NUDT-SIRST.json",
+      "evaluation_file_sha256": "ed570c670966e87a890c493e1fa516f763ae3d1b0a64dd81146961f3ff2aa9c2",
+      "metrics": {
+        "miou": 0.9443733351783306,
+        "niou": 0.9463291066273267,
+        "pixel_f1": 0.9713909547023449,
+        "pd": 0.9904761904761905,
+        "fa": 0.000002780592585184488
+      }
+    },
+    "IRSTD-1K": {
+      "epoch": 830,
+      "package": "../results/IRSTD-1K/EviSIRST.pth.tar",
+      "package_sha256": "87bb8bb333e28cbb053448b90d50b64eeb3bb905667451d46151079159d24bed",
+      "evaluation_file": "evisirst_evaluation/IRSTD-1K.json",
+      "evaluation_file_sha256": "a30eed0c2c5c26fbe9094c69de364158fbdfa020da7747e2fb2a9fe46123f918",
+      "metrics": {
+        "miou": 0.6602513983280207,
+        "niou": 0.6655852044710193,
+        "pixel_f1": 0.7953631588480347,
+        "pd": 0.9326599326599326,
+        "fa": 0.000011728770697294776
+      }
+    }
+  }
+}

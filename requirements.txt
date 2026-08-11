@@ -1,0 +1,10 @@
+# Install a PyTorch build compatible with the target CUDA/CPU environment first.
+torch
+numpy
+Pillow
+scipy
+scikit-image
+einops
+ml-collections
+thop
+pytest

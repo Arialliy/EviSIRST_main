@@ -1,0 +1,10 @@
+# Exact environment used for the frozen V3 replay.
+torch==2.9.1+cu130
+numpy==2.2.6
+Pillow==12.0.0
+scipy==1.16.3
+scikit-image==0.25.2
+einops==0.8.1
+ml-collections==1.1.0
+thop==0.1.1-2209072238
+pytest==9.0.2

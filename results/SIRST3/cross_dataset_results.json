@@ -1,0 +1,243 @@
+{
+  "checkpoint": {
+    "bytes": 43692709,
+    "epoch": 1000,
+    "path": "/home/ly/EviSIRST/results/SIRST3/EviSIRST.pth.tar",
+    "role": "fixed_final_endpoint",
+    "sha256": "37673d0e376d80c383007aa59315b745461b6cd3e6c8a52d57848822ce4a3137"
+  },
+  "checkpoint_selection_rule": "fixed_epoch_1000_endpoint",
+  "data_contract": {
+    "normalization": {
+      "mean": 101.06385040283203,
+      "std": 34.619606018066406
+    },
+    "normalization_recomputed": false,
+    "preflight_train_image_mask_tree_sha256": "d0dda06a2c8e1f1617c3d2637aa4cde4342f643d55c373bcdccae3b695dd41fe",
+    "source_datasets": [
+      "NUAA-SIRST",
+      "NUDT-SIRST",
+      "IRSTD-1K"
+    ],
+    "source_ranges": {
+      "test": {
+        "IRSTD-1K": [
+          878,
+          1079
+        ],
+        "NUAA-SIRST": [
+          0,
+          214
+        ],
+        "NUDT-SIRST": [
+          214,
+          878
+        ]
+      },
+      "train": {
+        "IRSTD-1K": [
+          876,
+          1676
+        ],
+        "NUAA-SIRST": [
+          0,
+          213
+        ],
+        "NUDT-SIRST": [
+          213,
+          876
+        ]
+      }
+    },
+    "splits": {
+      "test": {
+        "count": 1079,
+        "file_sha256": "67a0f48b536ea6e2f8c895868c4bcd16c66c7c0a6280fd05ef7cd366d78b8922",
+        "ordered_ids_sha256": "326b4e8470f88b606688ed63606b67fa69f4a9deea2a25597c8cdb4bdf10764e"
+      },
+      "train": {
+        "count": 1676,
+        "file_sha256": "75c32b896b95e29b89edc1f5231f619f275c2b54da0264934e6e0df13d7e7d9a",
+        "ordered_ids_sha256": "66c5a6f43b665e36556a97391c1676e3720b3ae0e72186b4894a9eadb6456355"
+      }
+    },
+    "strict_ordered_concatenation": true,
+    "target_test_used_for_training_or_selection": false,
+    "training_dataset": "SIRST3"
+  },
+  "evaluation_protocol": "evisirst_public_common_evaluator_v1",
+  "evaluations": {
+    "IRSTD-1K": {
+      "checkpoint": {
+        "epoch": 1000,
+        "path": "/home/ly/EviSIRST/results/SIRST3/EviSIRST.pth.tar",
+        "role": "final",
+        "sha256": "37673d0e376d80c383007aa59315b745461b6cd3e6c8a52d57848822ce4a3137"
+      },
+      "dataset": "IRSTD-1K",
+      "dataset_root": "/home/ly/SCTransNet_main/datasets",
+      "evaluation_dataset": "IRSTD-1K",
+      "match_radius": 3.0,
+      "match_radius_operator": "<",
+      "metrics": {
+        "fa": 1.1235327269900497e-05,
+        "false_objects_per_image": 0.18407960199004975,
+        "matched_target_count": 273,
+        "matched_tiny_target_count": 22,
+        "miou": 0.6599591542527631,
+        "niou": 0.6605554212704263,
+        "pd": 0.9191919191919192,
+        "pixel_f1": 0.7951510765333817,
+        "pixel_precision": 0.8386382718876422,
+        "pixel_recall": 0.7559515618549608,
+        "predicted_object_count": 310,
+        "target_count": 297,
+        "test_loss": 0.000866717704307641,
+        "tiny_pd": 0.7333333333333333,
+        "tiny_target_count": 30,
+        "unmatched_predicted_object_count": 37,
+        "valid_pixel_count": 52690944
+      },
+      "metrics_display": {
+        "f1_percent": 79.51510765333816,
+        "fa_times_1e6": 11.235327269900496,
+        "miou_percent": 65.99591542527631,
+        "niou_percent": 66.05554212704263,
+        "pd_percent": 91.91919191919192
+      },
+      "model": "evisirst",
+      "normalization": {
+        "mean": 101.06385040283203,
+        "std": 34.619606018066406
+      },
+      "normalization_dataset": "SIRST3",
+      "protocol": "evisirst_public_common_evaluator_v1",
+      "sample_count": 201,
+      "schema": "evisirst_public_evaluation/v1",
+      "threshold": 0.5,
+      "threshold_operator": ">",
+      "tiny_area": 9,
+      "training_dataset": "SIRST3"
+    },
+    "NUAA-SIRST": {
+      "checkpoint": {
+        "epoch": 1000,
+        "path": "/home/ly/EviSIRST/results/SIRST3/EviSIRST.pth.tar",
+        "role": "final",
+        "sha256": "37673d0e376d80c383007aa59315b745461b6cd3e6c8a52d57848822ce4a3137"
+      },
+      "dataset": "NUAA-SIRST",
+      "dataset_root": "/home/ly/SCTransNet_main/datasets",
+      "evaluation_dataset": "NUAA-SIRST",
+      "match_radius": 3.0,
+      "match_radius_operator": "<",
+      "metrics": {
+        "fa": 1.4680582761510914e-05,
+        "false_objects_per_image": 0.10747663551401869,
+        "matched_target_count": 253,
+        "matched_tiny_target_count": 34,
+        "miou": 0.7615350973102996,
+        "niou": 0.7961485975776743,
+        "pd": 0.9619771863117871,
+        "pixel_f1": 0.8646266525976041,
+        "pixel_precision": 0.9018516120678493,
+        "pixel_recall": 0.8303528850739151,
+        "predicted_object_count": 276,
+        "target_count": 263,
+        "test_loss": 0.0007976393809358172,
+        "tiny_pd": 0.9714285714285714,
+        "tiny_target_count": 35,
+        "unmatched_predicted_object_count": 23,
+        "valid_pixel_count": 14577078
+      },
+      "metrics_display": {
+        "f1_percent": 86.46266525976041,
+        "fa_times_1e6": 14.680582761510914,
+        "miou_percent": 76.15350973102996,
+        "niou_percent": 79.61485975776743,
+        "pd_percent": 96.1977186311787
+      },
+      "model": "evisirst",
+      "normalization": {
+        "mean": 101.06385040283203,
+        "std": 34.619606018066406
+      },
+      "normalization_dataset": "SIRST3",
+      "protocol": "evisirst_public_common_evaluator_v1",
+      "sample_count": 214,
+      "schema": "evisirst_public_evaluation/v1",
+      "threshold": 0.5,
+      "threshold_operator": ">",
+      "tiny_area": 9,
+      "training_dataset": "SIRST3"
+    },
+    "NUDT-SIRST": {
+      "checkpoint": {
+        "epoch": 1000,
+        "path": "/home/ly/EviSIRST/results/SIRST3/EviSIRST.pth.tar",
+        "role": "final",
+        "sha256": "37673d0e376d80c383007aa59315b745461b6cd3e6c8a52d57848822ce4a3137"
+      },
+      "dataset": "NUDT-SIRST",
+      "dataset_root": "/home/ly/SCTransNet_main/datasets",
+      "evaluation_dataset": "NUDT-SIRST",
+      "match_radius": 3.0,
+      "match_radius_operator": "<",
+      "metrics": {
+        "fa": 7.468533803181476e-06,
+        "false_objects_per_image": 0.03162650602409638,
+        "matched_target_count": 930,
+        "matched_tiny_target_count": 256,
+        "miou": 0.9353919076732843,
+        "niou": 0.9386057063067458,
+        "pd": 0.9841269841269841,
+        "pixel_f1": 0.9666175661525902,
+        "pixel_precision": 0.9714968607305936,
+        "pixel_recall": 0.9617870386720819,
+        "predicted_object_count": 951,
+        "target_count": 945,
+        "test_loss": 0.0003171688093558328,
+        "tiny_pd": 0.9884169884169884,
+        "tiny_target_count": 259,
+        "unmatched_predicted_object_count": 21,
+        "valid_pixel_count": 43515904
+      },
+      "metrics_display": {
+        "f1_percent": 96.66175661525902,
+        "fa_times_1e6": 7.468533803181476,
+        "miou_percent": 93.53919076732844,
+        "niou_percent": 93.86057063067457,
+        "pd_percent": 98.4126984126984
+      },
+      "model": "evisirst",
+      "normalization": {
+        "mean": 101.06385040283203,
+        "std": 34.619606018066406
+      },
+      "normalization_dataset": "SIRST3",
+      "protocol": "evisirst_public_common_evaluator_v1",
+      "sample_count": 664,
+      "schema": "evisirst_public_evaluation/v1",
+      "threshold": 0.5,
+      "threshold_operator": ">",
+      "tiny_area": 9,
+      "training_dataset": "SIRST3"
+    }
+  },
+  "model": "EviSIRST",
+  "model_graph": "clean_564_key_no_tss",
+  "normalization": {
+    "mean": 101.06385040283203,
+    "std": 34.619606018066406
+  },
+  "normalization_dataset": "SIRST3",
+  "schema": "evisirst_sirst3_fixed_endpoint_three_source_evaluation/v1",
+  "seed": 42,
+  "status": "complete",
+  "target_test_accessed_for_final_evaluation": true,
+  "target_test_used_for_training_or_selection": false,
+  "test_selected": false,
+  "threshold_search_performed": false,
+  "training_dataset": "SIRST3",
+  "training_sample_count": 1676
+}

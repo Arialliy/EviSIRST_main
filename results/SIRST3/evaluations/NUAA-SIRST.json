@@ -1,0 +1,52 @@
+{
+  "schema": "evisirst_public_evaluation/v1",
+  "model": "evisirst",
+  "training_dataset": "SIRST3",
+  "evaluation_dataset": "NUAA-SIRST",
+  "dataset": "NUAA-SIRST",
+  "dataset_root": "/home/ly/SCTransNet_main/datasets",
+  "sample_count": 214,
+  "threshold": 0.5,
+  "threshold_operator": ">",
+  "match_radius": 3.0,
+  "match_radius_operator": "<",
+  "tiny_area": 9,
+  "protocol": "evisirst_public_common_evaluator_v1",
+  "normalization_dataset": "SIRST3",
+  "normalization": {
+    "mean": 101.06385040283203,
+    "std": 34.619606018066406
+  },
+  "checkpoint": {
+    "path": "/home/ly/EviSIRST/results/SIRST3/EviSIRST.pth.tar",
+    "epoch": 1000,
+    "role": "final",
+    "sha256": "37673d0e376d80c383007aa59315b745461b6cd3e6c8a52d57848822ce4a3137"
+  },
+  "metrics": {
+    "test_loss": 0.0007976393809358172,
+    "miou": 0.7615350973102996,
+    "niou": 0.7961485975776743,
+    "pixel_precision": 0.9018516120678493,
+    "pixel_recall": 0.8303528850739151,
+    "pixel_f1": 0.8646266525976041,
+    "pd": 0.9619771863117871,
+    "tiny_pd": 0.9714285714285714,
+    "fa": 1.4680582761510914e-05,
+    "false_objects_per_image": 0.10747663551401869,
+    "target_count": 263,
+    "matched_target_count": 253,
+    "tiny_target_count": 35,
+    "matched_tiny_target_count": 34,
+    "predicted_object_count": 276,
+    "unmatched_predicted_object_count": 23,
+    "valid_pixel_count": 14577078
+  },
+  "metrics_display": {
+    "miou_percent": 76.15350973102996,
+    "niou_percent": 79.61485975776743,
+    "f1_percent": 86.46266525976041,
+    "pd_percent": 96.1977186311787,
+    "fa_times_1e6": 14.680582761510914
+  }
+}

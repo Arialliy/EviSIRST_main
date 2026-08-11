@@ -1,0 +1,15 @@
+__pycache__/
+.pytest_cache/
+*.py[cod]
+*.lock
+datasets/
+runs/
+
+# The six checkpoint files are intentional local artifacts. Use Git LFS or a release asset
+# rather than ordinary Git blobs when publishing them.
+# Large model checkpoints are intentionally kept out of GitHub.
+*.pth
+*.pth.tar
+*.pt
+*.ckpt
+*.bin

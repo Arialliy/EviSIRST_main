@@ -1,0 +1,129 @@
+Aug  6 11:41:24 Epoch---10, total_loss---2.499597,
+Aug  6 11:48:01 Epoch---20, total_loss---0.092801,
+Aug  6 11:54:34 Epoch---30, total_loss---0.020393,
+Aug  6 12:00:57 Epoch---40, total_loss---0.012559,
+Aug  6 12:07:23 Epoch---50, total_loss---0.010146,
+Aug  6 12:13:54 Epoch---60, total_loss---0.008661,
+Aug  6 12:20:11 Epoch---70, total_loss---0.008298,
+Aug  6 12:26:35 Epoch---80, total_loss---0.007305,
+Aug  6 12:32:55 Epoch---90, total_loss---0.006531,
+Aug  6 12:39:15 Epoch---100, total_loss---0.005845,
+Aug  6 12:45:37 Epoch---110, total_loss---0.005730,
+Aug  6 12:52:07 Epoch---120, total_loss---0.006256,
+Aug  6 12:58:40 Epoch---130, total_loss---0.005839,
+Aug  6 13:07:23 Epoch---140, total_loss---0.005370,
+Aug  6 13:16:04 Epoch---150, total_loss---0.005093,
+Aug  6 13:24:20 Epoch---160, total_loss---0.005157,
+Aug  6 13:32:54 Epoch---170, total_loss---0.005188,
+Aug  6 13:41:36 Epoch---180, total_loss---0.005065,
+Aug  6 13:52:33 Epoch---190, total_loss---0.004834,
+Aug  6 14:04:06 Epoch---200, total_loss---0.004636,
+Aug  6 14:15:45 Epoch---210, total_loss---0.004794,
+Aug  6 14:24:29 Epoch---220, total_loss---0.005100,
+Aug  6 14:33:11 Epoch---230, total_loss---0.004405,
+Aug  6 14:41:56 Epoch---240, total_loss---0.004421,
+Aug  6 14:50:37 Epoch---250, total_loss---0.004461,
+Aug  6 14:59:22 Epoch---260, total_loss---0.004765,
+Aug  6 15:08:03 Epoch---270, total_loss---0.004338,
+Aug  6 15:16:34 Epoch---280, total_loss---0.004298,
+Aug  6 15:25:03 Epoch---290, total_loss---0.004524,
+Aug  6 15:33:08 Epoch---300, total_loss---0.004322,
+Aug  6 15:41:36 Epoch---310, total_loss---0.004040,
+Aug  6 15:50:08 Epoch---320, total_loss---0.004291,
+Aug  6 15:58:36 Epoch---330, total_loss---0.003965,
+Aug  6 16:07:02 Epoch---340, total_loss---0.004043,
+Aug  6 16:16:14 Epoch---350, total_loss---0.003923,
+Aug  6 16:25:02 Epoch---360, total_loss---0.003919,
+Aug  6 16:33:40 Epoch---370, total_loss---0.004089,
+Aug  6 16:42:42 Epoch---380, total_loss---0.003940,
+Aug  6 16:52:06 Epoch---390, total_loss---0.003848,
+Aug  6 17:01:35 Epoch---400, total_loss---0.003731,
+Aug  6 17:11:07 Epoch---410, total_loss---0.003773,
+Aug  6 17:20:53 Epoch---420, total_loss---0.003774,
+Aug  6 17:30:17 Epoch---430, total_loss---0.003693,
+Aug  6 17:39:55 Epoch---440, total_loss---0.003692,
+Aug  6 17:49:28 Epoch---450, total_loss---0.003635,
+Aug  6 17:58:47 Epoch---460, total_loss---0.003535,
+Aug  6 18:08:14 Epoch---470, total_loss---0.003735,
+Aug  6 18:17:24 Epoch---480, total_loss---0.003665,
+Aug  6 18:26:36 Epoch---490, total_loss---0.003585,
+Aug  6 18:35:56 Epoch---500, total_loss---0.003608,
+the best model epoch 	500
+pixAcc, mIoU:	(0.7738365530967712, np.float64(0.6550098917723729))
+PD, FA:	(0.9528619528619529, 2.3666305423830636e-05)
+the best model epoch 	501
+pixAcc, mIoU:	(0.799065113067627, np.float64(0.6572058574093967))
+PD, FA:	(0.9427609427609428, 3.4009637602139264e-05)
+the best model epoch 	502
+pixAcc, mIoU:	(0.7695744633674622, np.float64(0.6643128412057916))
+PD, FA:	(0.9562289562289562, 1.9377142962184735e-05)
+the best model epoch 	504
+pixAcc, mIoU:	(0.7753488421440125, np.float64(0.6680684712432624))
+PD, FA:	(0.9191919191919192, 1.7346434106002562e-05)
+Aug  6 19:02:55 Epoch---510, total_loss---0.003482,
+the best model epoch 	510
+pixAcc, mIoU:	(0.7858664989471436, np.float64(0.6717198425289382))
+PD, FA:	(0.9326599326599326, 2.5943736545741558e-05)
+Aug  6 19:29:44 Epoch---520, total_loss---0.003566,
+Aug  6 19:56:47 Epoch---530, total_loss---0.003486,
+Aug  6 20:23:42 Epoch---540, total_loss---0.003437,
+Aug  6 20:52:13 Epoch---550, total_loss---0.003410,
+the best model epoch 	550
+pixAcc, mIoU:	(0.8013336062431335, np.float64(0.6722606689734717))
+PD, FA:	(0.9562289562289562, 2.7917511033592746e-05)
+Aug  6 21:18:54 Epoch---560, total_loss---0.003324,
+Aug  6 21:45:09 Epoch---570, total_loss---0.003467,
+Aug  6 22:12:23 Epoch---580, total_loss---0.003416,
+Aug  6 22:39:17 Epoch---590, total_loss---0.003329,
+Aug  6 23:06:11 Epoch---600, total_loss---0.003252,
+Aug  6 23:32:26 Epoch---610, total_loss---0.003345,
+Aug  7 00:00:16 Epoch---620, total_loss---0.003284,
+Aug  7 00:21:01 Epoch---630, total_loss---0.003318,
+Aug  7 00:37:05 Epoch---640, total_loss---0.003285,
+Aug  7 01:01:24 Epoch---650, total_loss---0.003270,
+Aug  7 01:26:03 Epoch---660, total_loss---0.003293,
+the best model epoch 	667
+pixAcc, mIoU:	(0.7783048152923584, np.float64(0.6744906469677112))
+PD, FA:	(0.9326599326599326, 1.7669070075498894e-05)
+Aug  7 01:41:54 Epoch---670, total_loss---0.003189,
+the best model epoch 	670
+pixAcc, mIoU:	(0.7786484956741333, np.float64(0.6762791808466178))
+PD, FA:	(0.9393939393939394, 1.672013968345709e-05)
+Aug  7 01:57:18 Epoch---680, total_loss---0.003177,
+Aug  7 02:13:19 Epoch---690, total_loss---0.003183,
+Aug  7 02:29:07 Epoch---700, total_loss---0.003199,
+Aug  7 02:44:52 Epoch---710, total_loss---0.003170,
+the best model epoch 	713
+pixAcc, mIoU:	(0.7824981212615967, np.float64(0.6773579291877417))
+PD, FA:	(0.9326599326599326, 2.0800538550247438e-05)
+Aug  7 03:00:35 Epoch---720, total_loss---0.003174,
+Aug  7 03:16:25 Epoch---730, total_loss---0.003118,
+Aug  7 03:32:18 Epoch---740, total_loss---0.003150,
+Aug  7 03:47:57 Epoch---750, total_loss---0.003165,
+Aug  7 04:02:52 Epoch---760, total_loss---0.003125,
+Aug  7 04:18:18 Epoch---770, total_loss---0.003112,
+Aug  7 04:34:07 Epoch---780, total_loss---0.003063,
+Aug  7 04:49:47 Epoch---790, total_loss---0.003046,
+Aug  7 05:05:30 Epoch---800, total_loss---0.003116,
+Aug  7 05:21:54 Epoch---810, total_loss---0.003105,
+Aug  7 05:38:33 Epoch---820, total_loss---0.002952,
+Aug  7 05:54:55 Epoch---830, total_loss---0.003075,
+Aug  7 06:11:25 Epoch---840, total_loss---0.003059,
+Aug  7 06:27:49 Epoch---850, total_loss---0.003038,
+Aug  7 06:43:51 Epoch---860, total_loss---0.002990,
+Aug  7 07:00:00 Epoch---870, total_loss---0.003025,
+Aug  7 07:16:13 Epoch---880, total_loss---0.003036,
+Aug  7 07:31:50 Epoch---890, total_loss---0.003063,
+Aug  7 07:47:36 Epoch---900, total_loss---0.003025,
+Aug  7 08:03:16 Epoch---910, total_loss---0.003017,
+Aug  7 08:18:33 Epoch---920, total_loss---0.003045,
+Aug  7 08:34:10 Epoch---930, total_loss---0.003024,
+Aug  7 08:49:22 Epoch---940, total_loss---0.003038,
+Aug  7 09:04:27 Epoch---950, total_loss---0.003037,
+Aug  7 09:19:24 Epoch---960, total_loss---0.003004,
+Aug  7 09:34:46 Epoch---970, total_loss---0.002962,
+Aug  7 09:50:18 Epoch---980, total_loss---0.002980,
+Aug  7 10:05:55 Epoch---990, total_loss---0.002959,
+Aug  7 10:21:29 Epoch---1000, total_loss---0.003006,
+pixAcc, mIoU:	(0.7594005465507507, np.float64(0.6664856711915536))
+PD, FA:	(0.9326599326599326, 1.1595920113904867e-05)
