@@ -1,0 +1,63 @@
+{
+  "decision": {
+    "overall_pass_rule": "primary AND safety AND mechanism",
+    "public_test_allowed": false,
+    "public_test_status": "blocked_pending_separate_reviewed_gate_extension",
+    "validation_improvement_confirmation_only": true
+  },
+  "mechanism": {
+    "endpoint_combination": "no_cross_endpoint_vote_pooling",
+    "endpoints": [
+      {
+        "name": "matched_target_pixel_recall",
+        "transform": "identity"
+      },
+      {
+        "name": "matched_component_area_ratio_closeness_to_one",
+        "source_metric": "matched_component_area_ratio",
+        "transform": "-abs(raw_value-1.0)"
+      }
+    ],
+    "mean_operator": ">",
+    "mean_threshold": 0.0,
+    "minimum_positive_seed_count": 2,
+    "pass_rule": "at_least_one_same_endpoint_has_mean_delta>0_AND_strictly_positive_seed_count>=2",
+    "seed_operator": ">",
+    "seed_threshold": 0.0
+  },
+  "primary": {
+    "delta": "complete_target_minus_paired_baseline",
+    "mean_operator": ">",
+    "mean_threshold": 0.0,
+    "metric": "selected_validation_mIoU",
+    "minimum_positive_seed_count": 2,
+    "pass_rule": "mean_delta>0 AND strictly_positive_seed_count>=2",
+    "seed_operator": ">",
+    "seed_threshold": 0.0
+  },
+  "registered_before_confirmatory_training": true,
+  "replication_scope": "fixed_architecture_seed_42_runtime_randomness_repetitions;not_independent_initializations",
+  "runtime_seeds": [
+    1446202191,
+    104728269,
+    262620274
+  ],
+  "safety": {
+    "aggregate_failure_rule": "mean_Pd_delta<-0.003 AND mean_Fa_delta>0",
+    "fa_failure_operator": ">",
+    "fa_failure_threshold": 0.0,
+    "final_failure_rule": "any_per_seed_joint_failure OR aggregate_joint_failure",
+    "pd_failure_operator": "<",
+    "pd_failure_threshold": -0.003,
+    "per_seed_failure_rule": "Pd_delta<-0.003 AND Fa_delta>0"
+  },
+  "schema": "evisirst_irstd_complete_target_three_seed_gate_rules/v1",
+  "uncertainty": {
+    "decision_use": false,
+    "degrees_of_freedom": 2,
+    "interpretation": "descriptive_only_not_a_statistical_significance_claim",
+    "sample_std_ddof": 1,
+    "summary": "paired_delta_mean_sample_std_and_two_sided_95pct_t_interval",
+    "t_critical": 4.302652729911275
+  }
+}

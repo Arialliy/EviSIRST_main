@@ -1,0 +1,135 @@
+{
+  "schema": "evisirst/checkpoint-artifacts/v1",
+  "artifacts": [
+    {
+      "relative_path": "results/NUAA-SIRST/EviSIRST.pth.tar",
+      "dataset": "NUAA-SIRST",
+      "model": "EviSIRST",
+      "checkpoint_role": "final",
+      "sha256": "01031f35811ec6ca23643da32d8acdf89ddd7d5cda01f1b525a37f3c8299bf14",
+      "size_bytes": 43706327,
+      "download_url": null,
+      "download_url_status": "TBD"
+    },
+    {
+      "relative_path": "results/NUDT-SIRST/EviSIRST.pth.tar",
+      "dataset": "NUDT-SIRST",
+      "model": "EviSIRST",
+      "checkpoint_role": "final",
+      "sha256": "497b079c89c23b26c18c8812672bf77b4a99aeabd246c77a05cea9f67fe31610",
+      "size_bytes": 43706327,
+      "download_url": null,
+      "download_url_status": "TBD"
+    },
+    {
+      "relative_path": "results/IRSTD-1K/EviSIRST.pth.tar",
+      "dataset": "IRSTD-1K",
+      "model": "EviSIRST",
+      "checkpoint_role": "final",
+      "sha256": "87bb8bb333e28cbb053448b90d50b64eeb3bb905667451d46151079159d24bed",
+      "size_bytes": 43706263,
+      "download_url": null,
+      "download_url_status": "TBD"
+    },
+    {
+      "relative_path": "result/NUAA-SIRST/EviSIRST_best_mIoU.pth.tar",
+      "dataset": "NUAA-SIRST",
+      "model": "EviSIRST",
+      "checkpoint_role": "best_miou",
+      "sha256": "7882ba116f327b794ea8b347100d0bc44394a28dc7958b2aa9e0a074a6c72615",
+      "size_bytes": 43701289,
+      "download_url": null,
+      "download_url_status": "TBD"
+    },
+    {
+      "relative_path": "result/NUAA-SIRST/EviSIRST_best_Pd.pth.tar",
+      "dataset": "NUAA-SIRST",
+      "model": "EviSIRST",
+      "checkpoint_role": "best_pd",
+      "sha256": "7cd6beccc39c147faf4fae4a4df9bd4aba17232d5ceefd5b8997e9b09cf07714",
+      "size_bytes": 43700085,
+      "download_url": null,
+      "download_url_status": "TBD"
+    },
+    {
+      "relative_path": "result/NUDT-SIRST/EviSIRST_best_mIoU.pth.tar",
+      "dataset": "NUDT-SIRST",
+      "model": "EviSIRST",
+      "checkpoint_role": "best_miou",
+      "sha256": "d4c24378e30c6f028f70c2fef182929a4fb2fd2eee474925495a95e1fc34312d",
+      "size_bytes": 43701225,
+      "download_url": null,
+      "download_url_status": "TBD"
+    },
+    {
+      "relative_path": "result/NUDT-SIRST/EviSIRST_best_Pd.pth.tar",
+      "dataset": "NUDT-SIRST",
+      "model": "EviSIRST",
+      "checkpoint_role": "best_pd",
+      "sha256": "7443d84b9c99980312bc15e815c0f121628a5018a16fbaae142fba0c0f78e07e",
+      "size_bytes": 43700085,
+      "download_url": null,
+      "download_url_status": "TBD"
+    },
+    {
+      "relative_path": "result/IRSTD-1K/EviSIRST_best_mIoU.pth.tar",
+      "dataset": "IRSTD-1K",
+      "model": "EviSIRST",
+      "checkpoint_role": "best_miou",
+      "sha256": "a0842eecaac372482b6ff25dad32afa787b828fe018be29250e2dc8f79d05eb2",
+      "size_bytes": 43701225,
+      "download_url": null,
+      "download_url_status": "TBD"
+    },
+    {
+      "relative_path": "result/IRSTD-1K/EviSIRST_best_Pd.pth.tar",
+      "dataset": "IRSTD-1K",
+      "model": "EviSIRST",
+      "checkpoint_role": "best_pd",
+      "sha256": "4b58f2fb7bed2ccf377f597c9a2b0ea38c0d899f62c05b49b8cdf952dcb66d92",
+      "size_bytes": 43700021,
+      "download_url": null,
+      "download_url_status": "TBD"
+    },
+    {
+      "relative_path": "results/SIRST3/EviSIRST.pth.tar",
+      "dataset": "SIRST3",
+      "model": "EviSIRST",
+      "checkpoint_role": "final",
+      "sha256": "37673d0e376d80c383007aa59315b745461b6cd3e6c8a52d57848822ce4a3137",
+      "size_bytes": 43692709,
+      "download_url": null,
+      "download_url_status": "TBD"
+    },
+    {
+      "relative_path": "baseline/checkpoints/NUAA-SIRST/SCTransNet.pth.tar",
+      "dataset": "NUAA-SIRST",
+      "model": "SCTransNet",
+      "checkpoint_role": "baseline",
+      "sha256": "fe73b2c6ab523adbd880795d64b76f735d92f9600661edca24a3b777ce123556",
+      "size_bytes": 45536963,
+      "download_url": null,
+      "download_url_status": "TBD"
+    },
+    {
+      "relative_path": "baseline/checkpoints/NUDT-SIRST/SCTransNet.pth.tar",
+      "dataset": "NUDT-SIRST",
+      "model": "SCTransNet",
+      "checkpoint_role": "baseline",
+      "sha256": "5baa4e0859060228f079e97f8ce4309a71c30f829c701f3c0b63ba0f67862172",
+      "size_bytes": 45535091,
+      "download_url": null,
+      "download_url_status": "TBD"
+    },
+    {
+      "relative_path": "baseline/checkpoints/IRSTD-1K/SCTransNet.pth.tar",
+      "dataset": "IRSTD-1K",
+      "model": "SCTransNet",
+      "checkpoint_role": "baseline",
+      "sha256": "5f702bba036f43b62fc82d349b75344f9f6c04b2b68a143311a0b48050b3371b",
+      "size_bytes": 45536899,
+      "download_url": null,
+      "download_url_status": "TBD"
+    }
+  ]
+}

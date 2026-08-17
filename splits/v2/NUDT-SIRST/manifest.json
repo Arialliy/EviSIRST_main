@@ -1,0 +1,228 @@
+{
+  "algorithm": {
+    "binary_mask_rule": "0/1:>0.5; otherwise 0..255:>127",
+    "component_connectivity": 8,
+    "membership_hash": "sha256_length_prefixed",
+    "output_order": "frozen_train_index_order",
+    "stratification_fields": [
+      "target_count",
+      "foreground_pixels",
+      "max_target_area"
+    ],
+    "validation_count_rounding": "floor(N*fraction+0.5), clamped to [1,N-1]",
+    "version": "evisirst_group_stratified_sha256_v1"
+  },
+  "attribute_distribution": {
+    "source_train": {
+      "foreground_area_bin_histogram": {
+        "10-25": 87,
+        "26-64": 313,
+        "5-9": 120,
+        "65+": 143
+      },
+      "foreground_pixel_mean": 44.248868778280546,
+      "foreground_pixel_total": 29337,
+      "image_shape_histogram": {
+        "256x256": 663
+      },
+      "mask_encoding_histogram": {
+        "binary_0_255": 663
+      },
+      "max_target_area_bin_histogram": {
+        "10-25": 186,
+        "26-64": 197,
+        "5-9": 155,
+        "65+": 125
+      },
+      "nonbinary_mask_image_count": 0,
+      "nonbinary_mask_pixel_count": 0,
+      "sample_count": 663,
+      "stratum_histogram": {
+        "targets=1|foreground=10-25|max_target=10-25": 63,
+        "targets=1|foreground=26-64|max_target=26-64": 150,
+        "targets=1|foreground=5-9|max_target=5-9": 120,
+        "targets=1|foreground=65+|max_target=65+": 98,
+        "targets=2|foreground=10-25|max_target=5-9": 18,
+        "targets=2|foreground=26-64|max_target=10-25": 123,
+        "targets=2|foreground=26-64|max_target=26-64": 29,
+        "targets=2|foreground=65+|max_target=26-64": 18,
+        "targets=2|foreground=65+|max_target=65+": 27,
+        "targets=3+|foreground=10-25|max_target=5-9": 6,
+        "targets=3+|foreground=26-64|max_target=5-9": 11
+      },
+      "target_count_histogram": {
+        "1": 431,
+        "2": 215,
+        "3": 11,
+        "4": 6
+      },
+      "target_count_mean": 1.3846153846153846,
+      "target_count_total": 918
+    },
+    "train": {
+      "foreground_area_bin_histogram": {
+        "10-25": 69,
+        "26-64": 250,
+        "5-9": 96,
+        "65+": 115
+      },
+      "foreground_pixel_mean": 44.22264150943396,
+      "foreground_pixel_total": 23438,
+      "image_shape_histogram": {
+        "256x256": 530
+      },
+      "mask_encoding_histogram": {
+        "binary_0_255": 530
+      },
+      "max_target_area_bin_histogram": {
+        "10-25": 148,
+        "26-64": 158,
+        "5-9": 124,
+        "65+": 100
+      },
+      "nonbinary_mask_image_count": 0,
+      "nonbinary_mask_pixel_count": 0,
+      "sample_count": 530,
+      "stratum_histogram": {
+        "targets=1|foreground=10-25|max_target=10-25": 50,
+        "targets=1|foreground=26-64|max_target=26-64": 120,
+        "targets=1|foreground=5-9|max_target=5-9": 96,
+        "targets=1|foreground=65+|max_target=65+": 78,
+        "targets=2|foreground=10-25|max_target=5-9": 14,
+        "targets=2|foreground=26-64|max_target=10-25": 98,
+        "targets=2|foreground=26-64|max_target=26-64": 23,
+        "targets=2|foreground=65+|max_target=26-64": 15,
+        "targets=2|foreground=65+|max_target=65+": 22,
+        "targets=3+|foreground=10-25|max_target=5-9": 5,
+        "targets=3+|foreground=26-64|max_target=5-9": 9
+      },
+      "target_count_histogram": {
+        "1": 344,
+        "2": 172,
+        "3": 9,
+        "4": 5
+      },
+      "target_count_mean": 1.3867924528301887,
+      "target_count_total": 735
+    },
+    "val": {
+      "foreground_area_bin_histogram": {
+        "10-25": 18,
+        "26-64": 63,
+        "5-9": 24,
+        "65+": 28
+      },
+      "foreground_pixel_mean": 44.35338345864662,
+      "foreground_pixel_total": 5899,
+      "image_shape_histogram": {
+        "256x256": 133
+      },
+      "mask_encoding_histogram": {
+        "binary_0_255": 133
+      },
+      "max_target_area_bin_histogram": {
+        "10-25": 38,
+        "26-64": 39,
+        "5-9": 31,
+        "65+": 25
+      },
+      "nonbinary_mask_image_count": 0,
+      "nonbinary_mask_pixel_count": 0,
+      "sample_count": 133,
+      "stratum_histogram": {
+        "targets=1|foreground=10-25|max_target=10-25": 13,
+        "targets=1|foreground=26-64|max_target=26-64": 30,
+        "targets=1|foreground=5-9|max_target=5-9": 24,
+        "targets=1|foreground=65+|max_target=65+": 20,
+        "targets=2|foreground=10-25|max_target=5-9": 4,
+        "targets=2|foreground=26-64|max_target=10-25": 25,
+        "targets=2|foreground=26-64|max_target=26-64": 6,
+        "targets=2|foreground=65+|max_target=26-64": 3,
+        "targets=2|foreground=65+|max_target=65+": 5,
+        "targets=3+|foreground=10-25|max_target=5-9": 1,
+        "targets=3+|foreground=26-64|max_target=5-9": 2
+      },
+      "target_count_histogram": {
+        "1": 87,
+        "2": 43,
+        "3": 2,
+        "4": 1
+      },
+      "target_count_mean": 1.3759398496240602,
+      "target_count_total": 183
+    }
+  },
+  "data_identity": {
+    "ordered_image_mask_tree_sha256": "8cc0b1ea01517e229da2b2a07c24fa8d6c1b5c10331cfd2d56a22a4cea1f52b4",
+    "ordered_sample_audit_records_sha256": "223826cf81d71ec675d8d3f2d12751f316b5af5c04d16c7e698c6611ded7d0aa",
+    "paths_are_relative_to": "dataset_root",
+    "relative_file_identifier_count": 1326,
+    "sample_records_embedded": false,
+    "sample_records_reconstruction": "read the frozen train index in order and re-run this algorithm against the verified source tree"
+  },
+  "dataset": "NUDT-SIRST",
+  "grouping": {
+    "group_count": 663,
+    "mode": "sample_level_fallback",
+    "stratum_sample_quotas": {
+      "targets=1|foreground=10-25|max_target=10-25": 13,
+      "targets=1|foreground=26-64|max_target=26-64": 30,
+      "targets=1|foreground=5-9|max_target=5-9": 24,
+      "targets=1|foreground=65+|max_target=65+": 20,
+      "targets=2|foreground=10-25|max_target=5-9": 4,
+      "targets=2|foreground=26-64|max_target=10-25": 25,
+      "targets=2|foreground=26-64|max_target=26-64": 6,
+      "targets=2|foreground=65+|max_target=26-64": 3,
+      "targets=2|foreground=65+|max_target=65+": 5,
+      "targets=3+|foreground=10-25|max_target=5-9": 1,
+      "targets=3+|foreground=26-64|max_target=5-9": 2
+    },
+    "warning": "no explicit group mapping was supplied; sequence/scene/near-duplicate leakage cannot be ruled out"
+  },
+  "outputs": {
+    "train": {
+      "file_sha256": "4e6f2e6385443afd22b1fb10125f53f150dcd10e10cc7b0c3b6786c1fbf2eebd",
+      "ordered_ids_sha256": "d15a0befbc449ab54a4ee6d439a80a585a0688663dd465a29e5d5cec95076754",
+      "relative_path": "splits/v2/NUDT-SIRST/train.txt",
+      "sample_count": 530
+    },
+    "val": {
+      "file_sha256": "06b844967cc219aec103f0c30e33804a23f89f685cbfb0761ab729e7edefca63",
+      "ordered_ids_sha256": "9cb0722f2491a85af8e3c8fef5f4ea2dc7a772d2d1331b17cce28133c987c581",
+      "relative_path": "splits/v2/NUDT-SIRST/val.txt",
+      "sample_count": 133
+    }
+  },
+  "request": {
+    "actual_validation_sample_count": 133,
+    "target_validation_sample_count": 133,
+    "validation_fraction": 0.2
+  },
+  "schema": "evisirst_v2_train_val_split/v1",
+  "seeds": {
+    "run_seed": null,
+    "run_seed_role": "accepted and reported by the CLI, but intentionally excluded from immutable split artifacts; record it in each training run",
+    "run_seed_used_for_membership": false,
+    "split_seed": 20260811,
+    "split_seed_used_for_membership": true
+  },
+  "source_index": {
+    "file_sha256": "e0a79f7c3d42548ba7d7dad9d2d336012b63a6bc5081e89e286f0f45036f8ec3",
+    "ordered_ids_sha256": "4cf3882265e4f0a55e80d58e5e53e5f9a12ed721b6995a42a5e8320ad6f51c75",
+    "relative_path": "NUDT-SIRST/img_idx/train_NUDT-SIRST.txt",
+    "sample_count": 663,
+    "split": "train"
+  },
+  "test_access": {
+    "test_image_opened": false,
+    "test_index_opened": false,
+    "test_mask_opened": false,
+    "test_used_for_split_or_attributes": false
+  },
+  "validation": {
+    "group_disjoint": true,
+    "test_was_not_accessed": true,
+    "train_val_disjoint": true,
+    "train_val_union_equals_frozen_train": true
+  }
+}

@@ -47,18 +47,21 @@ BASELINE_CHECKPOINTS = {
         "epoch": 740,
         "sha256": "fe73b2c6ab523adbd880795d64b76f735d92f9600661edca24a3b777ce123556",
         "source_selection": "historical_best_miou",
+        "selection_is_optimistic": True,
     },
     "NUDT-SIRST": {
         "file": "SCTransNet.pth.tar",
         "epoch": 1000,
         "sha256": "5baa4e0859060228f079e97f8ce4309a71c30f829c701f3c0b63ba0f67862172",
         "source_selection": "epoch1000_user_designated_baseline",
+        "selection_is_optimistic": False,
     },
     "IRSTD-1K": {
         "file": "SCTransNet.pth.tar",
         "epoch": 713,
         "sha256": "5f702bba036f43b62fc82d349b75344f9f6c04b2b68a143311a0b48050b3371b",
         "source_selection": "historical_best_miou",
+        "selection_is_optimistic": True,
     },
 }
 
@@ -75,6 +78,85 @@ def _sha256(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def _historical_evisirst_selection(
+    package: Path, *, dataset: str, package_sha256: str
+) -> dict[str, Any]:
+    """Extract the already-validated deployment package's honest bias label."""
+
+    payload = torch.load(package, map_location="cpu", weights_only=True)
+    if not isinstance(payload, Mapping):
+        raise ValueError("EviSIRST deployment package payload is malformed")
+    historical = payload.get("historical_selection")
+    source = payload.get("source")
+    if (
+        not isinstance(historical, Mapping)
+        or not isinstance(source, Mapping)
+        or historical.get("selection_source") != f"test_{dataset}"
+        or historical.get("test_selected") is not True
+        or historical.get("selection_is_optimistic") is not True
+        or historical.get("operational_checkpoint_only") is not True
+        or historical.get("unbiased_test_claim_allowed") is not False
+        or historical.get("metrics_recomputed_during_export") is not False
+        or source.get("checkpoint_role") != "best_miou"
+    ):
+        raise ValueError(
+            "EviSIRST historical checkpoint-selection disclosure differs"
+        )
+    provenance = {
+        "schema": "evisirst_historical_checkpoint_selection/v1",
+        "source_checkpoint_sha256": package_sha256,
+        "classification": "historical-test-selected",
+        "source_selection_label_basis": (
+            "normalized_from_package_historical_selection_and_"
+            "source_checkpoint_role"
+        ),
+        "data_role": "test",
+        "test_selected": True,
+        "selection_is_optimistic": True,
+        "unbiased_test_claim_supported": False,
+        "checkpoint_payload_evidence": {
+            "schema": payload.get("schema"),
+            "historical_selection_source": historical["selection_source"],
+            "source_checkpoint_role": source["checkpoint_role"],
+            "source_checkpoint_epoch": source.get("epoch"),
+            "operational_checkpoint_only": True,
+            "unbiased_test_claim_allowed": False,
+            "metrics_recomputed_during_export": False,
+        },
+    }
+    del payload
+    gc.collect()
+    return {
+        "source_selection": "historical_best_miou",
+        "selection_is_optimistic": True,
+        "selection_provenance": provenance,
+    }
+
+
+def _baseline_selection_metadata(
+    binding: Mapping[str, Any], *, checkpoint_sha256: str
+) -> dict[str, Any]:
+    optimistic = binding.get("selection_is_optimistic")
+    if not isinstance(optimistic, bool):
+        raise ValueError("baseline selection bias disclosure is malformed")
+    return {
+        "source_selection": binding["source_selection"],
+        "selection_is_optimistic": optimistic,
+        "selection_provenance": {
+            "schema": "evisirst_historical_checkpoint_selection/v1",
+            "source_checkpoint_sha256": checkpoint_sha256,
+            "classification": (
+                "historical-test-selected" if optimistic else "fixed-endpoint"
+            ),
+            "source_selection_label_basis": "load_models_frozen_binding",
+            "data_role": "test" if optimistic else "none",
+            "test_selected": optimistic,
+            "selection_is_optimistic": optimistic,
+            "unbiased_test_claim_supported": False,
+        },
+    }
 
 
 def load_evisirst(
@@ -102,18 +184,21 @@ def load_evisirst(
     if int(deployment.get("epoch", -1)) != int(binding["epoch"]):
         raise ValueError("EviSIRST checkpoint epoch differs")
     ready = dict(metadata)
+    selection_metadata = _historical_evisirst_selection(
+        package, dataset=dataset, package_sha256=observed_sha
+    )
     ready.update(
         {
             "dataset": dataset,
             "training_dataset": dataset,
             "evaluation_dataset": dataset,
             "checkpoint_role": "final",
-            "source_selection": "historical_best_miou",
             "epoch": binding["epoch"],
             "checkpoint_path": str(package),
             "checkpoint_sha256": observed_sha,
         }
     )
+    ready.update(selection_metadata)
     return model, ready
 
 
@@ -173,7 +258,6 @@ def load_baseline(
         "model": "SCTransNet baseline",
         "dataset": dataset,
         "checkpoint_role": "baseline",
-        "source_selection": binding["source_selection"],
         "epoch": binding["epoch"],
         "checkpoint_path": str(path),
         "checkpoint_sha256": observed_sha,
@@ -183,6 +267,9 @@ def load_baseline(
         "mode": "test",
         "output": "sigmoid(out)",
     }
+    metadata.update(
+        _baseline_selection_metadata(binding, checkpoint_sha256=observed_sha)
+    )
     del payload, state, expected
     gc.collect()
     return model, metadata

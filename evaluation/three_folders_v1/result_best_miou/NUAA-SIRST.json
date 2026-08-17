@@ -1,0 +1,88 @@
+{
+  "schema": "evisirst_public_evaluation/v1",
+  "model": "evisirst",
+  "training_dataset": "NUAA-SIRST",
+  "evaluation_dataset": "NUAA-SIRST",
+  "dataset": "NUAA-SIRST",
+  "sample_count": 214,
+  "threshold": 0.5,
+  "threshold_operator": ">",
+  "match_radius": 3.0,
+  "match_radius_operator": "<",
+  "tiny_area": 9,
+  "protocol": "evisirst_public_common_evaluator_v1",
+  "normalization_dataset": "NUAA-SIRST",
+  "normalization": {
+    "mean": 101.06385040283203,
+    "std": 34.619606018066406
+  },
+  "checkpoint": {
+    "path": "result/NUAA-SIRST/EviSIRST_best_mIoU.pth.tar",
+    "epoch": 556,
+    "role": "best_miou",
+    "sha256": "7882ba116f327b794ea8b347100d0bc44394a28dc7958b2aa9e0a074a6c72615",
+    "source_selection": "historical_test_best_miou",
+    "selection_is_optimistic": true,
+    "selection_provenance": {
+      "schema": "evisirst_historical_checkpoint_selection/v1",
+      "source_checkpoint_sha256": "7882ba116f327b794ea8b347100d0bc44394a28dc7958b2aa9e0a074a6c72615",
+      "classification": "historical-test-selected",
+      "source_selection_label_basis": "normalized_from_checkpoint_role_and_payload_selection_metric",
+      "data_role": "test",
+      "test_selected": true,
+      "selection_is_optimistic": true,
+      "unbiased_test_claim_supported": false,
+      "checkpoint_payload_evidence": {
+        "schema": "evisirst_clean_checkpoint/v1",
+        "training_protocol": "evisirst_four_regime_dual_role_test_selected_v1",
+        "selection_split": "NUAA-SIRST_test",
+        "selection_metric": "global_foreground_mIoU",
+        "test_split_accessed": true,
+        "this_checkpoint_selected_by_test": true
+      },
+      "source_code_evidence": {
+        "relative_path": "train_dual_role_test_selected.py",
+        "file_sha256": "e8bad14bb1a5db04d9c74eda78fd7203ad01af637bc0e47bfc9219374074d7e9",
+        "training_source_tree_sha256": "0e8d6367cd1ef879b106e339d10f5bbfcbdb2097e41ff924081a6c84f4dd2b6d"
+      }
+    }
+  },
+  "metrics": {
+    "test_loss": 0.00038353264168856574,
+    "miou": 0.7968433400874481,
+    "niou": 0.8000984977312021,
+    "pixel_precision": 0.8831107434109443,
+    "pixel_recall": 0.8907963757749165,
+    "pixel_f1": 0.8869369102023859,
+    "pd": 0.9695817490494296,
+    "tiny_pd": 0.8857142857142857,
+    "fa": 1.3925973367227644e-05,
+    "false_objects_per_image": 0.13551401869158877,
+    "target_count": 263,
+    "matched_target_count": 255,
+    "tiny_target_count": 35,
+    "matched_tiny_target_count": 31,
+    "predicted_object_count": 284,
+    "unmatched_predicted_object_count": 29,
+    "valid_pixel_count": 14577078
+  },
+  "metrics_display": {
+    "miou_percent": 79.68433400874481,
+    "niou_percent": 80.00984977312021,
+    "f1_percent": 88.69369102023859,
+    "pd_percent": 96.95817490494296,
+    "fa_times_1e6": 13.925973367227645
+  },
+  "metadata_migration": {
+    "schema": "evisirst_historical_evaluation_metadata_migration/v1",
+    "measurement_sha256": "5ef1d3bfdd1413d3ebbc0d9ba3f2541215953f706aa026b6c28816db430bb2ce",
+    "measurement_fields": [
+      "metrics",
+      "metrics_display"
+    ],
+    "measurement_values_changed": false,
+    "machine_local_dataset_root_removed": true,
+    "checkpoint_path_rebased_to_manifest_relative_path": true,
+    "checkpoint_size_bytes": 43701289
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "schema": "evisirst_public_evaluation/v1",
+  "model": "evisirst",
+  "training_dataset": "SIRST3",
+  "evaluation_dataset": "IRSTD-1K",
+  "dataset": "IRSTD-1K",
+  "sample_count": 201,
+  "threshold": 0.5,
+  "threshold_operator": ">",
+  "match_radius": 3.0,
+  "match_radius_operator": "<",
+  "tiny_area": 9,
+  "protocol": "evisirst_public_common_evaluator_v1",
+  "normalization_dataset": "SIRST3",
+  "normalization": {
+    "mean": 101.06385040283203,
+    "std": 34.619606018066406
+  },
+  "checkpoint": {
+    "path": "results/SIRST3/EviSIRST.pth.tar",
+    "epoch": 1000,
+    "role": "final",
+    "sha256": "37673d0e376d80c383007aa59315b745461b6cd3e6c8a52d57848822ce4a3137",
+    "source_selection": "fixed_epoch_1000_endpoint",
+    "selection_is_optimistic": false,
+    "selection_provenance": {
+      "schema": "evisirst_historical_checkpoint_selection/v1",
+      "source_checkpoint_sha256": "37673d0e376d80c383007aa59315b745461b6cd3e6c8a52d57848822ce4a3137",
+      "classification": "fixed-endpoint",
+      "source_selection_label_basis": "copied_from_hash_bound_historical_summary_checkpoint_selection_rule",
+      "data_role": "none",
+      "test_selected": false,
+      "selection_is_optimistic": false,
+      "checkpoint_payload_evidence": {
+        "schema": "evisirst_clean_checkpoint/v1",
+        "checkpoint_role": "final",
+        "epoch": 1000,
+        "test_split_accessed": false,
+        "training_data_protocol": "evisirst_public_joint_training_v1",
+        "training_test_split_accessed": false
+      },
+      "source_code_evidence": {
+        "relative_path": "run_sirst3_experiment.py",
+        "file_sha256": "e16ab58bd9cd06083e1d428ae98ce282ab5905f138b1f2eb8edf0ba44bd15e71",
+        "checkpoint_selection_rule": "fixed_epoch_1000_endpoint",
+        "test_selected": false,
+        "target_test_used_for_training_or_selection": false,
+        "binding_scope": "repository_script_contract_not_cryptographically_embedded"
+      },
+      "historical_summary_evidence": {
+        "relative_path": "results/SIRST3/cross_dataset_results.json",
+        "file_sha256": "b6fc4de06b07a5ea68486ea277fb70f6888546c380b07fea00a7d44ef729a6af",
+        "schema": "evisirst_sirst3_fixed_endpoint_three_source_evaluation/v1",
+        "checkpoint_selection_rule": "fixed_epoch_1000_endpoint",
+        "test_selected": false,
+        "target_test_used_for_training_or_selection": false,
+        "threshold_search_performed": false
+      },
+      "final_test_once_status": "unsupported_without_execution_ledger"
+    }
+  },
+  "metrics": {
+    "test_loss": 0.000866717704307641,
+    "miou": 0.6599591542527631,
+    "niou": 0.6605554212704263,
+    "pixel_precision": 0.8386382718876422,
+    "pixel_recall": 0.7559515618549608,
+    "pixel_f1": 0.7951510765333817,
+    "pd": 0.9191919191919192,
+    "tiny_pd": 0.7333333333333333,
+    "fa": 1.1235327269900497e-05,
+    "false_objects_per_image": 0.18407960199004975,
+    "target_count": 297,
+    "matched_target_count": 273,
+    "tiny_target_count": 30,
+    "matched_tiny_target_count": 22,
+    "predicted_object_count": 310,
+    "unmatched_predicted_object_count": 37,
+    "valid_pixel_count": 52690944
+  },
+  "metrics_display": {
+    "miou_percent": 65.99591542527631,
+    "niou_percent": 66.05554212704263,
+    "f1_percent": 79.51510765333816,
+    "pd_percent": 91.91919191919192,
+    "fa_times_1e6": 11.235327269900496
+  },
+  "metadata_migration": {
+    "schema": "evisirst_historical_evaluation_metadata_migration/v1",
+    "measurement_sha256": "c2751b5dcb8de0acdadac344430d7ded243697d42bf61afb9b996a90becc900f",
+    "measurement_fields": [
+      "metrics",
+      "metrics_display"
+    ],
+    "measurement_values_changed": false,
+    "machine_local_dataset_root_removed": true,
+    "checkpoint_path_rebased_to_manifest_relative_path": true,
+    "checkpoint_size_bytes": 43692709
+  }
+}

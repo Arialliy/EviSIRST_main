@@ -8,9 +8,9 @@ target_venue:
   year: ""
   mode: "review"
 stage:
-  current: "sirst3_clean_joint_training"
-  gate: "fixed_epoch1000_then_three_source_evaluation"
-  updated_at: "2026-08-08"
+  current: "r1_validation_protocol_ready"
+  gate: "single_seed_full_validation_pilot_before_three_runtime_replicates"
+  updated_at: "2026-08-11"
 artifacts:
   manuscript: ""
   bibliography: ""

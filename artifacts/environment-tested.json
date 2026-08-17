@@ -1,0 +1,37 @@
+{
+  "schema": "evisirst/tested-environment/v1",
+  "captured_on": "2026-08-11",
+  "purpose": "local audit and smoke-test environment; not a cross-platform lockfile",
+  "python": {
+    "implementation": "CPython",
+    "version": "3.12.3"
+  },
+  "platform": {
+    "system": "Linux",
+    "kernel": "7.0.0-28-generic",
+    "architecture": "x86_64",
+    "glibc": "2.39"
+  },
+  "accelerator": {
+    "gpu": "NVIDIA GeForce RTX 5090",
+    "driver": "580.173.02",
+    "torch_cuda": "13.0",
+    "cudnn": 91300
+  },
+  "packages": {
+    "torch": "2.9.1+cu130",
+    "numpy": "2.2.6",
+    "Pillow": "12.0.0",
+    "scipy": "1.16.3",
+    "scikit-image": "0.25.2",
+    "einops": "0.8.1",
+    "ml-collections": "1.1.0",
+    "thop": "0.1.1-2209072238",
+    "pytest": "9.0.2"
+  },
+  "limitations": [
+    "The original wheel/index provenance for torch 2.9.1+cu130 was not recorded.",
+    "requirements-tested.txt pins imported package versions but is not a complete OS, driver, or wheel lock.",
+    "A different CUDA, CPU, or platform environment must install a compatible PyTorch build explicitly."
+  ]
+}
