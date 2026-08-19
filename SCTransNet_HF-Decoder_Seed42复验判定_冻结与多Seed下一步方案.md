@@ -1,13 +1,50 @@
 # SCTransNet HF-Decoder Seed42 正式复验判定、模型冻结与后续方案
 
-**版本：** 2026-08-17 证据审计修订版  
-**状态：** 当前权威执行文档  
+**版本：** 2026-08-17 Seed42 配对终局追加版
+
+**状态：** HF V1 历史执行/预注册记录；后续模型设计已由 PSBFR V1 协议接管
+
 **范围：** IRSTD-1K 冻结 train/validation split；public/official test 仍未授权  
 **原稿：** `SCTransNet_HF-Decoder_Seed42复验判定_冻结与多Seed下一步方案_审计前草案_仅留档.md`
 
+**当前权威机器判定：**
+`runs/irstd_performance/hf_decoder_seed42_v1/paired_decision_gate/run_seed_42/result.json`
+
+**当前新模型协议：**
+`experiments/IRSTD_PSBFR_V1_PROTOCOL.md`
+
 ---
 
-## 1. 权威结论
+## 0. Seed42 配对终局（后于本文原预注册内容）
+
+Seed42 matched clean 已完成 1000/1000 epoch。使用同一冻结
+zero-margin selector 的最终配对结果为：
+
+```text
+A42 clean: epoch 411, mIoU = 0.6991869918699187
+H42 HF V1: epoch 402, mIoU = 0.6899375975039002
+H42 - A42 = -0.0092493943660185
+decision = STOP
+public_test_allowed = false
+```
+
+因此 HF-Decoder V1 已从最终模型候选中淘汰。Seed144 的正向结果只保留为
+historical pilot 和失败机制证据，不能事后替代 Seed42 正式判定。当前可发布回退
+权重是 A42 clean EviSIRST epoch411；它不是本文目标中的“新模型”。
+
+后续目标已更新为设计并验证一个**跨独立初始化与训练随机性稳定超过 clean
+baseline 的完整新模型**。冻结候选为 PSBFR V1：在最终 logit 空间使用由基础预测
+支持度约束、幅值显式有界、正负双向的频率校正，并切断校正 Jacobian 对 backbone
+的直接回灌。其结构、500-epoch 筛选门、五配对 seed 稳定性门和 test 隔离规则见
+`experiments/IRSTD_PSBFR_V1_PROTOCOL.md`。
+
+下面第 1 节起保留的是 **A42 尚未完成时冻结的执行上下文**，用于证明决策没有
+事后改写；其中 `UNRESOLVED`、`INCOMPLETE_AT_EPOCH_58` 和“立即恢复 A42”等状态
+不再代表当前进度。
+
+---
+
+## 1. 原预注册时点的权威结论（历史快照）
 
 ```text
 hf_decoder_engineering_status = PASS

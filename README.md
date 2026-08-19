@@ -19,6 +19,11 @@ SCTransNet + TPD8-MPRS-DCH + NER4 Tail-Aware + QFG2-CROA
 `TSS-off` 只是历史训练条件，不属于模型结构；正式 V3 推理图有 564 个 state keys、
 10,870,130 个参数，并且没有 TSS 模块。
 
+> 当前实验状态（2026-08-19）：HF-Decoder V1 已在 Seed-42 配对 validation 判定中
+> `STOP`。新增的 PSBFR、CP-HF-S2 与 DCS-PG 均为独立候选实现或受控实验协议，
+> 不属于当前发布的 EviSIRST V3；运行授权与证据边界以对应协议和
+> `*_AUTHORIZATION.json` 为准。
+
 ## 目录
 
 ```text
@@ -28,6 +33,8 @@ EviSIRST_main/
 │   └── _internal/          # 冻结 V3 实现依赖，普通使用者无需进入
 ├── experiments/            # V1 安全加载器、V3 bundle 加载器及冻结协议
 ├── splits/v2/              # 由 frozen train 生成的固定 train/validation 与 manifest
+├── splits/psbfr_v1/        # IRSTD 模型设计的 train/dev/lockbox 冻结 manifest
+├── EviSIRST_HF_Decoder_V2_reference/ # 已审计的 NO-GO 历史设计输入
 ├── artifacts/              # 外部 checkpoint 的大小、SHA-256 与发布状态
 ├── tools/                  # 只读 artifact 校验工具
 ├── results/                   # 每个数据集各一个 EviSIRST 最终权重
@@ -57,7 +64,8 @@ EviSIRST_main/
 └── test.py                 # EviSIRST/Baseline 公平统一测试入口
 ```
 
-没有复制第三方原始数据集、历史失败模型、消融结果、训练缓存、论文中间材料或旧部署包。
+没有复制第三方原始数据集、训练缓存或大型模型权重。
+`EviSIRST_HF_Decoder_V2_reference/` 仅作为 NO-GO 审计留档，不是当前实现或可执行协议。
 
 ## 环境
 

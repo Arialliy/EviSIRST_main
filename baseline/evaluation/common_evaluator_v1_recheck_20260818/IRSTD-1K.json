@@ -1,0 +1,69 @@
+{
+  "schema": "evisirst_public_evaluation/v1",
+  "model": "baseline",
+  "training_dataset": "IRSTD-1K",
+  "evaluation_dataset": "IRSTD-1K",
+  "dataset": "IRSTD-1K",
+  "dataset_source": {
+    "kind": "external_cli_dataset_root",
+    "root_recorded": false,
+    "dataset": "IRSTD-1K"
+  },
+  "sample_count": 201,
+  "threshold": 0.5,
+  "threshold_operator": ">",
+  "match_radius": 3.0,
+  "match_radius_operator": "<",
+  "tiny_area": 9,
+  "protocol": "evisirst_public_common_evaluator_v1",
+  "normalization_dataset": "IRSTD-1K",
+  "normalization": {
+    "mean": 87.4661865234375,
+    "std": 39.71953201293945
+  },
+  "checkpoint": {
+    "path": "baseline/checkpoints/IRSTD-1K/SCTransNet.pth.tar",
+    "path_scope": "repository-relative",
+    "epoch": 713,
+    "role": "baseline",
+    "sha256": "5f702bba036f43b62fc82d349b75344f9f6c04b2b68a143311a0b48050b3371b",
+    "source_selection": "historical_best_miou",
+    "selection_is_optimistic": true,
+    "selection_provenance": {
+      "schema": "evisirst_historical_checkpoint_selection/v1",
+      "source_checkpoint_sha256": "5f702bba036f43b62fc82d349b75344f9f6c04b2b68a143311a0b48050b3371b",
+      "classification": "historical-test-selected",
+      "source_selection_label_basis": "load_models_frozen_binding",
+      "data_role": "test",
+      "test_selected": true,
+      "selection_is_optimistic": true,
+      "unbiased_test_claim_supported": false
+    }
+  },
+  "metrics": {
+    "test_loss": 0.0004994288547593227,
+    "miou": 0.6776574217355077,
+    "niou": 0.6714607821056617,
+    "pixel_precision": 0.8338948293540355,
+    "pixel_recall": 0.7834044309894042,
+    "pixel_f1": 0.8078615013480913,
+    "pd": 0.9326599326599326,
+    "tiny_pd": 0.8,
+    "fa": 2.0800538324004975e-05,
+    "false_objects_per_image": 0.2736318407960199,
+    "target_count": 297,
+    "matched_target_count": 277,
+    "tiny_target_count": 30,
+    "matched_tiny_target_count": 24,
+    "predicted_object_count": 332,
+    "unmatched_predicted_object_count": 55,
+    "valid_pixel_count": 52690944
+  },
+  "metrics_display": {
+    "miou_percent": 67.76574217355076,
+    "niou_percent": 67.14607821056617,
+    "f1_percent": 80.78615013480913,
+    "pd_percent": 93.26599326599326,
+    "fa_times_1e6": 20.800538324004975
+  }
+}

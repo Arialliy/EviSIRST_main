@@ -1,0 +1,207 @@
+{
+  "schema": "evisirst_irstd_dcspg_ablation_test_selected_rules/v1",
+  "protocol_relative_path": "experiments/IRSTD_DCSPG_ABLATION_TEST_SELECTED_V1_PROTOCOL.md",
+  "source_manifest_required_files": [
+    "experiments/four_dataset_models_seed42_v1.py",
+    "run_irstd_dcspg_test_selected_v1.py",
+    "tests/test_irstd_dcspg_test_selected_adapter.py",
+    "tests/test_train_irstd_dcspg_ablation_test_selected_v1.py"
+  ],
+  "architecture": {
+    "clean": {
+      "builder": "model.EviSIRST.initialize_evisirst",
+      "architecture_name": "EviSIRST-clean",
+      "expected_state_key_count": 564,
+      "expected_parameter_count": 10870130
+    },
+    "cp_parent": {
+      "module": "experiments.irstd_cp_hf_s2_v1",
+      "builder": "build_irstd_cp_hf_s2_v1",
+      "validator": "validate_irstd_cp_hf_s2_v1",
+      "architecture_schema": "evisirst_irstd_cp_hf_s2_architecture_v1",
+      "experiment_name": "IRSTD-CP-HF-S2-v1",
+      "expected_state_key_count": 576,
+      "expected_parameter_count": 10874615
+    },
+    "guard": {
+      "module": "experiments.irstd_cp_hf_s2_dcspg_v1",
+      "builder": "build_irstd_cp_hf_s2_dcspg_v1",
+      "validator": "validate_irstd_cp_hf_s2_dcspg_v1",
+      "architecture_schema": "evisirst_irstd_cp_hf_s2_dcspg_architecture_v1",
+      "experiment_name": "IRSTD-CP-HF-S2-DCSPG-v1",
+      "expected_state_key_count": 577,
+      "expected_parameter_count": 10874616,
+      "source_dependencies": [
+        "experiments/irstd_cp_hf_s2_v1.py"
+      ],
+      "source_dependency_sha256": {
+        "experiments/irstd_cp_hf_s2_v1.py": "0dba0021dfe8f46d8c4e2932b478ce03609ab14be73b20c8b77817dce240436a"
+      }
+    }
+  },
+  "arms": {
+    "clean_original": {
+      "architecture_kind": "clean",
+      "loss_kind": "original",
+      "formal_authorized": false
+    },
+    "clean_farbg": {
+      "architecture_kind": "clean",
+      "loss_kind": "far_background_auxiliary",
+      "formal_authorized": false
+    },
+    "cp_parent_original": {
+      "architecture_kind": "cp_parent",
+      "loss_kind": "original",
+      "formal_authorized": false
+    },
+    "cp_parent_farbg": {
+      "architecture_kind": "cp_parent",
+      "loss_kind": "far_background_auxiliary",
+      "formal_authorized": false
+    },
+    "dcspg_original": {
+      "architecture_kind": "guard",
+      "loss_kind": "original",
+      "formal_authorized": true
+    },
+    "dcspg_farbg": {
+      "architecture_kind": "guard",
+      "loss_kind": "far_background_auxiliary",
+      "formal_authorized": true
+    }
+  },
+  "far_background_auxiliary": {
+    "schema": "evisirst_train_mask_far_background_auxiliary_loss/v1",
+    "formal_status": "FROZEN_NO_SWEEP",
+    "lambda": 1.0,
+    "protect_dilation_radius_pixels": 3,
+    "protect_dilation": "binary_euclidean_disk_offsets_u2_plus_v2_le_9",
+    "far_background": "one_minus_protected_train_mask",
+    "probability_threshold": 0.5,
+    "penalty": "far_background_times_square_of_relu_probability_minus_0.5_divided_by_0.5",
+    "selected_training_heads": [
+      "raw_d0_probability_head_index_4",
+      "final_out_probability_head_index_5"
+    ],
+    "per_sample_topk": 9,
+    "topk_rule": "k_equals_min_9_far_background_pixel_count_zero_if_no_far_pixels",
+    "per_head_term": "per_sample_mean_topk_penalty_then_batch_mean",
+    "head_reduction": "mean_raw_d0_and_final_out",
+    "total_loss": "original_sum_of_six_mean_BCE_plus_lambda_times_far_background_auxiliary",
+    "uses_train_mask_only": true,
+    "validation_mask_used_for_loss_or_tuning": false,
+    "test_mask_used_for_loss_or_tuning": false,
+    "test_used_to_choose_lambda_or_dilation": false,
+    "activation_requires_rules_refreeze": false,
+    "hyperparameter_sweep_performed": false,
+    "constant_rationale": {
+      "probability_threshold": "common_evaluator_probability_threshold",
+      "protect_dilation_radius_pixels": "common_evaluator_component_match_radius",
+      "per_sample_topk": "common_evaluator_tiny_area_cutoff",
+      "lambda": "one_unit_weight_for_one_averaged_auxiliary_term"
+    }
+  },
+  "data": {
+    "dataset": "IRSTD-1K",
+    "training_dataset_class": "experiments.evisirst_data.EviSIRSTTrainDataset",
+    "training_target_rule": "raw_mask_div_255",
+    "expected_train_count": 800,
+    "expected_test_count": 201,
+    "expected_split_manifest_sha256": "5eeacbab52d8b70b44ce4cb70dfeda94cd326767f0c379fa96ab836c4c897596",
+    "expected_source_train_data_tree_sha256": "ceec8eaca922fddb327b3091432d976d92aaeb45541136d43d3f754c3a1b2c30",
+    "expected_train_index_file_sha256": "689a5f30a394ad47315ebe0f6df2d7f12429aa314ffb2cdf86f7fbd7be4ee744",
+    "expected_train_ordered_ids_sha256": "681e4d741fb857703471d6555faa0d86e931aa790567c28f4254331ea9ba3d95",
+    "v2_train_val_union_equals_source_train": true,
+    "optimization_uses_all_source_train_members": true,
+    "independent_validation_split_in_this_runner": false,
+    "expected_test_index_file_sha256": "8c71e474358acb84f2cbebfd1282ffea236f9cb852b7f7c04feb2fd99804c579",
+    "expected_test_ordered_ids_sha256": "48e0661ba187561d1031b2fa22d4b157fd31e00570775b483b51bb21e1def38b",
+    "expected_test_image_mask_tree_sha256": "20787ff6553c9e24b2370d7f6acbf8739038c877835d4c561040962d75281b3d",
+    "test_access_is_lazy": true,
+    "identity_field": "test_index_opened_at_identity_construction",
+    "startup_test_index_opened": false,
+    "epoch_500_test_split_accessed": false,
+    "first_test_access_epoch": 501,
+    "test_access_started_ledger": "test_access_started.json",
+    "test_access_verified_ledger": "test_access_verified.json",
+    "started_ledger_precedes_any_live_test_open": true
+  },
+  "execution": {
+    "architecture_seed": 42,
+    "run_seed": 42,
+    "epochs": 1000,
+    "batch_size": 16,
+    "workers": 0,
+    "base_lr": 0.001,
+    "min_lr": 0.00001,
+    "warmup_epochs": 10,
+    "epochs_1_to_500_role": "training_only_no_test_access",
+    "test_begin_epoch": 501,
+    "test_end_epoch": 1000,
+    "test_every": 1,
+    "test_history_count": 500
+  },
+  "selection": {
+    "comparison": "strict_lexicographic_greater_than",
+    "exact_tie": "earliest_epoch",
+    "roles": {
+      "best_miou": [
+        "miou",
+        "pd",
+        "-fa",
+        "niou",
+        "tiny_pd",
+        "-loss",
+        "-epoch"
+      ],
+      "best_pd": [
+        "pd",
+        "-fa",
+        "tiny_pd",
+        "miou",
+        "niou",
+        "-loss",
+        "-epoch"
+      ]
+    },
+    "test_history_is_formal_selection_pool": true
+  },
+  "outputs": {
+    "published_weight_directory": "published_weights",
+    "published_weight_file_count_per_arm": 2,
+    "published_checkpoint_roles": [
+      "best_miou",
+      "best_pd"
+    ],
+    "published_weight_filenames": {
+      "best_miou": "EviSIRST_best_mIoU.pth.tar",
+      "best_pd": "EviSIRST_best_Pd.pth.tar"
+    }
+  },
+  "evidence_boundary": {
+    "test_selected": true,
+    "selection_is_optimistic": true,
+    "unbiased_test_claim_supported": false,
+    "stable_over_baseline_claim_supported": false,
+    "historical_test_selected_baseline_comparison_allowed": true,
+    "test_used_for_structure_or_hyperparameter_selection": false,
+    "pre_test_commit_test_selected": false,
+    "pre_test_commit_selection_is_optimistic": false,
+    "post_test_commit_test_selected": true,
+    "post_test_commit_selection_is_optimistic": true,
+    "initial_formal_method_ids": [
+      "dcspg_original",
+      "dcspg_farbg"
+    ],
+    "registered_but_not_formally_authorized_method_ids": [
+      "clean_original",
+      "clean_farbg",
+      "cp_parent_original",
+      "cp_parent_farbg"
+    ],
+    "design_screen_layer": "separate_640_train_160_validation_protocol",
+    "full_train_test_selected_layer": "this_runner_800_train_201_test",
+    "complete_six_arm_ablation_claim_supported": false
+  }
+}

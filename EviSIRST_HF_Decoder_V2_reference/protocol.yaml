@@ -1,0 +1,82 @@
+protocol_id: evisirst_hf_decoder_v2_cp_2026-08-17
+status: PROPOSED_NOT_AUTHORIZED
+
+frozen_state:
+  formal_fallback:
+    run_id: A42_clean_R1
+    seed: 42
+    selector_epoch: 411
+    miou: 0.6991869919
+  stopped_candidate:
+    run_id: H42_HF_Decoder_V1
+    seed: 42
+    selector_epoch: 402
+    miou: 0.6899375975
+    delta_vs_fallback: -0.0092493944
+    decision: STOP
+  public_test_authorized: false
+  complete_target_enabled: false
+
+architecture:
+  family: CP-HF
+  baseline_principal_path: clean_R1_unchanged
+  primary_candidate: hf_v2_s2
+  escalation_candidate: hf_v2_s21
+  low_pass: fixed_5x5_binomial
+  residual_scale: "0.25 * tanh(raw_scale)"
+  raw_scale_initialization: exact_zero
+  deep_stages_modified: false
+  deep_supervision_loss_modified: false
+
+controlled_variables:
+  data_split: EXACT_A42_FORMAL_SPLIT
+  crop_policy: EXACT_A42_CLEAN_R1
+  normalization: EXACT_A42
+  batch_size: EXACT_A42
+  optimizer: EXACT_A42_ADAM
+  lr_schedule: EXACT_A42
+  total_epochs: EXACT_A42_FORMAL_HORIZON
+  checkpoint_selector: EXACT_A42_SELECTOR
+  probability_threshold: 0.5
+  evaluator: EXACT_A42_EVALUATOR_PLUS_PER_SAMPLE_EXPORT
+  precision: FP32
+  public_test_access: forbidden
+
+screen:
+  seed: 42
+  phase_0_adapter_only_epochs: 30
+  phase_1_matched_continuation_epochs: 120
+  baseline_control: clean_R1_matched_continuation
+  candidate_order:
+    - hf_v2_s2
+    - hf_v2_s21_only_after_s2_go_or_hold
+  gate:
+    min_delta_miou: 0.003
+    bootstrap_ci95_lower_must_exceed: 0.0
+    min_delta_pd: -0.005
+    max_fa_ratio: 1.10
+    max_false_objects_per_image_ratio: 1.10
+
+formal:
+  mode: paired_from_scratch
+  seeds: [42, 3407, 2026]
+  shared_weight_initialization: identical_within_seed_pair
+  adapter_initialization_seed_namespace: hf_decoder_v2
+  required_pairs: 6
+  gate:
+    every_seed_delta_miou_must_exceed: 0.0
+    min_mean_delta_miou: 0.003
+    hierarchical_bootstrap_ci95_lower_must_exceed: 0.0
+    min_mean_delta_pd: -0.005
+    max_geometric_mean_fa_ratio: 1.10
+    max_geometric_mean_false_objects_ratio: 1.10
+    hold_rule: extend_to_5_seeds_when_2_of_3_positive_but_go_not_met
+
+public_test_release_gate:
+  architecture_frozen: true
+  hyperparameters_frozen: true
+  checkpoint_selector_frozen: true
+  threshold_frozen_at: 0.5
+  multi_seed_decision_required: GO
+  authorization_required: true
+  allowed_access_count_after_authorization: 1

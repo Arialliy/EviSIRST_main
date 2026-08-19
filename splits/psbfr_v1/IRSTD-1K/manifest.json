@@ -1,0 +1,310 @@
+{
+  "algorithm": {
+    "actual_confirm_lockbox_count": 80,
+    "binary_mask_rule": "0/1:>0.5; otherwise 0..255:>127",
+    "component_connectivity": 8,
+    "membership_hash": "sha256_length_prefixed",
+    "output_order": "parent_v2_train_order",
+    "parent_ranking_algorithm_version": "evisirst_group_stratified_sha256_v1",
+    "parent_train_count": 640,
+    "remaining_train_count": 560,
+    "requested_confirm_lockbox_count": 80,
+    "selection": "largest_remainder_stratum_quota_then_sha256_rank",
+    "split_seed": 2026081701,
+    "split_seed_used_for_membership": true,
+    "stratification_fields": [
+      "target_count",
+      "foreground_pixels",
+      "max_target_area"
+    ],
+    "stratum_lockbox_quotas": {
+      "targets=1|foreground=1-4|max_target=1-4": 0,
+      "targets=1|foreground=10-25|max_target=10-25": 13,
+      "targets=1|foreground=26-64|max_target=26-64": 20,
+      "targets=1|foreground=5-9|max_target=5-9": 5,
+      "targets=1|foreground=65+|max_target=65+": 11,
+      "targets=2|foreground=10-25|max_target=10-25": 2,
+      "targets=2|foreground=10-25|max_target=5-9": 0,
+      "targets=2|foreground=26-64|max_target=10-25": 4,
+      "targets=2|foreground=26-64|max_target=26-64": 5,
+      "targets=2|foreground=65+|max_target=26-64": 7,
+      "targets=2|foreground=65+|max_target=65+": 6,
+      "targets=3+|foreground=26-64|max_target=10-25": 1,
+      "targets=3+|foreground=26-64|max_target=26-64": 1,
+      "targets=3+|foreground=26-64|max_target=5-9": 0,
+      "targets=3+|foreground=65+|max_target=10-25": 0,
+      "targets=3+|foreground=65+|max_target=26-64": 2,
+      "targets=3+|foreground=65+|max_target=65+": 3
+    },
+    "version": "evisirst_psbfr_lockbox_v1"
+  },
+  "attribute_distribution": {
+    "confirm_lockbox": {
+      "foreground_area_bin_histogram": {
+        "10-25": 15,
+        "26-64": 31,
+        "5-9": 5,
+        "65+": 29
+      },
+      "foreground_pixel_mean": 73.25,
+      "foreground_pixel_total": 5860,
+      "mask_encoding_histogram": {
+        "binary_0_255": 75,
+        "grayscale_0_255": 5
+      },
+      "mask_shape_histogram": {
+        "512x512": 80
+      },
+      "max_target_area_bin_histogram": {
+        "10-25": 20,
+        "26-64": 35,
+        "5-9": 5,
+        "65+": 20
+      },
+      "nonbinary_mask_image_count": 5,
+      "nonbinary_mask_pixel_count": 7,
+      "sample_count": 80,
+      "stratum_histogram": {
+        "targets=1|foreground=10-25|max_target=10-25": 13,
+        "targets=1|foreground=26-64|max_target=26-64": 20,
+        "targets=1|foreground=5-9|max_target=5-9": 5,
+        "targets=1|foreground=65+|max_target=65+": 11,
+        "targets=2|foreground=10-25|max_target=10-25": 2,
+        "targets=2|foreground=26-64|max_target=10-25": 4,
+        "targets=2|foreground=26-64|max_target=26-64": 5,
+        "targets=2|foreground=65+|max_target=26-64": 7,
+        "targets=2|foreground=65+|max_target=65+": 6,
+        "targets=3+|foreground=26-64|max_target=10-25": 1,
+        "targets=3+|foreground=26-64|max_target=26-64": 1,
+        "targets=3+|foreground=65+|max_target=26-64": 2,
+        "targets=3+|foreground=65+|max_target=65+": 3
+      },
+      "target_count_histogram": {
+        "1": 49,
+        "2": 24,
+        "3": 7
+      },
+      "target_count_mean": 1.475,
+      "target_count_total": 118
+    },
+    "parent_v2_train": {
+      "foreground_area_bin_histogram": {
+        "1-4": 3,
+        "10-25": 123,
+        "26-64": 246,
+        "5-9": 38,
+        "65+": 230
+      },
+      "foreground_pixel_mean": 77.353125,
+      "foreground_pixel_total": 49506,
+      "mask_encoding_histogram": {
+        "binary_0_255": 583,
+        "grayscale_0_255": 57
+      },
+      "mask_shape_histogram": {
+        "512x512": 640
+      },
+      "max_target_area_bin_histogram": {
+        "1-4": 3,
+        "10-25": 162,
+        "26-64": 283,
+        "5-9": 41,
+        "65+": 151
+      },
+      "nonbinary_mask_image_count": 57,
+      "nonbinary_mask_pixel_count": 98,
+      "sample_count": 640,
+      "stratum_histogram": {
+        "targets=1|foreground=1-4|max_target=1-4": 3,
+        "targets=1|foreground=10-25|max_target=10-25": 107,
+        "targets=1|foreground=26-64|max_target=26-64": 159,
+        "targets=1|foreground=5-9|max_target=5-9": 38,
+        "targets=1|foreground=65+|max_target=65+": 86,
+        "targets=2|foreground=10-25|max_target=10-25": 14,
+        "targets=2|foreground=10-25|max_target=5-9": 2,
+        "targets=2|foreground=26-64|max_target=10-25": 33,
+        "targets=2|foreground=26-64|max_target=26-64": 40,
+        "targets=2|foreground=65+|max_target=26-64": 58,
+        "targets=2|foreground=65+|max_target=65+": 43,
+        "targets=3+|foreground=26-64|max_target=10-25": 6,
+        "targets=3+|foreground=26-64|max_target=26-64": 7,
+        "targets=3+|foreground=26-64|max_target=5-9": 1,
+        "targets=3+|foreground=65+|max_target=10-25": 2,
+        "targets=3+|foreground=65+|max_target=26-64": 19,
+        "targets=3+|foreground=65+|max_target=65+": 22
+      },
+      "target_count_histogram": {
+        "1": 393,
+        "2": 190,
+        "3": 46,
+        "4": 10,
+        "5": 1
+      },
+      "target_count_mean": 1.49375,
+      "target_count_total": 956
+    },
+    "train": {
+      "foreground_area_bin_histogram": {
+        "1-4": 3,
+        "10-25": 108,
+        "26-64": 215,
+        "5-9": 33,
+        "65+": 201
+      },
+      "foreground_pixel_mean": 77.93928571428572,
+      "foreground_pixel_total": 43646,
+      "mask_encoding_histogram": {
+        "binary_0_255": 508,
+        "grayscale_0_255": 52
+      },
+      "mask_shape_histogram": {
+        "512x512": 560
+      },
+      "max_target_area_bin_histogram": {
+        "1-4": 3,
+        "10-25": 142,
+        "26-64": 248,
+        "5-9": 36,
+        "65+": 131
+      },
+      "nonbinary_mask_image_count": 52,
+      "nonbinary_mask_pixel_count": 91,
+      "sample_count": 560,
+      "stratum_histogram": {
+        "targets=1|foreground=1-4|max_target=1-4": 3,
+        "targets=1|foreground=10-25|max_target=10-25": 94,
+        "targets=1|foreground=26-64|max_target=26-64": 139,
+        "targets=1|foreground=5-9|max_target=5-9": 33,
+        "targets=1|foreground=65+|max_target=65+": 75,
+        "targets=2|foreground=10-25|max_target=10-25": 12,
+        "targets=2|foreground=10-25|max_target=5-9": 2,
+        "targets=2|foreground=26-64|max_target=10-25": 29,
+        "targets=2|foreground=26-64|max_target=26-64": 35,
+        "targets=2|foreground=65+|max_target=26-64": 51,
+        "targets=2|foreground=65+|max_target=65+": 37,
+        "targets=3+|foreground=26-64|max_target=10-25": 5,
+        "targets=3+|foreground=26-64|max_target=26-64": 6,
+        "targets=3+|foreground=26-64|max_target=5-9": 1,
+        "targets=3+|foreground=65+|max_target=10-25": 2,
+        "targets=3+|foreground=65+|max_target=26-64": 17,
+        "targets=3+|foreground=65+|max_target=65+": 19
+      },
+      "target_count_histogram": {
+        "1": 344,
+        "2": 166,
+        "3": 39,
+        "4": 10,
+        "5": 1
+      },
+      "target_count_mean": 1.4964285714285714,
+      "target_count_total": 838
+    }
+  },
+  "dataset": "IRSTD-1K",
+  "generation_audit": {
+    "checkpoint_opened": false,
+    "lockbox_masks_used_only_for_pre_freeze_stratification": true,
+    "lockbox_not_opened_by_model": true,
+    "metric_computed": false,
+    "model_imported_or_executed": false,
+    "prediction_computed": false,
+    "test_image_opened": false,
+    "test_index_opened": false,
+    "test_mask_opened": false,
+    "test_used_for_membership_or_attributes": false
+  },
+  "historical_training_pool_disclosure": {
+    "confirm_lockbox_source": "deterministic carve-out from the current V2 training membership",
+    "historical_training_pool_non_pristine": true,
+    "members_were_in_the_historical_training_pool": true,
+    "must_not_be_described_as": "a pristine external test set",
+    "pristine_external_test": false,
+    "required_paper_description": "new locked confirmation set from the original training pool"
+  },
+  "immutability": {
+    "atomic_materialization_unit": "splits/psbfr_v1/IRSTD-1K",
+    "existing_outputs_require_exact_byte_match": true,
+    "symlink_paths_rejected": true,
+    "write_once": true
+  },
+  "lockbox_not_opened_by_model": true,
+  "membership_validation": {
+    "all_three_outputs_pairwise_disjoint": true,
+    "all_three_outputs_total_count": 800,
+    "all_three_outputs_union_equals_parent_v2_train_val": true,
+    "legacy_dev_val_byte_identical_to_parent_v2_val": true,
+    "legacy_dev_val_disjoint_from_parent_v2_train": true,
+    "parent_train_val_total_count": 800,
+    "train_confirm_lockbox_disjoint": true,
+    "train_confirm_lockbox_union_equals_parent_v2_train": true
+  },
+  "outputs": {
+    "confirm_lockbox": {
+      "file_sha256": "3cc140555bd892a2e095365f51e1e5247012325f05c84136e3e7d53e4eaf2a05",
+      "ordered_ids_sha256": "f80eff5efc329cf1f5bfaf11664ac97e5dab52195a69a1de5414521d9a8e10d4",
+      "relative_path": "splits/psbfr_v1/IRSTD-1K/confirm_lockbox.txt",
+      "sample_count": 80
+    },
+    "legacy_dev_val": {
+      "byte_identical_to_parent_v2_val": true,
+      "file_sha256": "05a0d0ecdb1772447c4b5b0b04a5e8cf3a748ba5fdab5cdb3f9323d9089e9576",
+      "ordered_ids_sha256": "1800db0d308465c9f8d906731576fdbc35fc1c25bc7790cda5232f20fb9ed408",
+      "relative_path": "splits/psbfr_v1/IRSTD-1K/legacy_dev_val.txt",
+      "sample_count": 160
+    },
+    "train": {
+      "file_sha256": "9786e43012919711a6135bbfd5db8bcd4204b7baa9b0d151b3e93b8ca623d107",
+      "ordered_ids_sha256": "4f0f31d58b3871b8d45c0fabeb2a3af520175db8a4f14601952936247f57d82e",
+      "relative_path": "splits/psbfr_v1/IRSTD-1K/train.txt",
+      "sample_count": 560
+    }
+  },
+  "parent_v2": {
+    "data_identity": {
+      "ordered_image_mask_tree_sha256": "ceec8eaca922fddb327b3091432d976d92aaeb45541136d43d3f754c3a1b2c30",
+      "ordered_sample_audit_records_sha256": "9a8300b4b5fcb1211e752121e523c402d5e5bfde66d6d8690de2a9477590cf90",
+      "source_index": {
+        "file_sha256": "689a5f30a394ad47315ebe0f6df2d7f12429aa314ffb2cdf86f7fbd7be4ee744",
+        "ordered_ids_sha256": "681e4d741fb857703471d6555faa0d86e931aa790567c28f4254331ea9ba3d95",
+        "relative_path": "IRSTD-1K/img_idx/train_IRSTD-1K.txt",
+        "sample_count": 800,
+        "split": "train"
+      }
+    },
+    "manifest": {
+      "file_sha256": "5eeacbab52d8b70b44ce4cb70dfeda94cd326767f0c379fa96ab836c4c897596",
+      "relative_path": "splits/v2/IRSTD-1K/manifest.json"
+    },
+    "schema": "evisirst_v2_train_val_split/v1",
+    "train": {
+      "file_sha256": "460083baae2ba23f5629e7bd346b5623f78a96856c83693b96bf917f6537ed2d",
+      "manifest_file_sha256": "460083baae2ba23f5629e7bd346b5623f78a96856c83693b96bf917f6537ed2d",
+      "manifest_ordered_ids_sha256": "06c1d6055958b648aeaab9be4dc02721eeaba735d4a39fe3184a8aa4ffc6df33",
+      "ordered_ids_sha256": "06c1d6055958b648aeaab9be4dc02721eeaba735d4a39fe3184a8aa4ffc6df33",
+      "relative_path": "splits/v2/IRSTD-1K/train.txt",
+      "sample_count": 640
+    },
+    "val": {
+      "file_sha256": "05a0d0ecdb1772447c4b5b0b04a5e8cf3a748ba5fdab5cdb3f9323d9089e9576",
+      "manifest_file_sha256": "05a0d0ecdb1772447c4b5b0b04a5e8cf3a748ba5fdab5cdb3f9323d9089e9576",
+      "manifest_ordered_ids_sha256": "1800db0d308465c9f8d906731576fdbc35fc1c25bc7790cda5232f20fb9ed408",
+      "ordered_ids_sha256": "1800db0d308465c9f8d906731576fdbc35fc1c25bc7790cda5232f20fb9ed408",
+      "relative_path": "splits/v2/IRSTD-1K/val.txt",
+      "sample_count": 160
+    }
+  },
+  "schema": "evisirst_psbfr_confirmation_lockbox/v1",
+  "status": "frozen_before_any_psbfr_lockbox_model_evaluation",
+  "stratification_input": {
+    "attribute_distribution_matches_parent_v2_train": true,
+    "legacy_dev_images_opened": false,
+    "legacy_dev_masks_opened": false,
+    "mask_audit_records_embedded": false,
+    "member_count": 640,
+    "membership_source": "splits/v2/IRSTD-1K/train.txt",
+    "ordered_mask_audit_records_sha256": "59ef2987997995b44e459fa552ebfb92b958fc110af43c1106edb338f1554c97",
+    "ordered_training_mask_tree_sha256": "d155a950cb9190f23963895cafac5aea5e28cd11097ffbf4c6a65956e0a70c38",
+    "training_images_opened": false,
+    "training_masks_opened_for_stratification": true
+  }
+}

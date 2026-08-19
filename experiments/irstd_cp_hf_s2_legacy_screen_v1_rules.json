@@ -1,0 +1,220 @@
+{
+  "schema": "evisirst_irstd_cp_hf_s2_legacy_screen_rules/v1",
+  "protocol_relative_path": "experiments/IRSTD_CP_HF_S2_LEGACY_SCREEN_V1_AMENDMENT.md",
+  "architecture": {
+    "module": "experiments.irstd_cp_hf_s2_v1",
+    "source_relative_path": "experiments/irstd_cp_hf_s2_v1.py",
+    "source_sha256": "0dba0021dfe8f46d8c4e2932b478ce03609ab14be73b20c8b77817dce240436a",
+    "contract_tests_relative_path": "tests/test_irstd_cp_hf_s2_v1.py",
+    "contract_tests_sha256": "c4add1293f6cbd9924993277f01bc49b26e1dc3f87ffad7148de9aaf1dfa6394",
+    "builder": "build_irstd_cp_hf_s2_v1",
+    "validator": "validate_irstd_cp_hf_s2_v1",
+    "variant_key": "cp_hf_s2_v1",
+    "label": "EviSIRST-CP-HF-S2-v1",
+    "base_state_key_count": 564,
+    "extension_state_key_count": 12,
+    "state_key_count": 576,
+    "parameter_count": 10874615,
+    "extension_state_prefix": "decoder_cp_hf_s2.",
+    "forbidden_module_prefixes": [
+      "EviSIRST_HF_Decoder_V2_reference"
+    ],
+    "counts_and_source_sha256_policy": "frozen_from_landed_source_and_revalidated_before_gpu"
+  },
+  "legacy_screen_run": {
+    "dataset": "IRSTD-1K",
+    "target_mode": "binary",
+    "architecture_seed": 42,
+    "run_seeds": [
+      42,
+      1446202191,
+      104728269
+    ],
+    "configured_total_epochs": 1000,
+    "operational_pause_after_atomic_epoch": 500,
+    "screen_records_after_epoch_500_allowed": false,
+    "runner_enforced_pause_marker": "EPOCH500_CLEAN",
+    "epoch_501_entry_forbidden": true,
+    "resume_at_epoch_500_returns_clean_pause": true,
+    "batch_size": 16,
+    "workers": 0,
+    "optimizer": "Adam",
+    "optimizer_parameter_groups": 1,
+    "base_lr": 0.001,
+    "min_lr": 0.00001,
+    "warmup_epochs": 10,
+    "validation_interval": 1,
+    "loss": "sum_of_six_BCELoss_mean_terms",
+    "initialization": "full_model_scratch",
+    "all_parameters_trainable": true,
+    "selection_rule": "evisirst_zero_margin_dual_role_lexicographic/v1",
+    "selection_margin_raw": null,
+    "selection_window_applied": false,
+    "output_root_relative_path": "runs/irstd_model_design/cp_hf_s2_v1/legacy_screen",
+    "public_test_supported": false,
+    "test_split_accessed": false
+  },
+  "split_contract": {
+    "root_relative_path": "splits/v2",
+    "dataset_relative_path": "splits/v2/IRSTD-1K",
+    "split_seed": 20260811,
+    "train_count": 640,
+    "val_count": 160,
+    "manifest_sha256": "5eeacbab52d8b70b44ce4cb70dfeda94cd326767f0c379fa96ab836c4c897596",
+    "train_index_sha256": "460083baae2ba23f5629e7bd346b5623f78a96856c83693b96bf917f6537ed2d",
+    "val_index_sha256": "05a0d0ecdb1772447c4b5b0b04a5e8cf3a748ba5fdab5cdb3f9323d9089e9576",
+    "data_tree_sha256": "ceec8eaca922fddb327b3091432d976d92aaeb45541136d43d3f754c3a1b2c30",
+    "test_was_not_accessed": true
+  },
+  "smoke_contract": {
+    "explicit_mode_requires_both_sample_caps": true,
+    "short_epoch_schedule_allowed": true,
+    "cpu_allowed": true,
+    "output_branch": "smoke",
+    "content_addressed_path_suffix": true,
+    "promotion_eligible": false,
+    "epoch_500_gate_eligible": false,
+    "no_tiny_target_metric_policy": "only_when_tiny_target_count_is_zero_impute_tiny_pd_zero_and_record_explicit_smoke_flag",
+    "test_split_accessed": false
+  },
+  "transaction": {
+    "resume_filename": "last_training_state.pth.tar",
+    "resume_load": "strict",
+    "resume_identity_must_equal_fresh_identity": true,
+    "resume_required_state": [
+      "run_identity",
+      "state_dict",
+      "optimizer",
+      "rng",
+      "training_history",
+      "validation_history",
+      "candidate_artifacts"
+    ],
+    "scheduler_restore": "deterministically_rebuilt_from_epoch_and_run_identity",
+    "candidate_path_template": "candidates/epoch_{epoch:04d}.pth.tar",
+    "candidate_create": "exclusive_no_replace_or_verify_identical",
+    "candidate_binds_source_and_split_hashes": true,
+    "epoch_500_gate_requires_atomic_resume_and_candidate_commit": true,
+    "formal_entry_forbids_existing_summary_or_any_final": true,
+    "formal_entry_existing_latest_maximum_epoch": 500,
+    "formal_entry_rechecked_inside_process_lock": true,
+    "actual_restored_start_epoch_maximum": 501,
+    "formal_completed_finalize_forbidden": true,
+    "output_parent_traversal": "held_dirfd_O_DIRECTORY_O_NOFOLLOW",
+    "candidate_and_checkpoint_commit": "exclusive_linkat_no_replace",
+    "finals_after_epoch_1000_only": {
+      "best_mIoU": "EviSIRST_best_mIoU.pth.tar",
+      "best_Pd": "EviSIRST_best_Pd.pth.tar"
+    },
+    "final_create": "exclusive_no_replace_or_verify_identical",
+    "summary_commit": "atomic_and_crash_idempotent",
+    "every_artifact_requires_test_split_accessed_false": true
+  },
+  "disclosure_contract": {
+    "lockbox_accessed": false,
+    "test_selected": false,
+    "test_selection_supported": false,
+    "public_test_supported": false,
+    "test_split_accessed": false
+  },
+  "cp_hf_s2_mechanism_diagnostic": {
+    "schema": "evisirst_irstd_cp_hf_s2_selected_mechanism_diagnostic/v1",
+    "source_relative_path": "run_irstd_cp_hf_s2_mechanism_diagnostic_v1.py",
+    "source_sha256": "ffcefbfa1a582760a9838a68e009aaa41e7a60de469c135b921eeb57e802e4c0",
+    "output_relative_path_template": "runs/irstd_model_design/cp_hf_s2_v1/legacy_screen/comparison/mechanism/run_seed_{seed}/result.json",
+    "run_seeds": [
+      42,
+      1446202191,
+      104728269
+    ],
+    "checkpoint_binding": "each_seed_first500_zero_margin_selected_candidate_exact_artifact",
+    "validation_passes_per_selected_checkpoint": 1,
+    "device": "cuda:0",
+    "required_checks": [
+      "adapter_executed_for_every_validation_sample",
+      "correction_nonzero",
+      "correction_finite",
+      "absolute_correction_bound_holds"
+    ],
+    "diagnostic_only": true,
+    "selection_allowed": false,
+    "threshold_tuning_allowed": false,
+    "lockbox_accessed": false,
+    "test_selected": false,
+    "test_selection_supported": false,
+    "public_test_supported": false,
+    "public_test_allowed": false,
+    "test_split_accessed": false
+  },
+  "stage1_route_gate": {
+    "schema": "evisirst_irstd_model_route_stage1_seed42/v1",
+    "source_relative_path": "run_irstd_cp_hf_s2_stage1_route_gate_v1.py",
+    "source_sha256": "690679e5f6a61c6d8365df3f5d2aa10bf174b8ee70260e2801edd55305844d40",
+    "candidate_registry": [
+      "psbfr_v1",
+      "cp_hf_s2_v1"
+    ],
+    "architecture_seed": 42,
+    "run_seed": 42,
+    "decision_per_route": "GO_if_delta_mIoU_gt_0_and_no_safety_failure_and_route_mechanism_passes_else_STOP",
+    "candidate_decisions_are_independent": true,
+    "candidate_ranking_or_winner_selection": false,
+    "missing_route_does_not_block_other_route": true,
+    "go_authorizes_only_run_seeds": [
+      1446202191,
+      104728269
+    ],
+    "stop_authorizes_no_further_route_runs": true,
+    "output_relative_path_template": "runs/irstd_model_design/cp_hf_s2_v1/legacy_screen/comparison/stage1/{candidate}/seed42_interim.json",
+    "lockbox_accessed": false,
+    "test_selected": false,
+    "test_selection_supported": false,
+    "public_test_supported": false,
+    "public_test_allowed": false,
+    "test_split_accessed": false
+  },
+  "comparison": {
+    "schema": "evisirst_irstd_cp_hf_s2_first500_ab_gate/v1",
+    "sealed_helper_source_relative_path": "run_irstd_cp_hf_s2_first500_ab_gate_v1.py",
+    "sealed_helper_source_sha256": "9250b7d0de5ef04b08a14bb0e931a7b2034ef0056c3262c13b247783038907d1",
+    "baseline_variant": "clean_r1",
+    "candidate_registry": [
+      "psbfr_v1",
+      "cp_hf_s2_v1"
+    ],
+    "candidate_decisions_are_independent": true,
+    "candidate_ranking_or_winner_selection": false,
+    "s2_route_ledger_implemented_by_this_amendment": false,
+    "s2_launch_authorized_by_this_amendment": false,
+    "combined_writer_sealed": true,
+    "future_s2_policy": "new_additive_addendum_gate_and_watcher_without_modifying_stage1_bound_sources",
+    "both_candidates_go_policy": "retain_both_without_winner_and_require_new_preregistered_confirmation_selection_amendment",
+    "same_seed_pair_required": true,
+    "screen_epoch_inclusive": 500,
+    "primary_metric": "selected_validation_mIoU",
+    "delta_direction": "candidate_minus_same_seed_clean",
+    "positive_delta_required_for_every_pair": true,
+    "mean_delta_mIoU_minimum": 0.002,
+    "safety_failure": {
+      "operator": "delta_Pd < -0.003 and delta_Fa > 0"
+    },
+    "post_hoc_seed_selection": false,
+    "post_hoc_candidate_selection": false,
+    "additional_candidate_policy": "INVALID_MULTIPLE_CANDIDATES_and_require_new_preregistered_amendment",
+    "missing_arm_policy": "INCOMPLETE_no_promotion",
+    "clean_run_path_template": "runs/validation_selected/formal/IRSTD-1K/binary/run_seed_{seed}",
+    "psbfr_run_path_template": "runs/irstd_model_design/psbfr_v1/legacy_screen/formal/IRSTD-1K/binary/run_seed_{seed}",
+    "cp_hf_s2_run_path_template": "runs/irstd_model_design/cp_hf_s2_v1/legacy_screen/formal/IRSTD-1K/binary/run_seed_{seed}",
+    "output_relative_path": "runs/irstd_model_design/cp_hf_s2_v1/legacy_screen/comparison/first500_clean_psbfr_cp_hf_s2_v1.json",
+    "output_create": "sealed_reserved_path_must_remain_absent",
+    "legacy_screen_can_authorize_stability_claim": false,
+    "public_test_allowed": false,
+    "test_split_accessed": false
+  },
+  "later_confirmation": {
+    "implemented_by_this_amendment": false,
+    "launch_allowed_before_both_candidate_screens_terminal": false,
+    "required_paired_initialization_count": 5,
+    "configured_total_epochs": 1000
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "architecture": {
+    "base": "EviSIRST",
+    "correction_bound": 2.0,
+    "correction_feature_stop_gradient": true,
+    "corrector_hidden_channels": 16,
+    "corrector_input": [
+      "reflect_avg_pool_5x5",
+      "absolute_feature_minus_reflect_avg_pool_5x5"
+    ],
+    "frequency_kernel_size": 5,
+    "extension_seed_derivation": "uint64_be(sha256('EviSIRST/PSBFR-v1/extension/'+str(init_seed))[0:8]) mod 2^63",
+    "model": "EviSIRST-PSBFR-v1",
+    "prediction_support_stop_gradient": true,
+    "state_key_count": 569,
+    "support": "max_pool_7x7_sigmoid_base_logit",
+    "support_kernel_size": 7,
+    "total_parameter_count": 10871203
+  },
+  "baseline": {
+    "model": "EviSIRST",
+    "required_total_schedule_epochs": 1000,
+    "selection_margin_raw": null,
+    "selection_rule": "evisirst_zero_margin_dual_role_lexicographic/v1"
+  },
+  "d0_diagnostic": {
+    "architecture_seed": 42,
+    "eligible_as_psbfr_base_only_after_pass": true,
+    "mean_delta_mIoU_minimum": 0.002,
+    "positive_delta_required_for_every_pair": true,
+    "run_seeds": [
+      42,
+      1446202191
+    ],
+    "safety_failure": {
+      "operator": "delta_Pd < -0.003 and delta_Fa > 0"
+    }
+  },
+  "execution": {
+    "configured_total_epochs": 1000,
+    "operational_pause_after_atomic_epoch": 500,
+    "public_test_allowed": false,
+    "public_test_accessed": false,
+    "screen_records_after_epoch_500_allowed": false,
+    "test_split_accessed": false
+  },
+  "formal_confirmation": {
+    "effect_minimum_mean_delta_mIoU": 0.002,
+    "init_run_seed_pairs": [
+      [1186821503, 1442745291],
+      [1664584613, 560126688],
+      [984034075, 1740114274],
+      [518560408, 2076447678],
+      [432975590, 922968363]
+    ],
+    "paired_delta_mIoU_all_positive": true,
+    "paired_seed_count": 5,
+    "safety_failure": {
+      "operator": "delta_Pd < -0.003 and delta_Fa > 0"
+    },
+    "seed_derivation": "uint32_be(sha256('EviSIRST/PSBFR-v1/'+kind+'/'+i)[0:4]) mod 2^31",
+    "seed_level_two_sided_95pct_t_interval_lower_bound_positive": true
+  },
+  "legacy_screen": {
+    "architecture_seed": 42,
+    "correction_bound_must_hold": true,
+    "corrector_nonzero_required": true,
+    "mean_delta_mIoU_minimum": 0.002,
+    "positive_delta_required_for_every_pair": true,
+    "run_seeds": [
+      42,
+      1446202191,
+      104728269
+    ],
+    "safety_failure": {
+      "operator": "delta_Pd < -0.003 and delta_Fa > 0"
+    },
+    "tanh_absolute_saturation_fraction_maximum": 0.1,
+    "tanh_absolute_saturation_threshold": 0.99
+  },
+  "protocol_relative_path": "experiments/IRSTD_PSBFR_V1_PROTOCOL.md",
+  "result_status": "TBD",
+  "schema": "evisirst_irstd_psbfr_v1_rules/v1"
+}
