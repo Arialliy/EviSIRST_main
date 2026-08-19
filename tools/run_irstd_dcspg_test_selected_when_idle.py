@@ -37,6 +37,12 @@ from typing import Callable, Mapping, Sequence
 
 
 PROJECT_ROOT = Path("/home/ly/EviSIRST_main")
+# Direct execution sets ``sys.path[0]`` to ``tools/``.  Completion validation
+# imports the frozen top-level runner by module name, so make the canonical
+# project root available before that lazy import.  The path is fixed rather
+# than derived from the process working directory.
+if os.fspath(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, os.fspath(PROJECT_ROOT))
 PYTHON_BIN = Path("/home/ly/BasicIRSTD/infrarenet/bin/python")
 EXPECTED_PYTHON = Path("/usr/bin/python3.12")
 TIME_BIN = Path("/usr/bin/time")
@@ -81,7 +87,31 @@ GPU_LOCK_ROOT = PROJECT_ROOT / "runs/.gpu_locks"
 AUTHORIZATION_PATH = (
     PROJECT_ROOT / "experiments/IRSTD_DCSPG_TEST_SELECTED_V1_AUTHORIZATION.json"
 )
+# The adapter is part of the immutable training source identity, so its
+# original launch-capability literal remains stable across watcher-only
+# repairs.  The watcher validates the current additive authorization below.
 FORMAL_AUTHORIZATION_SHA256: str | None = "5cdea5fbba9f9da2e3533fab739f1608493bdd34de98f29c693cfdc1f94694ae"
+CURRENT_FORMAL_AUTHORIZATION_SHA256: str | None = "62816a39fb7834f3e95fba0862401ce48499a87431ac81dd3b94d379c18a2a81"
+
+# The first authorized launch committed this exact immutable ledger before the
+# live output root was created.  A later watcher-only bootstrap repair must not
+# rewrite that historical proof.  Resume may accept it only byte-for-byte;
+# genuinely fresh launches still require the current authorization payload.
+INITIAL_LAUNCH_AUTHORIZATION_SHA256 = (
+    "5cdea5fbba9f9da2e3533fab739f1608493bdd34de98f29c693cfdc1f94694ae"
+)
+INITIAL_LAUNCH_ADAPTER_SHA256 = (
+    "7292be0d82db9e15259adbad38b7b4ffaa54a89fcfb067fab356a77da13ec72b"
+)
+INITIAL_LAUNCH_SOURCE_ALLOWLIST_SHA256 = (
+    "dbda888c0198f51cd14134fdbfe6164fedb4721709ca5a27f488f77c19316486"
+)
+INITIAL_LAUNCH_TASK_MANIFEST_SHA256 = (
+    "6b80afb84b24b883e1bb417d43f8f6029a816422de9e015452a91a3239e510f9"
+)
+INITIAL_LAUNCH_LEDGER_SHA256 = (
+    "5087532a04ef287d96984ced0661894a9a90900de739d6705b2a9b8bfc09aec6"
+)
 
 # Exact runner runtime closure.  The adapter entry is the normalized digest
 # because its authorization literal is injected only after the final audit.
@@ -126,7 +156,7 @@ FROZEN_RUNTIME_SOURCE_SHA256: dict[str, str] = {
 # Filled only after this test file is final.  Until then formal preflight is
 # deliberately sealed off even though the 36-file runtime closure is frozen.
 FROZEN_WATCHER_TEST_SHA256: str | None = (
-    "819e9fad7a74b2bb217856359a387407e4cd067c65336e36cc0f7567805d802e"
+    "08b9af79634610756a5eaa7d652ce591b9988c0880b583d1cb299f883b6a347a"
 )
 
 AUTHORIZATION_SCHEMA = "evisirst_irstd_dcspg_test_selected_authorization/v1"
@@ -368,19 +398,28 @@ def _strict_json(path: Path) -> dict[str, object]:
     return payload
 
 
-def _normalized_authorization_source_sha256(path: Path) -> str:
-    source = _read_regular_bytes(path)
+def _normalize_authorization_literals(source: bytes) -> bytes:
     pattern = re.compile(
-        rb"FORMAL_AUTHORIZATION_SHA256: str \| None = "
-        rb"(?:None|\"[0-9a-f]{64}\")"
+        rb"(?P<name>(?:CURRENT_)?FORMAL_AUTHORIZATION_SHA256)"
+        rb": str \| None = (?:None|\"[0-9a-f]{64}\")"
     )
-    normalized, count = pattern.subn(
-        b'FORMAL_AUTHORIZATION_SHA256: str | None = "<AUTHORIZATION_SHA256>"',
-        source,
-    )
-    if count != 1:
+
+    def replace(match: re.Match[bytes]) -> bytes:
+        return (
+            match.group("name")
+            + b': str | None = "<AUTHORIZATION_SHA256>"'
+        )
+
+    normalized, count = pattern.subn(replace, source)
+    if count not in {1, 2}:
         raise DCSPGWatcherError("authorization literal normalization differs")
-    return hashlib.sha256(normalized).hexdigest()
+    return normalized
+
+
+def _normalized_authorization_source_sha256(path: Path) -> str:
+    return hashlib.sha256(
+        _normalize_authorization_literals(_read_regular_bytes(path))
+    ).hexdigest()
 
 
 def frozen_source_allowlist() -> dict[str, str]:
@@ -443,16 +482,7 @@ def _read_regular_bytes(path: Path, *, root: Path | None = None) -> bytes:
 def _source_digest(path: Path, *, normalized: bool, root: Path) -> str:
     source = _read_regular_bytes(path, root=root)
     if normalized:
-        pattern = re.compile(
-            rb"FORMAL_AUTHORIZATION_SHA256: str \| None = "
-            rb"(?:None|\"[0-9a-f]{64}\")"
-        )
-        source, count = pattern.subn(
-            b'FORMAL_AUTHORIZATION_SHA256: str | None = "<AUTHORIZATION_SHA256>"',
-            source,
-        )
-        if count != 1:
-            raise DCSPGWatcherError("authorization literal normalization differs")
+        source = _normalize_authorization_literals(source)
     return hashlib.sha256(source).hexdigest()
 
 
@@ -557,13 +587,17 @@ def task_manifest() -> dict[str, object]:
 
 
 def authorization_is_valid() -> bool:
-    expected = FORMAL_AUTHORIZATION_SHA256
+    expected = CURRENT_FORMAL_AUTHORIZATION_SHA256
     if expected is None:
         return False
     if not isinstance(expected, str) or _SHA_RE.fullmatch(expected) is None:
         raise DCSPGWatcherError("authorization SHA-256 is malformed")
+    if FORMAL_AUTHORIZATION_SHA256 != INITIAL_LAUNCH_AUTHORIZATION_SHA256:
+        return False
     try:
         assert_frozen_sources()
+        if _sha256(ADAPTER_SOURCE) != INITIAL_LAUNCH_ADAPTER_SHA256:
+            return False
         if (
             AUTHORIZATION_PATH.is_symlink()
             or not AUTHORIZATION_PATH.is_file()
@@ -620,7 +654,7 @@ def assert_initial_target_absent(path: Path | None = None) -> None:
 
 
 def _initialization_payload() -> dict[str, object]:
-    expected = FORMAL_AUTHORIZATION_SHA256
+    expected = CURRENT_FORMAL_AUTHORIZATION_SHA256
     if not isinstance(expected, str) or _SHA_RE.fullmatch(expected) is None:
         raise DCSPGWatcherError("formal authorization is not frozen")
     return {
@@ -637,12 +671,32 @@ def _initialization_payload() -> dict[str, object]:
     }
 
 
-def _initialization_is_valid() -> bool:
+def _initial_launch_initialization_payload() -> dict[str, object]:
+    return {
+        "schema": "evisirst_irstd_dcspg_test_selected_initialization/v1",
+        "authorization_sha256": INITIAL_LAUNCH_AUTHORIZATION_SHA256,
+        "task_manifest_sha256": INITIAL_LAUNCH_TASK_MANIFEST_SHA256,
+        "source_allowlist_sha256": INITIAL_LAUNCH_SOURCE_ALLOWLIST_SHA256,
+        "target_output_root": os.fspath(FORMAL_OUTPUT_ROOT),
+        "target_output_root_initially_absent": True,
+        "quarantined_output_inspected": False,
+        "quarantined_output_reused": False,
+        "workers_launched_before_commit": False,
+        "official_test_accessed_before_commit": False,
+    }
+
+
+def _initialization_is_valid(*, allow_initial_launch: bool = False) -> bool:
     try:
+        if INITIALIZATION_PATH.is_symlink() or not INITIALIZATION_PATH.is_file():
+            return False
+        observed = _strict_json(INITIALIZATION_PATH)
+        if observed == _initialization_payload():
+            return True
         return bool(
-            INITIALIZATION_PATH.is_file()
-            and not INITIALIZATION_PATH.is_symlink()
-            and _strict_json(INITIALIZATION_PATH) == _initialization_payload()
+            allow_initial_launch
+            and observed == _initial_launch_initialization_payload()
+            and _sha256(INITIALIZATION_PATH) == INITIAL_LAUNCH_LEDGER_SHA256
         )
     except (OSError, DCSPGWatcherError):
         return False
@@ -656,10 +710,9 @@ def _commit_initialization() -> None:
         assert_initial_target_absent()
     _ensure_safe_directory(INITIALIZATION_PATH.parent)
     if INITIALIZATION_PATH.exists() or INITIALIZATION_PATH.is_symlink():
-        if (
-            INITIALIZATION_PATH.is_symlink()
-            or not INITIALIZATION_PATH.is_file()
-            or INITIALIZATION_PATH.read_bytes() != encoded
+        if not _initialization_is_valid(
+            allow_initial_launch=FORMAL_OUTPUT_ROOT.is_dir()
+            and not FORMAL_OUTPUT_ROOT.is_symlink()
         ):
             raise DCSPGWatcherError("formal initialization ledger differs")
         return
@@ -877,7 +930,7 @@ def readonly_preflight() -> dict[str, object]:
     return {
         "schema": PREFLIGHT_SCHEMA,
         "formal_launch_authorized": True,
-        "authorization_sha256": FORMAL_AUTHORIZATION_SHA256,
+        "authorization_sha256": CURRENT_FORMAL_AUTHORIZATION_SHA256,
         "task_manifest_sha256": _canonical_sha256(task_manifest()),
         "source_allowlist_sha256": _canonical_sha256(frozen_source_allowlist()),
         "target_output_root_initially_absent": initially_absent,
@@ -1406,7 +1459,7 @@ def _queue_states() -> tuple[bool, dict[str, dict[str, object]]]:
         }
     if FORMAL_OUTPUT_ROOT.is_symlink() or not FORMAL_OUTPUT_ROOT.is_dir():
         raise DCSPGWatcherError("live formal output root is unsafe")
-    if not _initialization_is_valid():
+    if not _initialization_is_valid(allow_initial_launch=True):
         raise DCSPGWatcherError(
             "existing live output lacks its fresh-root initialization ledger"
         )

@@ -5,6 +5,8 @@ import json
 import os
 import shutil
 import signal
+import subprocess
+import sys
 import tempfile
 from pathlib import Path
 from types import SimpleNamespace
@@ -394,6 +396,57 @@ def test_manifest_has_exactly_two_fixed_1000_epoch_tasks() -> None:
     assert manifest["quarantined_output_reused"] is False
 
 
+def test_direct_script_bootstraps_project_root_for_offline_runner_import(
+    tmp_path: Path,
+) -> None:
+    program = f"""
+import importlib.util
+import pathlib
+import sys
+
+source = pathlib.Path({os.fspath(watcher.WATCHER_SOURCE)!r})
+spec = importlib.util.spec_from_file_location("dcspg_watcher_direct_probe", source)
+assert spec is not None and spec.loader is not None
+module = importlib.util.module_from_spec(spec)
+sys.modules[spec.name] = module
+spec.loader.exec_module(module)
+assert str(module.PROJECT_ROOT) in sys.path
+runner = __import__("train_irstd_dcspg_ablation_test_selected_v1")
+assert pathlib.Path(runner.__file__).resolve() == module.RUNNER_SOURCE
+"""
+    environment = dict(os.environ)
+    environment.pop("PYTHONPATH", None)
+    environment["PYTHONDONTWRITEBYTECODE"] = "1"
+    result = subprocess.run(
+        [os.fspath(watcher.PYTHON_BIN), "-B", "-c", program],
+        cwd=tmp_path,
+        env=environment,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode == 0, result.stderr
+
+
+def test_initialization_migration_accepts_only_exact_predecessor(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    initialization = tmp_path / "formal_initialization.json"
+    monkeypatch.setattr(watcher, "INITIALIZATION_PATH", initialization)
+
+    _write_json(initialization, watcher._initialization_payload())
+    assert watcher._initialization_is_valid()
+
+    _write_json(initialization, watcher._initial_launch_initialization_payload())
+    assert not watcher._initialization_is_valid()
+    assert watcher._initialization_is_valid(allow_initial_launch=True)
+
+    tampered = watcher._initial_launch_initialization_payload()
+    tampered["workers_launched_before_commit"] = True
+    _write_json(initialization, tampered)
+    assert not watcher._initialization_is_valid(allow_initial_launch=True)
+
+
 def test_tasks_pin_exact_gpu_index_uuid_and_bus() -> None:
     tasks = {task.method_id: task for task in watcher.TASKS}
     assert (tasks["dcspg_original"].gpu_index, tasks["dcspg_original"].gpu_uuid) == (
@@ -445,11 +498,26 @@ def test_launch_contract_matches_adapter_exact_eight_fields() -> None:
 def test_authorization_and_source_placeholders_fail_closed(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    monkeypatch.setattr(watcher, "FORMAL_AUTHORIZATION_SHA256", None)
+    monkeypatch.setattr(watcher, "CURRENT_FORMAL_AUTHORIZATION_SHA256", None)
     monkeypatch.setattr(watcher, "FROZEN_WATCHER_TEST_SHA256", None)
     assert watcher.authorization_is_valid() is False
     with pytest.raises(watcher.DCSPGWatcherError, match="not sealed"):
         watcher.frozen_source_allowlist()
+
+
+def test_active_authorization_preserves_initial_adapter_capability(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    assert (
+        watcher.FORMAL_AUTHORIZATION_SHA256
+        == watcher.INITIAL_LAUNCH_AUTHORIZATION_SHA256
+    )
+    assert (
+        watcher._sha256(watcher.ADAPTER_SOURCE)
+        == watcher.INITIAL_LAUNCH_ADAPTER_SHA256
+    )
+    monkeypatch.setattr(watcher, "FORMAL_AUTHORIZATION_SHA256", "a" * 64)
+    assert watcher.authorization_is_valid() is False
 
 
 def test_adapter_hash_normalizes_only_authorization_literal(tmp_path: Path) -> None:
@@ -517,15 +585,32 @@ def test_authorization_closure_survives_same_hash_injected_into_adapter_and_watc
     watcher_source = tmp_path / "watcher.py"
     adapter_source = tmp_path / "adapter.py"
     authorization = tmp_path / "authorization.json"
-    template = "FORMAL_AUTHORIZATION_SHA256: str | None = None\nVALUE=1\n"
-    watcher_source.write_text(template, encoding="utf-8")
-    adapter_source.write_text(template, encoding="utf-8")
+    initial = "a" * 64
+    watcher_source.write_text(
+        'FORMAL_AUTHORIZATION_SHA256: str | None = "'
+        + initial
+        + '"\nCURRENT_FORMAL_AUTHORIZATION_SHA256: str | None = None\nVALUE=1\n',
+        encoding="utf-8",
+    )
+    adapter_source.write_text(
+        'FORMAL_AUTHORIZATION_SHA256: str | None = "'
+        + initial
+        + '"\nVALUE=1\n',
+        encoding="utf-8",
+    )
     allowlist = {"adapter.py#normalized_authorization_literal": "b" * 64}
     monkeypatch.setattr(watcher, "WATCHER_SOURCE", watcher_source)
     monkeypatch.setattr(watcher, "ADAPTER_SOURCE", adapter_source)
     monkeypatch.setattr(watcher, "AUTHORIZATION_PATH", authorization)
     monkeypatch.setattr(watcher, "assert_frozen_sources", lambda: None)
     monkeypatch.setattr(watcher, "frozen_source_allowlist", lambda: allowlist)
+    monkeypatch.setattr(watcher, "FORMAL_AUTHORIZATION_SHA256", initial)
+    monkeypatch.setattr(watcher, "INITIAL_LAUNCH_AUTHORIZATION_SHA256", initial)
+    monkeypatch.setattr(
+        watcher,
+        "INITIAL_LAUNCH_ADAPTER_SHA256",
+        watcher._sha256(adapter_source),
+    )
     payload = {
         "schema": watcher.AUTHORIZATION_SCHEMA,
         "status": "AUTHORIZED",
@@ -542,16 +627,17 @@ def test_authorization_closure_survives_same_hash_injected_into_adapter_and_watc
     }
     _write_json(authorization, payload)
     digest = watcher._sha256(authorization)
-    monkeypatch.setattr(watcher, "FORMAL_AUTHORIZATION_SHA256", digest)
+    monkeypatch.setattr(watcher, "CURRENT_FORMAL_AUTHORIZATION_SHA256", digest)
     assert watcher.authorization_is_valid() is True
 
     injected = (
         'FORMAL_AUTHORIZATION_SHA256: str | None = "'
+        + initial
+        + '"\nCURRENT_FORMAL_AUTHORIZATION_SHA256: str | None = "'
         + digest
         + '"\nVALUE=1\n'
     )
     watcher_source.write_text(injected, encoding="utf-8")
-    adapter_source.write_text(injected, encoding="utf-8")
     assert watcher.authorization_is_valid() is True
 
 
@@ -902,7 +988,7 @@ def test_abort_contains_process_group_before_releasing_locks(
 def test_readonly_preflight_performs_no_writes_or_launches(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    monkeypatch.setattr(watcher, "FORMAL_AUTHORIZATION_SHA256", "a" * 64)
+    monkeypatch.setattr(watcher, "CURRENT_FORMAL_AUTHORIZATION_SHA256", "a" * 64)
     monkeypatch.setattr(watcher, "_runtime_dependencies_are_valid", lambda: None)
     monkeypatch.setattr(watcher, "assert_frozen_sources", lambda: None)
     monkeypatch.setattr(watcher, "authorization_is_valid", lambda: True)
@@ -929,7 +1015,7 @@ def test_readonly_preflight_performs_no_writes_or_launches(
 def test_formal_mode_with_none_authorization_fails_before_lock_or_worker(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    monkeypatch.setattr(watcher, "FORMAL_AUTHORIZATION_SHA256", None)
+    monkeypatch.setattr(watcher, "CURRENT_FORMAL_AUTHORIZATION_SHA256", None)
     lock = mock.Mock(side_effect=AssertionError("must not create a lock"))
     popen = mock.Mock(side_effect=AssertionError("must not launch"))
     monkeypatch.setattr(watcher, "_try_lock", lock)
