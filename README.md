@@ -19,10 +19,11 @@ SCTransNet + TPD8-MPRS-DCH + NER4 Tail-Aware + QFG2-CROA
 `TSS-off` 只是历史训练条件，不属于模型结构；正式 V3 推理图有 564 个 state keys、
 10,870,130 个参数，并且没有 TSS 模块。
 
-> 当前实验状态（2026-08-19）：HF-Decoder V1 已在 Seed-42 配对 validation 判定中
-> `STOP`。新增的 PSBFR、CP-HF-S2 与 DCS-PG 均为独立候选实现或受控实验协议，
-> 不属于当前发布的 EviSIRST V3；运行授权与证据边界以对应协议和
-> `*_AUTHORIZATION.json` 为准。
+> 当前实验状态（2026-08-24）：HF-Decoder V1 已在 Seed-42 配对 validation 判定中
+> `STOP`；SCTransNet-SBSC V2 也已在未访问 official test 的配对 validation 实验中
+> 判定失败并归档。SBSC V2.1 是下一候选，PSBFR、CP-HF-S2 与 DCS-PG 仍属于隔离实现
+> 或受控实验协议；它们都不是当前发布的 EviSIRST V3。运行授权、证据边界与结果状态
+> 以对应方案、协议和 `*_AUTHORIZATION.json` 为准。
 
 ## 目录
 
@@ -56,6 +57,8 @@ EviSIRST_main/
 ├── load_models.py          # EviSIRST/Baseline 统一加载入口
 ├── train.py                # 无 TSS 的 EviSIRST 训练入口
 ├── train_validation_selected.py # V2 train/val、仅验证选模的 R1 入口
+├── train_sctransnet_sbsc_v2_validation.py # SBSC V2 固定 Seed-42 validation 入口
+├── train_sctransnet_sbsc_v21_validation.py # SBSC V2.1 单层替换 validation 入口
 ├── train_irstd_complete_target_v1.py # IRSTD complete-target 单变量实验
 ├── train_irstd_weighted_ds_v1.py # 仅在前驱门失败后解锁的 weighted-DS 备用实验
 ├── run_irstd_complete_target_promotion_gate.py # 固定 validation promotion gate

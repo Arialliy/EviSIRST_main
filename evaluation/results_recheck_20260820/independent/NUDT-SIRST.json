@@ -1,0 +1,78 @@
+{
+  "schema": "evisirst_public_evaluation/v1",
+  "model": "evisirst",
+  "training_dataset": "NUDT-SIRST",
+  "evaluation_dataset": "NUDT-SIRST",
+  "dataset": "NUDT-SIRST",
+  "dataset_source": {
+    "kind": "external_cli_dataset_root",
+    "root_recorded": false,
+    "dataset": "NUDT-SIRST"
+  },
+  "sample_count": 664,
+  "threshold": 0.5,
+  "threshold_operator": ">",
+  "match_radius": 3.0,
+  "match_radius_operator": "<",
+  "tiny_area": 9,
+  "protocol": "evisirst_public_common_evaluator_v1",
+  "normalization_dataset": "NUDT-SIRST",
+  "normalization": {
+    "mean": 107.80905151367188,
+    "std": 33.02274703979492
+  },
+  "checkpoint": {
+    "path": "results/NUDT-SIRST/EviSIRST.pth.tar",
+    "path_scope": "repository-relative",
+    "epoch": 420,
+    "role": "final",
+    "sha256": "497b079c89c23b26c18c8812672bf77b4a99aeabd246c77a05cea9f67fe31610",
+    "source_selection": "historical_best_miou",
+    "selection_is_optimistic": true,
+    "selection_provenance": {
+      "schema": "evisirst_historical_checkpoint_selection/v1",
+      "source_checkpoint_sha256": "497b079c89c23b26c18c8812672bf77b4a99aeabd246c77a05cea9f67fe31610",
+      "classification": "historical-test-selected",
+      "source_selection_label_basis": "normalized_from_package_historical_selection_and_source_checkpoint_role",
+      "data_role": "test",
+      "test_selected": true,
+      "selection_is_optimistic": true,
+      "unbiased_test_claim_supported": false,
+      "checkpoint_payload_evidence": {
+        "schema": "sctransnet_three_component_current_inference_package/v1",
+        "historical_selection_source": "test_NUDT-SIRST",
+        "source_checkpoint_role": "best_miou",
+        "source_checkpoint_epoch": 420,
+        "operational_checkpoint_only": true,
+        "unbiased_test_claim_allowed": false,
+        "metrics_recomputed_during_export": false
+      }
+    }
+  },
+  "metrics": {
+    "test_loss": 0.0001907104793717293,
+    "miou": 0.9443733351783306,
+    "niou": 0.9463291066273267,
+    "pixel_precision": 0.978774515076548,
+    "pixel_recall": 0.9641179586791453,
+    "pixel_f1": 0.9713909547023449,
+    "pd": 0.9904761904761905,
+    "tiny_pd": 0.9961389961389961,
+    "fa": 2.780592585184488e-06,
+    "false_objects_per_image": 0.0391566265060241,
+    "target_count": 945,
+    "matched_target_count": 936,
+    "tiny_target_count": 259,
+    "matched_tiny_target_count": 258,
+    "predicted_object_count": 962,
+    "unmatched_predicted_object_count": 26,
+    "valid_pixel_count": 43515904
+  },
+  "metrics_display": {
+    "miou_percent": 94.43733351783305,
+    "niou_percent": 94.63291066273267,
+    "f1_percent": 97.1390954702345,
+    "pd_percent": 99.04761904761905,
+    "fa_times_1e6": 2.780592585184488
+  }
+}

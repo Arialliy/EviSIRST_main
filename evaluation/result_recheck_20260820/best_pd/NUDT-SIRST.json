@@ -1,0 +1,58 @@
+{
+  "schema": "evisirst_public_evaluation/v1",
+  "model": "evisirst",
+  "training_dataset": "NUDT-SIRST",
+  "evaluation_dataset": "NUDT-SIRST",
+  "dataset": "NUDT-SIRST",
+  "dataset_source": {
+    "kind": "external_cli_dataset_root",
+    "root_recorded": false,
+    "dataset": "NUDT-SIRST"
+  },
+  "sample_count": 664,
+  "threshold": 0.5,
+  "threshold_operator": ">",
+  "match_radius": 3.0,
+  "match_radius_operator": "<",
+  "tiny_area": 9,
+  "protocol": "evisirst_public_common_evaluator_v1",
+  "normalization_dataset": "NUDT-SIRST",
+  "normalization": {
+    "mean": 107.80905151367188,
+    "std": 33.02274703979492
+  },
+  "checkpoint": {
+    "path": "result/NUDT-SIRST/EviSIRST_best_Pd.pth.tar",
+    "path_scope": "repository-relative",
+    "epoch": 626,
+    "role": "best_pd",
+    "sha256": "7443d84b9c99980312bc15e815c0f121628a5018a16fbaae142fba0c0f78e07e",
+    "selection_is_optimistic": true
+  },
+  "metrics": {
+    "test_loss": 0.00033491337431536613,
+    "miou": 0.9447094759240828,
+    "niou": 0.9476615105280716,
+    "pixel_precision": 0.9710032453788627,
+    "pixel_recall": 0.9721349108246512,
+    "pixel_f1": 0.9715687485660837,
+    "pd": 0.9936507936507937,
+    "tiny_pd": 0.9961389961389961,
+    "fa": 5.859926522496235e-06,
+    "false_objects_per_image": 0.043674698795180725,
+    "target_count": 945,
+    "matched_target_count": 939,
+    "tiny_target_count": 259,
+    "matched_tiny_target_count": 258,
+    "predicted_object_count": 968,
+    "unmatched_predicted_object_count": 29,
+    "valid_pixel_count": 43515904
+  },
+  "metrics_display": {
+    "miou_percent": 94.47094759240828,
+    "niou_percent": 94.76615105280716,
+    "f1_percent": 97.15687485660837,
+    "pd_percent": 99.36507936507937,
+    "fa_times_1e6": 5.859926522496235
+  }
+}
