@@ -1,0 +1,502 @@
+{
+  "benchmark_performance_claimed": false,
+  "checkpoint_written": false,
+  "data_identity": {
+    "manifest_sha256": "5eeacbab52d8b70b44ce4cb70dfeda94cd326767f0c379fa96ab836c4c897596",
+    "selected_count": 64,
+    "selected_first_64_ids_sha256": "1c5b70546d510bb290a63a1358d324bb96010b14849ed89e68883156eec5ac3a",
+    "selected_first_64_image_mask_tree_sha256": "71c1c818122a4952348fc3e8389fc551c491a1649ff4f290ce74b42abc6445ba",
+    "source_index_relative_path": "IRSTD-1K/img_idx/train_IRSTD-1K.txt",
+    "source_train_count": 800,
+    "source_train_index_sha256": "689a5f30a394ad47315ebe0f6df2d7f12429aa314ffb2cdf86f7fbd7be4ee744",
+    "source_train_ordered_ids_sha256": "681e4d741fb857703471d6555faa0d86e931aa790567c28f4254331ea9ba3d95",
+    "train_ordered_ids_sha256": "06c1d6055958b648aeaab9be4dc02721eeaba735d4a39fe3184a8aa4ffc6df33",
+    "train_split_count": 640,
+    "train_split_sha256": "460083baae2ba23f5629e7bd346b5623f78a96856c83693b96bf917f6537ed2d"
+  },
+  "epochs": [
+    {
+      "batch_count": 4,
+      "compact_projection": {
+        "emission_accepted_rows": 30720,
+        "emission_checked_rows": 30720,
+        "emission_fallback_rate": 0.0,
+        "emission_fallback_rows": 0,
+        "projection_rows": 30720,
+        "solver_accepted_rows": 30029,
+        "solver_attempt_rows": 30720,
+        "solver_fallback_rate": 0.022493489583333335,
+        "solver_fallback_rows": 691
+      },
+      "epoch": 1,
+      "gradients": {
+        "gain_all_present_and_finite": true,
+        "gain_max_abs": 2.3714081180514768e-05,
+        "router_all_present_and_finite": true,
+        "router_max_abs": 0.03854329511523247
+      },
+      "learning_rate": 0.0001,
+      "loss": {
+        "router": 0.9977569431066513,
+        "segmentation": 4.284375250339508,
+        "total": 5.282132029533386
+      },
+      "processed_samples": 64,
+      "roles": {
+        "B": {
+          "mean_valid_ce": 1.0020870377775282,
+          "median_max_mass": 0.007419066736474633,
+          "valid_sample_level_count": 256
+        },
+        "C": {
+          "mean_valid_ce": 0.9787747034939324,
+          "median_max_mass": 0.006525138160213828,
+          "valid_sample_level_count": 164
+        },
+        "H": {
+          "mean_valid_ce": 1.0050849525723606,
+          "median_max_mass": 0.006843578303232789,
+          "valid_sample_level_count": 256
+        }
+      },
+      "state": {
+        "gain": [
+          0.00024677658802829683,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "gain_in_bounds": true,
+        "gain_state_finite": true,
+        "router_state_finite": true
+      },
+      "train_order_sha256": "58bff42d3908feaa0d7c99415cde3087270d3ed99004de594c90511f3d9e7f4c"
+    },
+    {
+      "batch_count": 4,
+      "compact_projection": {
+        "emission_accepted_rows": 30720,
+        "emission_checked_rows": 30720,
+        "emission_fallback_rate": 0.0,
+        "emission_fallback_rows": 0,
+        "projection_rows": 30720,
+        "solver_accepted_rows": 30264,
+        "solver_attempt_rows": 30720,
+        "solver_fallback_rate": 0.01484375,
+        "solver_fallback_rows": 456
+      },
+      "epoch": 2,
+      "gradients": {
+        "gain_all_present_and_finite": true,
+        "gain_max_abs": 1.1862167411891278e-05,
+        "router_all_present_and_finite": true,
+        "router_max_abs": 0.04456087574362755
+      },
+      "learning_rate": 0.0002,
+      "loss": {
+        "router": 0.986975908279419,
+        "segmentation": 3.084754705429077,
+        "total": 4.071730673313141
+      },
+      "processed_samples": 64,
+      "roles": {
+        "B": {
+          "mean_valid_ce": 1.0034559157211334,
+          "median_max_mass": 0.007630614563822746,
+          "valid_sample_level_count": 256
+        },
+        "C": {
+          "mean_valid_ce": 0.9363951229078825,
+          "median_max_mass": 0.007759682834148407,
+          "valid_sample_level_count": 172
+        },
+        "H": {
+          "mean_valid_ce": 1.0040839994326234,
+          "median_max_mass": 0.007267720997333527,
+          "valid_sample_level_count": 256
+        }
+      },
+      "state": {
+        "gain": [
+          0.0001617402012925595,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "gain_in_bounds": true,
+        "gain_state_finite": true,
+        "router_state_finite": true
+      },
+      "train_order_sha256": "3e7a2b5fc5de6a8990cbc9d2e338e3f990453bc7fb3c8343ef90afbdb42eddd3"
+    },
+    {
+      "batch_count": 4,
+      "compact_projection": {
+        "emission_accepted_rows": 30720,
+        "emission_checked_rows": 30720,
+        "emission_fallback_rate": 0.0,
+        "emission_fallback_rows": 0,
+        "projection_rows": 30720,
+        "solver_accepted_rows": 30420,
+        "solver_attempt_rows": 30720,
+        "solver_fallback_rate": 0.009765625,
+        "solver_fallback_rows": 300
+      },
+      "epoch": 3,
+      "gradients": {
+        "gain_all_present_and_finite": true,
+        "gain_max_abs": 6.155356823001057e-05,
+        "router_all_present_and_finite": true,
+        "router_max_abs": 0.08056621998548508
+      },
+      "learning_rate": 0.00030000000000000003,
+      "loss": {
+        "router": 0.9529519826173782,
+        "segmentation": 2.4113261103630066,
+        "total": 3.3642780780792236
+      },
+      "processed_samples": 64,
+      "roles": {
+        "B": {
+          "mean_valid_ce": 1.0067620498593897,
+          "median_max_mass": 0.008237269707024097,
+          "valid_sample_level_count": 256
+        },
+        "C": {
+          "mean_valid_ce": 0.7875520761420087,
+          "median_max_mass": 0.017798224464058876,
+          "valid_sample_level_count": 164
+        },
+        "H": {
+          "mean_valid_ce": 1.0048042403068393,
+          "median_max_mass": 0.008959713857620955,
+          "valid_sample_level_count": 256
+        }
+      },
+      "state": {
+        "gain": [
+          8.26118266559206e-05,
+          0.0,
+          5.0481176003813744e-05,
+          0.0
+        ],
+        "gain_in_bounds": true,
+        "gain_state_finite": true,
+        "router_state_finite": true
+      },
+      "train_order_sha256": "71728711b41db674f724e1332cee0287e3a5b2a55b559612305b405e9ac9d5b4"
+    },
+    {
+      "batch_count": 4,
+      "compact_projection": {
+        "emission_accepted_rows": 30720,
+        "emission_checked_rows": 30720,
+        "emission_fallback_rate": 0.0,
+        "emission_fallback_rows": 0,
+        "projection_rows": 30720,
+        "solver_accepted_rows": 30280,
+        "solver_attempt_rows": 30720,
+        "solver_fallback_rate": 0.014322916666666666,
+        "solver_fallback_rows": 440
+      },
+      "epoch": 4,
+      "gradients": {
+        "gain_all_present_and_finite": true,
+        "gain_max_abs": 4.011162673123181e-05,
+        "router_all_present_and_finite": true,
+        "router_max_abs": 0.09744912385940552
+      },
+      "learning_rate": 0.0004,
+      "loss": {
+        "router": 0.9159975200891495,
+        "segmentation": 1.99464812874794,
+        "total": 2.9106457233428955
+      },
+      "processed_samples": 64,
+      "roles": {
+        "B": {
+          "mean_valid_ce": 1.014741994207725,
+          "median_max_mass": 0.010877304244786501,
+          "valid_sample_level_count": 256
+        },
+        "C": {
+          "mean_valid_ce": 0.6269724187219426,
+          "median_max_mass": 0.05855489894747734,
+          "valid_sample_level_count": 168
+        },
+        "H": {
+          "mean_valid_ce": 1.006904831621796,
+          "median_max_mass": 0.011523050721734762,
+          "valid_sample_level_count": 256
+        }
+      },
+      "state": {
+        "gain": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "gain_in_bounds": true,
+        "gain_state_finite": true,
+        "router_state_finite": true
+      },
+      "train_order_sha256": "bac5c9187799b5b9fcefab2088e80370436f2790b2b88a3d3966a00136e83578"
+    },
+    {
+      "batch_count": 4,
+      "compact_projection": {
+        "emission_accepted_rows": 30720,
+        "emission_checked_rows": 30720,
+        "emission_fallback_rate": 0.0,
+        "emission_fallback_rows": 0,
+        "projection_rows": 30720,
+        "solver_accepted_rows": 29967,
+        "solver_attempt_rows": 30720,
+        "solver_fallback_rate": 0.02451171875,
+        "solver_fallback_rows": 753
+      },
+      "epoch": 5,
+      "gradients": {
+        "gain_all_present_and_finite": true,
+        "gain_max_abs": 4.525851545622572e-05,
+        "router_all_present_and_finite": true,
+        "router_max_abs": 0.1042938232421875
+      },
+      "learning_rate": 0.0005,
+      "loss": {
+        "router": 0.8888087719678879,
+        "segmentation": 1.6094395220279694,
+        "total": 2.498248338699341
+      },
+      "processed_samples": 64,
+      "roles": {
+        "B": {
+          "mean_valid_ce": 1.0180711473803967,
+          "median_max_mass": 0.012085066176950932,
+          "valid_sample_level_count": 256
+        },
+        "C": {
+          "mean_valid_ce": 0.49723694726126266,
+          "median_max_mass": 0.23276207596063614,
+          "valid_sample_level_count": 160
+        },
+        "H": {
+          "mean_valid_ce": 1.0024440665729344,
+          "median_max_mass": 0.010591003112494946,
+          "valid_sample_level_count": 256
+        }
+      },
+      "state": {
+        "gain": [
+          0.0,
+          0.0,
+          6.419354031095281e-05,
+          0.0
+        ],
+        "gain_in_bounds": true,
+        "gain_state_finite": true,
+        "router_state_finite": true
+      },
+      "train_order_sha256": "d732d2e5a82a15fd0c5be53b70a22e87b19b661354b3e59acf345f33eace424a"
+    }
+  ],
+  "execution_status": "completed",
+  "gate": {
+    "all_pre_registered_checks_passed": true,
+    "checks": {
+      "B_epoch_5_max_mass_not_collapsed_when_applicable": true,
+      "C_epoch_5_max_mass_not_collapsed_when_applicable": true,
+      "C_mean_valid_ce_decreased": true,
+      "C_valid_at_epoch_1_and_5": true,
+      "H_epoch_5_max_mass_not_collapsed_when_applicable": true,
+      "H_mean_valid_ce_decreased": true,
+      "H_valid_at_epoch_1_and_5": true,
+      "all_losses_finite": true,
+      "at_least_one_gain_positive": true,
+      "gain_gradients_finite": true,
+      "router_and_gain_state_finite": true,
+      "router_gradients_finite": true,
+      "router_loss_decreased": true,
+      "solver_emission_rates_recorded": true
+    },
+    "failed_checks": [],
+    "official_test_authorized": false,
+    "scope": "train_only_mechanism_smoke_not_benchmark_performance",
+    "verdict": "GO"
+  },
+  "immutable_contract": {
+    "architecture_seed": 42,
+    "batch_size": 16,
+    "checkpoint_written": false,
+    "data_role": "train",
+    "dataset": "IRSTD-1K",
+    "epochs": 5,
+    "first_train_samples": 64,
+    "input_size": [
+      256,
+      256
+    ],
+    "learning_rate_by_epoch": [
+      0.0001,
+      0.0002,
+      0.00030000000000000003,
+      0.0004,
+      0.0005
+    ],
+    "model_initialization": "fresh_v32_no_checkpoint_no_warm_start",
+    "optimizer": "Adam_defaults_except_epoch_learning_rate",
+    "router_loss": "normalized_spatial_router_ce",
+    "router_loss_weight": 1.0,
+    "run_seed": 42,
+    "segmentation_loss": "sum_of_six_BCELoss_mean_terms",
+    "target_mode": "binary",
+    "validation_schedule": null,
+    "workers": 0
+  },
+  "model": {
+    "builder_metadata": {
+      "architecture_seed": 42,
+      "cuda_strict_deterministic_median_adapter": "sctransnet_sbsc_v32/cuda_strict_median_value_adapter/v1",
+      "dataset": "IRSTD-1K",
+      "method": "sbsc_v32",
+      "model": "SCTransNet-C3-SBSC-V3.2",
+      "parameter_count": 11330188,
+      "schema": "sctransnet_sbsc_v32/learned_tri_evidence_dual_risk_projection/v1",
+      "shared_state_sha256": "6e4d86a03b9ad912f91d046fe1959c85f543cfc63044d5bd0006495f71d46189",
+      "state_key_count": 513,
+      "state_sha256": "1df3661e570547ff7d3244d35e50389b3c525515a1de921e2360528703c340c2",
+      "test_split_accessed": false
+    },
+    "final_state_sha256": "07bc0135adf275ae89b65563f32b7821c07dc661573996766d512aaa17b1768f",
+    "initial_state_sha256": "1df3661e570547ff7d3244d35e50389b3c525515a1de921e2360528703c340c2"
+  },
+  "official_test_accessed": false,
+  "schema": "sctransnet_sbsc_v32_stage_c_train_only_smoke/v1",
+  "source_provenance": {
+    "files": {
+      "core_builder": {
+        "relative_path": "experiments/sctransnet_sbsc_v32.py",
+        "sha256": "ae61e8e56772fe32104e8833b442978bdf1a94ff8335f821ed8290aeeea3c7e1"
+      },
+      "experiments_package": {
+        "relative_path": "experiments/__init__.py",
+        "sha256": "6261d8398d995f25d7aeb36f66f91c46dc41c92869c6df58717c6eb06acac1c0"
+      },
+      "frozen_v31_public_solver": {
+        "relative_path": "experiments/sctransnet_sbsc_v31.py",
+        "sha256": "b2d1e3f97607b305551a0602076605968041878eafd822c6f3335840ea725a3a"
+      },
+      "model_entry": {
+        "relative_path": "model/EviSIRST.py",
+        "sha256": "09c3f74910eb2ee3ddd454546bf3e21e7c463a8ff2740514c8f4f3c640204b55"
+      },
+      "model_internal/Config.py": {
+        "relative_path": "model/_internal/Config.py",
+        "sha256": "b7e3e67c379ef4638605ebe612336b0c3cdb1a97f4d6fe731dec80b4847d5596"
+      },
+      "model_internal/SCTransNet.py": {
+        "relative_path": "model/_internal/SCTransNet.py",
+        "sha256": "5fb7ce711f190ead2bfcc910d2971266b2561e643c9f8a524d2032ffd48c0aeb"
+      },
+      "model_internal/tpd_clean.py": {
+        "relative_path": "model/_internal/tpd_clean.py",
+        "sha256": "ca61b4035bc32c99d5862e08c48096e4892e90c0de1d1f3bdf12d683c94597f2"
+      },
+      "model_internal/tpd_clean_v8_mprs_dch.py": {
+        "relative_path": "model/_internal/tpd_clean_v8_mprs_dch.py",
+        "sha256": "39e7b1618ea9f594f4abecc284afd0d845132218e2fab3657dbb957c78703c19"
+      },
+      "model_internal/tpd_forward_contract.py": {
+        "relative_path": "model/_internal/tpd_forward_contract.py",
+        "sha256": "136dc2fc91276f78cfce0eb5a55e61e7bacb904ffae326bd2b61aa2fc357a94f"
+      },
+      "model_internal/tpd_frequency_gate.py": {
+        "relative_path": "model/_internal/tpd_frequency_gate.py",
+        "sha256": "5290bf2fd13516ea0726103dd3661fbf1ef585098b8fe933f38972887a78f4a5"
+      },
+      "model_internal/tpd_frequency_gate_v2_croa.py": {
+        "relative_path": "model/_internal/tpd_frequency_gate_v2_croa.py",
+        "sha256": "38a60bc43c75029e85ede5041420a8aae48dbba30aa4ae3a9470d31136281002"
+      },
+      "model_internal/tpd_ner_v8_mprs_dch.py": {
+        "relative_path": "model/_internal/tpd_ner_v8_mprs_dch.py",
+        "sha256": "d0d9dd226c64689f118b5d179c5415a82d26a6c803337a0f02aaaba789491acd"
+      },
+      "model_internal/tpd_ner_v8_mprs_dch_v2.py": {
+        "relative_path": "model/_internal/tpd_ner_v8_mprs_dch_v2.py",
+        "sha256": "b6a666b00d9f53ad153089a80861907e579ec97398c66a542d20cffded03fa6b"
+      },
+      "model_internal/tpd_ner_v8_mprs_dch_v3.py": {
+        "relative_path": "model/_internal/tpd_ner_v8_mprs_dch_v3.py",
+        "sha256": "f8fd2e307e29fd6ff26d15a7b7a1daaee22e245bc2721d68c29d34e7c653d291"
+      },
+      "model_internal/tpd_ner_v8_mprs_dch_v4_tail_aware.py": {
+        "relative_path": "model/_internal/tpd_ner_v8_mprs_dch_v4_tail_aware.py",
+        "sha256": "ce64dbbdfba76cdf8f3f2f331e1ac60d4e76e23a053d73a83b785e9ca1edf37f"
+      },
+      "model_internal/tpd_ner_v8_mprs_dch_v4_tail_aware_qfg_v2_croa_survival.py": {
+        "relative_path": "model/_internal/tpd_ner_v8_mprs_dch_v4_tail_aware_qfg_v2_croa_survival.py",
+        "sha256": "c8c7db1fc8b3e83c45ee11dcb45f7c09dd2f4456554c4267aaba3b369394ff53"
+      },
+      "model_internal/tpd_ner_v8_mprs_dch_v4_tail_aware_survival.py": {
+        "relative_path": "model/_internal/tpd_ner_v8_mprs_dch_v4_tail_aware_survival.py",
+        "sha256": "3ff5c5a383384c727ea2eeb628b6121ee54f41c3cfa90362c411b7e70236703a"
+      },
+      "model_internal/tpd_query_frequency_bridge.py": {
+        "relative_path": "model/_internal/tpd_query_frequency_bridge.py",
+        "sha256": "a8a6cbe18917590349e8d354d1966382414175fccabc09225c342627b975e580"
+      },
+      "model_internal/tpd_relay.py": {
+        "relative_path": "model/_internal/tpd_relay.py",
+        "sha256": "7b69d8e7cc62a5883355c516bdc0d30ca37036613d96d4a8ba54f51ee8744345"
+      },
+      "model_internal/tpd_sctransnet.py": {
+        "relative_path": "model/_internal/tpd_sctransnet.py",
+        "sha256": "cf887b55411da8219f32b8c2a5e248b5ffec403f13146a6a1806fec4e1c014af"
+      },
+      "model_internal/tpd_survival.py": {
+        "relative_path": "model/_internal/tpd_survival.py",
+        "sha256": "32903ddab6da5ebc1cc941240890bbd4c4c5dcbcd34515a4b36ccd9ddbf33e40"
+      },
+      "model_package": {
+        "relative_path": "model/__init__.py",
+        "sha256": "e9a5828ff0d7933df343c3e621e9cb46e69ddb1182afc97d389e5363cb419c2e"
+      },
+      "paired_initialization_authority": {
+        "relative_path": "experiments/four_dataset_models_seed42_v1.py",
+        "sha256": "a7127fc334ea72b2021aa670f341b0d67a6070e82b9e780bd5c56ed555d0a4d3"
+      },
+      "sctransnet": {
+        "relative_path": "model/_internal/SCTransNet.py",
+        "sha256": "5fb7ce711f190ead2bfcc910d2971266b2561e643c9f8a524d2032ffd48c0aeb"
+      },
+      "sctransnet_config": {
+        "relative_path": "model/_internal/Config.py",
+        "sha256": "b7e3e67c379ef4638605ebe612336b0c3cdb1a97f4d6fe731dec80b4847d5596"
+      },
+      "stage_c_runner": {
+        "relative_path": "tools/smoke_sctransnet_sbsc_v32_train_only.py",
+        "sha256": "e677a8d804f8ac69304dbe3f51a5c491e30a83164bd8be9ddeb7eaee7372a8ee"
+      },
+      "three_dataset_source_protocol": {
+        "relative_path": "experiments/three_dataset_v2_protocol.py",
+        "sha256": "c6aa18250e23f718a4284de0eff8862edff9339d092398d0a6f84a523d0495be"
+      },
+      "v2_data": {
+        "relative_path": "experiments/evisirst_v2_data.py",
+        "sha256": "9c6cfabf33c9c16a99574da6d87c9318800b981e585a5603ce257250fbc2b620"
+      },
+      "v2_split_validator": {
+        "relative_path": "experiments/evisirst_v2_splits.py",
+        "sha256": "e6805f9c27106982effdc36bb8965836ae14625f51fe39a2a10816a3d030b1dc"
+      }
+    },
+    "schema": "sctransnet_sbsc_v32_stage_c_train_only_source_set/v1",
+    "source_tree_sha256": "ac085193139e0e8a52b6de0b7aa6e7266d584d4c8a714c67f2fbbe5dc2d1b2a5"
+  },
+  "test_dataset_constructed": false,
+  "test_split_accessed": false,
+  "validation_dataset_constructed": false,
+  "validation_split_accessed": false
+}

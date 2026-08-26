@@ -1,0 +1,75 @@
+{
+  "benchmark_performance_claimed": false,
+  "checkpoint_written": false,
+  "data_identity": {
+    "manifest_sha256": "5eeacbab52d8b70b44ce4cb70dfeda94cd326767f0c379fa96ab836c4c897596",
+    "selected_count": 64,
+    "selected_first_64_ids_sha256": "1c5b70546d510bb290a63a1358d324bb96010b14849ed89e68883156eec5ac3a",
+    "selected_first_64_image_mask_tree_sha256": null,
+    "source_index_relative_path": "IRSTD-1K/img_idx/train_IRSTD-1K.txt",
+    "source_train_count": 800,
+    "source_train_index_sha256": "689a5f30a394ad47315ebe0f6df2d7f12429aa314ffb2cdf86f7fbd7be4ee744",
+    "source_train_ordered_ids_sha256": "681e4d741fb857703471d6555faa0d86e931aa790567c28f4254331ea9ba3d95",
+    "train_ordered_ids_sha256": "06c1d6055958b648aeaab9be4dc02721eeaba735d4a39fe3184a8aa4ffc6df33",
+    "train_split_count": 640,
+    "train_split_sha256": "460083baae2ba23f5629e7bd346b5623f78a96856c83693b96bf917f6537ed2d"
+  },
+  "data_identity_error": null,
+  "epochs": [],
+  "error": {
+    "message": "V3.2 core is unavailable",
+    "type": "StageCTrainOnlySmokeError"
+  },
+  "execution_status": "failed_closed",
+  "gate": {
+    "all_pre_registered_checks_passed": false,
+    "checks": {
+      "execution_completed": false
+    },
+    "failed_checks": [
+      "execution_completed"
+    ],
+    "official_test_authorized": false,
+    "scope": "train_only_mechanism_smoke_not_benchmark_performance",
+    "verdict": "NO-GO"
+  },
+  "immutable_contract": {
+    "architecture_seed": 42,
+    "batch_size": 16,
+    "checkpoint_written": false,
+    "data_role": "train",
+    "dataset": "IRSTD-1K",
+    "epochs": 5,
+    "first_train_samples": 64,
+    "input_size": [
+      256,
+      256
+    ],
+    "learning_rate_by_epoch": [
+      0.0001,
+      0.0002,
+      0.00030000000000000003,
+      0.0004,
+      0.0005
+    ],
+    "model_initialization": "fresh_v32_no_checkpoint_no_warm_start",
+    "optimizer": "Adam_defaults_except_epoch_learning_rate",
+    "router_loss": "normalized_spatial_router_ce",
+    "router_loss_weight": 1.0,
+    "run_seed": 42,
+    "segmentation_loss": "sum_of_six_BCELoss_mean_terms",
+    "target_mode": "binary",
+    "validation_schedule": null,
+    "workers": 0
+  },
+  "official_test_accessed": false,
+  "schema": "sctransnet_sbsc_v32_stage_c_train_only_smoke/v1",
+  "source_provenance": {
+    "stage_c_source_sha256": "25d7b0247d18f920f3f280aa8fc87b6292beea8fe822e1b28e6899a4c2a64dcb"
+  },
+  "source_provenance_error": "StageCTrainOnlySmokeError",
+  "test_dataset_constructed": false,
+  "test_split_accessed": false,
+  "validation_dataset_constructed": false,
+  "validation_split_accessed": false
+}

@@ -19,11 +19,15 @@ SCTransNet + TPD8-MPRS-DCH + NER4 Tail-Aware + QFG2-CROA
 `TSS-off` 只是历史训练条件，不属于模型结构；正式 V3 推理图有 564 个 state keys、
 10,870,130 个参数，并且没有 TSS 模块。
 
-> 当前实验状态（2026-08-24）：HF-Decoder V1 已在 Seed-42 配对 validation 判定中
+> 当前实验状态（2026-08-27）：HF-Decoder V1 已在 Seed-42 配对 validation 判定中
 > `STOP`；SCTransNet-SBSC V2 也已在未访问 official test 的配对 validation 实验中
-> 判定失败并归档。SBSC V2.1 是下一候选，PSBFR、CP-HF-S2 与 DCS-PG 仍属于隔离实现
-> 或受控实验协议；它们都不是当前发布的 EviSIRST V3。运行授权、证据边界与结果状态
-> 以对应方案、协议和 `*_AUTHORIZATION.json` 为准。
+> 判定失败并归档。基于 SCTransNet e670 与 SBSC V2.1 e543 的 V3.1 静态语义筛查未找到
+> 四项预注册方向 bootstrap 下界全正的候选，因此停止继续枚举静态 Q/K 公式；V3.2 已完成
+> 5 epoch、前 64 个 train 样本的 train-only 机制 smoke，并得到 `GO`。该 smoke 未写
+> checkpoint、未访问 validation 或 official test，不构成 benchmark 性能结论，也不授权
+> official test。PSBFR、CP-HF-S2 与 DCS-PG 仍属于隔离实现或受控实验协议；它们都不是
+> 当前发布的 EviSIRST V3。运行授权、证据边界与结果状态以对应方案、协议和
+> `*_AUTHORIZATION.json` 为准。
 
 ## 目录
 
