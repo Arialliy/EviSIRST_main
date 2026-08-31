@@ -19,13 +19,16 @@ SCTransNet + TPD8-MPRS-DCH + NER4 Tail-Aware + QFG2-CROA
 `TSS-off` 只是历史训练条件，不属于模型结构；正式 V3 推理图有 564 个 state keys、
 10,870,130 个参数，并且没有 TSS 模块。
 
-> 当前实验状态（2026-08-27）：HF-Decoder V1 已在 Seed-42 配对 validation 判定中
+> 当前实验状态（2026-08-31）：HF-Decoder V1 已在 Seed-42 配对 validation 判定中
 > `STOP`；SCTransNet-SBSC V2 也已在未访问 official test 的配对 validation 实验中
 > 判定失败并归档。基于 SCTransNet e670 与 SBSC V2.1 e543 的 V3.1 静态语义筛查未找到
-> 四项预注册方向 bootstrap 下界全正的候选，因此停止继续枚举静态 Q/K 公式；V3.2 已完成
-> 5 epoch、前 64 个 train 样本的 train-only 机制 smoke，并得到 `GO`。该 smoke 未写
-> checkpoint、未访问 validation 或 official test，不构成 benchmark 性能结论，也不授权
-> official test。PSBFR、CP-HF-S2 与 DCS-PG 仍属于隔离实现或受控实验协议；它们都不是
+> 四项预注册方向 bootstrap 下界全正的候选，因此停止继续枚举静态 Q/K 公式。C³-SBSC
+> V3.2 已完成 train-only 机制 smoke，并在 NUAA-SIRST、NUDT-SIRST、IRSTD-1K 上完成
+> 1000-epoch 正式运行；该正式协议在 epoch 500–1000 每轮访问完整原始 `img_idx/test`
+> 并据此选择 `best_mIoU`/`best_Pd` 两个物理权重，必须标为 optimistic/test-selected，
+> 不支持 unbiased held-out-test claim。运行 checkpoint 与完整 history 仍被 Git 忽略；
+> 已公开的是实现、协议、测试和结果诊断文档。V3.3 目前只是证据条件式设计草案，尚未
+> 实现或训练。PSBFR、CP-HF-S2 与 DCS-PG 仍属于隔离实现或受控实验协议；它们都不是
 > 当前发布的 EviSIRST V3。运行授权、证据边界与结果状态以对应方案、协议和
 > `*_AUTHORIZATION.json` 为准。
 
@@ -37,6 +40,9 @@ EviSIRST_main/
 │   ├── EviSIRST.py         # 唯一公开模型入口
 │   └── _internal/          # 冻结 V3 实现依赖，普通使用者无需进入
 ├── experiments/            # V1 安全加载器、V3 bundle 加载器及冻结协议
+│   ├── sctransnet_sbsc_v31.py # C³-SBSC V3.1 tri-support/dual-risk 核心
+│   └── sctransnet_sbsc_v32.py # C³-SBSC V3.2 learned tri-evidence router
+├── analysis/sbsc_v31_semantic/ # V3.1 静态语义筛查证据
 ├── splits/v2/              # 由 frozen train 生成的固定 train/validation 与 manifest
 ├── splits/psbfr_v1/        # IRSTD 模型设计的 train/dev/lockbox 冻结 manifest
 ├── EviSIRST_HF_Decoder_V2_reference/ # 已审计的 NO-GO 历史设计输入
@@ -63,6 +69,10 @@ EviSIRST_main/
 ├── train_validation_selected.py # V2 train/val、仅验证选模的 R1 入口
 ├── train_sctransnet_sbsc_v2_validation.py # SBSC V2 固定 Seed-42 validation 入口
 ├── train_sctransnet_sbsc_v21_validation.py # SBSC V2.1 单层替换 validation 入口
+├── train_sctransnet_sbsc_v31_validation.py # C³-SBSC V3.1 validation 入口
+├── train_sctransnet_sbsc_v32_validation.py # C³-SBSC V3.2 validation 入口
+├── train_sctransnet_sbsc_v32_img_idx_test_selected.py # V3.2 三数据集 optimistic 正式入口
+├── EviSIRST_C3-SBSC_V32三数据集结果诊断与V33定向修复方案.md # V3.2 诊断/V3.3 草案
 ├── train_irstd_complete_target_v1.py # IRSTD complete-target 单变量实验
 ├── train_irstd_weighted_ds_v1.py # 仅在前驱门失败后解锁的 weighted-DS 备用实验
 ├── run_irstd_complete_target_promotion_gate.py # 固定 validation promotion gate
@@ -175,6 +185,33 @@ cd /home/ly/EviSIRST_main
 
 历史论文权重的训练图曾注册四个零权重 TSS tensor，并在推理导出时删除；因此该干净入口
 保持最终模型与分割训练配方，但不声称逐位复现历史 checkpoint。
+
+### C³-SBSC V3.1/V3.2 研究分支
+
+C³-SBSC 是以 SCTransNet 为真正 baseline 的独立研究分支，不是当前发布的 EviSIRST V3
+推理图。V3.1 在第二个 SCTB 中以 tri-support 和 certified dual-risk projection 替换一个
+SSCA；V3.2 在冻结 V3.1 solver 的基础上加入 4,245 参数的 learned tri-evidence router。
+核心实现分别位于 `experiments/sctransnet_sbsc_v31.py` 和
+`experiments/sctransnet_sbsc_v32.py`。
+
+三数据集正式 V3.2 入口固定 `architecture_seed=42`、`run_seed=42`、1000 epochs，且
+epoch 500–1000 每轮都在完整原始 test split 上评测并选模：
+
+```bash
+/home/ly/BasicIRSTD/infrarenet/bin/python \
+  train_sctransnet_sbsc_v32_img_idx_test_selected.py \
+  --dataset IRSTD-1K \
+  --dataset-root /path/to/datasets \
+  --device cuda:0
+```
+
+该入口会分别保存 `best_mIoU` 与 `best_Pd`，但其选模协议明确是
+`selection_is_optimistic=true`、`unbiased_test_claim_supported=false`。当前本机三数据集
+运行均已完成 1000 epochs；运行目录、完整 history 和权重未纳入 Git。V3.2 的代码级诊断、
+双角色结果、selector 边界，以及尚未实现的 V3.3 Role-Exclusive Counter-Support Router
+方案见下列修订版文档。该文档冻结于 2026-08-27 17:16，NUDT 尚标为 e957 暂定快照；
+随后完成的 e1000 本地 summary 中两个 winner 及其指标均未改变：
+[C³-SBSC V3.2 三数据集结果诊断与 V3.3 定向修复方案](EviSIRST_C3-SBSC_V32三数据集结果诊断与V33定向修复方案.md)。
 
 ### R1：仅用 validation 选择 checkpoint
 
