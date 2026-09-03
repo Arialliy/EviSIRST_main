@@ -1,0 +1,33 @@
+{
+  "schema": "sctransnet_sbsc_v33/baseline_authority_manifest/v1",
+  "status": "frozen",
+  "kind": "index_only_no_duplicated_metrics",
+  "repository_root_scope": "repository-relative",
+  "authority_root": "baseline/evaluation/common_evaluator_v1_recheck_20260818",
+  "dataset_order": [
+    "NUAA-SIRST",
+    "NUDT-SIRST",
+    "IRSTD-1K"
+  ],
+  "datasets": {
+    "NUAA-SIRST": {
+      "evaluation_path": "baseline/evaluation/common_evaluator_v1_recheck_20260818/NUAA-SIRST.json",
+      "evaluation_sha256": "f2c815ddc4e2978509dfef64cff6b827e0638fe37d0ef9e1fd864d44b8aa8d83",
+      "checkpoint_path": "baseline/checkpoints/NUAA-SIRST/SCTransNet.pth.tar",
+      "checkpoint_sha256": "fe73b2c6ab523adbd880795d64b76f735d92f9600661edca24a3b777ce123556"
+    },
+    "NUDT-SIRST": {
+      "evaluation_path": "baseline/evaluation/common_evaluator_v1_recheck_20260818/NUDT-SIRST.json",
+      "evaluation_sha256": "e26d06bf08ac14857f8db2e8c348507f51754532ba8143a6129c408f670d6b9f",
+      "checkpoint_path": "baseline/checkpoints/NUDT-SIRST/SCTransNet.pth.tar",
+      "checkpoint_sha256": "5baa4e0859060228f079e97f8ce4309a71c30f829c701f3c0b63ba0f67862172"
+    },
+    "IRSTD-1K": {
+      "evaluation_path": "baseline/evaluation/common_evaluator_v1_recheck_20260818/IRSTD-1K.json",
+      "evaluation_sha256": "1562c1d5813d034e9c24fdfe99c8acab1534e05692e71cf46548c23257ef1c88",
+      "checkpoint_path": "baseline/checkpoints/IRSTD-1K/SCTransNet.pth.tar",
+      "checkpoint_sha256": "5f702bba036f43b62fc82d349b75344f9f6c04b2b68a143311a0b48050b3371b"
+    }
+  },
+  "write_once": true
+}

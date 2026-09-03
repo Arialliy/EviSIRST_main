@@ -1,0 +1,208 @@
+{
+  "schema": "sctransnet_sbsc_v33/canary_rules/v2",
+  "status": "frozen",
+  "scope": "irstd_1k_train_only_health_not_performance",
+  "write_once": true,
+  "superseded_v1_write_once_evidence": {
+    "runner_path": "tools/run_sbsc_v33_canary.py",
+    "runner_sha256": "c67478f09ade05dcf35e3dd10ab65fd6318f0d8cca7a6abe2cd003a39edd9f3f",
+    "rules_path": "experiments/sbsc_v33_canary_rules.json",
+    "rules_sha256": "0f5df664a03e99087ce426f700a32081495a439ae6f2cc41b23bbda3f829815f",
+    "manifest_path": "runs/sbsc_v33_third/canary/IRSTD-1K/manifest.json",
+    "manifest_sha256": "f18d20a948c0770a3472a67a28644676ca6e74690ebafcfcc5bdfbdb2356dc76",
+    "report_path": "runs/sbsc_v33_third/canary/IRSTD-1K/report.json",
+    "report_sha256": "555d29b54b23777aac48f8fd14ad48dac6a27459a76578a9bf8bb687923f2986",
+    "observed_failure_batch": 10,
+    "observed_nonidentity_rows": 0,
+    "observed_emission_accepted_rows": 0,
+    "preceding_gain_gradient_finite_batches": 9,
+    "v2_change_scope": "condition_only_gain_gradient_presence_on_emission_acceptance"
+  },
+  "method_config": {
+    "schema": "sctransnet_sbsc_v33/canary_method_config/v2",
+    "status": "frozen",
+    "run_kind": "canary",
+    "architecture": "SCTransNet-C3-SBSC-V3.3",
+    "builder": "experiments.sctransnet_sbsc_v33.build_sctransnet_sbsc_v33_method",
+    "model_schema": "sctransnet_sbsc_v33/role_exclusive_mass_aware_mode_routed/v1",
+    "method": "sbsc_v33_third",
+    "primary_candidate": true,
+    "ablation_only": false,
+    "dataset": "IRSTD-1K",
+    "data_role": "train",
+    "split": "IRSTD-1K/img_idx/train_IRSTD-1K.txt",
+    "split_manifest_binding": "runtime_verified_train_split_identity",
+    "architecture_seed": 42,
+    "run_seed": 42,
+    "epochs": 20,
+    "train_sample_count": 800,
+    "batch_size": 16,
+    "workers": 0,
+    "drop_last": false,
+    "input_size": [256, 256],
+    "target_mode": "binary",
+    "fresh_initialization": true,
+    "parent_checkpoint": null,
+    "resume": false,
+    "router_value_gradient_mode": "live",
+    "role_loss_balance_mode": "one_third_two_thirds",
+    "router_level_count": 4,
+    "router_level_reduction": "mean",
+    "router_loss_weight": 1.0,
+    "gain_gradient_contract": {
+      "conditioning_counter": "emission_accepted_rows",
+      "when_positive": "present_and_finite",
+      "when_zero": "none_or_finite_all_zero",
+      "minimum_gain_active_batches_over_complete_run": 1,
+      "nonfinite_gain_gradient_batches": 0
+    },
+    "segmentation_loss": "sum_of_six_BCELoss_mean_terms",
+    "optimizer": {
+      "name": "Adam",
+      "parameter_scope": "all_requires_grad_after_structural_inactive_freeze_with_conditionally_active_gain",
+      "base_lr": 0.001,
+      "betas": [0.9, 0.999],
+      "eps": 1e-08,
+      "weight_decay": 0.0,
+      "amsgrad": false
+    },
+    "learning_rate_schedule": {
+      "name": "linear_warmup_then_cosine",
+      "base_lr": 0.001,
+      "min_lr": 0.00001,
+      "warmup_epochs": 10,
+      "total_epochs": 20
+    },
+    "precision": "FP32",
+    "deterministic_algorithms": true,
+    "output_namespace": "runs/sbsc_v33_third/canary_v2/IRSTD-1K",
+    "training_source_manifest_binding": "runtime_current_v2_dependency_manifest",
+    "gradient_authorization_path": "experiments/sbsc_v33_gradient_authorization.json",
+    "gradient_authorization_sha256": "532f9e0f7b0979e2658a4635de37830e6b379bf24ed312975bdd85f3d86a033a",
+    "baseline_authority_path": "experiments/sbsc_v33_baseline_authority_manifest.json",
+    "baseline_authority_sha256": "24c0bf8d4398efd4016ba9825ec782a899665f57739a7bd5de13699a71ae0872",
+    "validation_dataset_constructed": false,
+    "validation_loader_constructed": false,
+    "test_dataset_constructed": false,
+    "test_loader_constructed": false,
+    "selection": null,
+    "checkpoint_written": false,
+    "formal_weights_reusable": false
+  },
+  "expected_execution": {
+    "epochs": 20,
+    "samples_per_epoch": 800,
+    "optimizer_steps_per_epoch": 50,
+    "total_processed_samples": 16000,
+    "total_optimizer_steps": 1000,
+    "combined_backward_calls_per_step": 1
+  },
+  "report_contract": {
+    "success_status": "PASS",
+    "failure_status": "FAIL",
+    "success_hard_gate_pass": true,
+    "failure_hard_gate_pass": false,
+    "hard_gate_success_verdict": "GO",
+    "hard_gate_failure_verdict": "NO-GO",
+    "partial_progress_fields": [
+      "current_epoch",
+      "started_batches",
+      "completed_batches",
+      "batch_count",
+      "combined_backward_calls",
+      "processed_samples",
+      "optimizer_steps"
+    ],
+    "partial_progress_semantics": {
+      "current_epoch": "one_based_epoch_entered_or_zero_before_training",
+      "started_batches": "batches_entering_the_training_loop",
+      "completed_batches": "batches_passing_post_step_state_and_gain_audit",
+      "batch_count": "exact_alias_of_completed_batches",
+      "combined_backward_calls": "combined_backward_calls_returning_without_exception",
+      "processed_samples": "samples_consumed_by_applied_optimizer_steps",
+      "optimizer_steps": "optimizer_step_calls_returning_without_exception"
+    }
+  },
+  "hard_gate_order": [
+    "finite",
+    "sample_step_counts",
+    "role_probability",
+    "availability",
+    "certificate",
+    "combined_backward",
+    "gain_bounds"
+  ],
+  "hard_gates": {
+    "finite": {
+      "required_violation_count": 0,
+      "scope": "inputs_outputs_losses_parameters_gradients_optimizer_state"
+    },
+    "sample_step_counts": {
+      "epochs": 20,
+      "samples_per_epoch": 800,
+      "optimizer_steps_per_epoch": 50,
+      "total_processed_samples": 16000,
+      "total_optimizer_steps": 1000
+    },
+    "role_probability": {
+      "level_count": 4,
+      "role_count": 3,
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "role_axis_sum": 1.0,
+      "absolute_tolerance": 0.000002
+    },
+    "availability": {
+      "level_count": 4,
+      "role_count": 3,
+      "minimum_role_mass": 1.0,
+      "minimum_integrated_winning_evidence": "1/token_count",
+      "required_exact_boolean_match": true
+    },
+    "certificate": {
+      "solver_accepted_plus_fallback_equals_attempt": true,
+      "solver_attempt_not_above_nonidentity": true,
+      "emission_checked_equals_nonidentity": true,
+      "emission_accepted_plus_fallback_equals_checked": true,
+      "effective_nonidentity_equals_emission_accepted": true,
+      "effective_mode_counts_equal_projection_rows": true
+    },
+    "combined_backward": {
+      "calls_per_optimizer_step": 1,
+      "all_non_gain_active_trainable_gradients_present_each_batch": true,
+      "all_non_gain_active_trainable_gradients_finite_each_batch": true,
+      "at_least_one_active_gradient_nonzero": true,
+      "router_gradients_present_and_finite": true,
+      "gain_conditioning_counter": "emission_accepted_rows",
+      "gain_when_condition_positive": "present_and_finite",
+      "gain_when_condition_zero": "none_or_finite_all_zero",
+      "minimum_gain_active_batches_over_complete_run": 1,
+      "gain_gradient_nonfinite_batches": 0
+    },
+    "gain_bounds": {
+      "minimum": 0.0,
+      "maximum": 0.25,
+      "inclusive": true
+    }
+  },
+  "warning_diagnostics": {
+    "role_availability_extreme_fraction": [0.0, 1.0],
+    "mode_distribution_extreme_fraction": [0.0, 1.0],
+    "router_ce_late_to_early_max_ratio": 1.05,
+    "early_epoch_window": [1, 5],
+    "late_epoch_window": [16, 20],
+    "emission_fallback_fraction": 0.05,
+    "solver_fallback_fraction": 0.05,
+    "final_gain_all_zero": true,
+    "affects_verdict": false
+  },
+  "forbidden_artifacts": {
+    "validation_dataset": true,
+    "validation_loader": true,
+    "test_dataset": true,
+    "test_loader": true,
+    "checkpoint": true,
+    "performance_metric": true,
+    "model_selection": true
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "schema": "sctransnet_sbsc_v33/gradient_authorization_rules/v1",
+  "status": "preregistered",
+  "architecture": "SCTransNet-C3-SBSC-V3.3",
+  "architecture_seed": 42,
+  "run_seed": 42,
+  "diagnostic_router_value_gradient_mode": "live",
+  "loss_profile": "one_third_two_thirds",
+  "router_level_count": 4,
+  "router_level_reduction": "mean",
+  "dataset_role": "train",
+  "test_loader_constructed": false,
+  "datasets": [
+    "NUAA-SIRST",
+    "NUDT-SIRST",
+    "IRSTD-1K"
+  ],
+  "dataset_epoch": 0,
+  "sample_selection": "evenly_spaced_over_frozen_ordered_train_ids",
+  "samples_per_dataset": 64,
+  "batch_size": 4,
+  "batches_per_dataset": 16,
+  "drop_last": false,
+  "fresh_state_per_batch": true,
+  "fresh_rng_substream_per_batch": true,
+  "repeatability_batches_per_dataset": 1,
+  "parameter_groups": {
+    "direct_v": [
+      "mtc.encoder.layer.1.channel_attn.mheadv.weight",
+      "mtc.encoder.layer.1.channel_attn.v.weight"
+    ],
+    "upstream_shared": [
+      "mtc.encoder.layer.0.channel_attn.mheadv.weight",
+      "mtc.encoder.layer.0.channel_attn.v.weight"
+    ]
+  },
+  "activation_groups": [
+    "value_spatial"
+  ],
+  "zero_norm_policy": "invalid_batch",
+  "required_valid_batches_per_dataset_per_group": 16,
+  "bootstrap": {
+    "seed": 42,
+    "resamples": 10000,
+    "unit": "batch",
+    "statistic": "median",
+    "interval": "percentile",
+    "confidence": 0.95
+  },
+  "detached_only_if_every_dataset_and_group_passes": {
+    "median_cosine_lt": 0.0,
+    "bootstrap_cosine_ci_upper_lt": 0.0,
+    "median_router_to_segmentation_norm_ratio_gte": 0.1
+  },
+  "otherwise": "live",
+  "write_once": true
+}

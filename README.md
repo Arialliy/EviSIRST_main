@@ -19,17 +19,21 @@ SCTransNet + TPD8-MPRS-DCH + NER4 Tail-Aware + QFG2-CROA
 `TSS-off` 只是历史训练条件，不属于模型结构；正式 V3 推理图有 564 个 state keys、
 10,870,130 个参数，并且没有 TSS 模块。
 
-> 当前实验状态（2026-08-31）：HF-Decoder V1 已在 Seed-42 配对 validation 判定中
+> 当前实验状态（2026-09-03）：HF-Decoder V1 已在 Seed-42 配对 validation 判定中
 > `STOP`；SCTransNet-SBSC V2 也已在未访问 official test 的配对 validation 实验中
 > 判定失败并归档。基于 SCTransNet e670 与 SBSC V2.1 e543 的 V3.1 静态语义筛查未找到
 > 四项预注册方向 bootstrap 下界全正的候选，因此停止继续枚举静态 Q/K 公式。C³-SBSC
 > V3.2 已完成 train-only 机制 smoke，并在 NUAA-SIRST、NUDT-SIRST、IRSTD-1K 上完成
 > 1000-epoch 正式运行；该正式协议在 epoch 500–1000 每轮访问完整原始 `img_idx/test`
 > 并据此选择 `best_mIoU`/`best_Pd` 两个物理权重，必须标为 optimistic/test-selected，
-> 不支持 unbiased held-out-test claim。运行 checkpoint 与完整 history 仍被 Git 忽略；
-> 已公开的是实现、协议、测试和结果诊断文档。V3.3 目前只是证据条件式设计草案，尚未
-> 实现或训练。PSBFR、CP-HF-S2 与 DCS-PG 仍属于隔离实现或受控实验协议；它们都不是
-> 当前发布的 EviSIRST V3。运行授权、证据边界与结果状态以对应方案、协议和
+> 不支持 unbiased held-out-test claim。C³-SBSC V3.3 的 role-exclusive、mass-aware、
+> mode-routed 实现和完整预检链已经完成；IRSTD-1K `sbsc_v33_third` 也已跑满 1000 epochs。
+> 其 `best_mIoU` 角色为 e552 / 66.2649%，未超过 SCTransNet 67.7657%，判定 `FAIL`；
+> `best_Pd` 角色为 e526 / 96.6330%，超过 SCTransNet 93.2660%，判定 `PASS`。双角色门未
+> 同时通过，因此 V3.3 不晋级 NUAA/NUDT，也不授权正式消融或论文主模型替换。运行
+> checkpoint、完整 history 与 formal summary 仍被 Git 忽略；公开的是实现、冻结合同、
+> 预检证据和研究决策文档。PSBFR、CP-HF-S2 与 DCS-PG 仍属于隔离实现或受控实验协议；
+> 它们都不是当前发布的 EviSIRST V3。运行授权、证据边界与结果状态以对应方案、协议和
 > `*_AUTHORIZATION.json` 为准。
 
 ## 目录
@@ -41,13 +45,16 @@ EviSIRST_main/
 │   └── _internal/          # 冻结 V3 实现依赖，普通使用者无需进入
 ├── experiments/            # V1 安全加载器、V3 bundle 加载器及冻结协议
 │   ├── sctransnet_sbsc_v31.py # C³-SBSC V3.1 tri-support/dual-risk 核心
-│   └── sctransnet_sbsc_v32.py # C³-SBSC V3.2 learned tri-evidence router
+│   ├── sctransnet_sbsc_v32.py # C³-SBSC V3.2 learned tri-evidence router
+│   ├── sctransnet_sbsc_v33.py # C³-SBSC V3.3 role-exclusive/mode-routed 核心
+│   ├── sbsc_v33_contracts.py  # V3.3 authority、路径与 write-once 合同
+│   └── sbsc_v33_test_selection.py # V3.3 双角色 test-selected selector
 ├── analysis/sbsc_v31_semantic/ # V3.1 静态语义筛查证据
 ├── splits/v2/              # 由 frozen train 生成的固定 train/validation 与 manifest
 ├── splits/psbfr_v1/        # IRSTD 模型设计的 train/dev/lockbox 冻结 manifest
 ├── EviSIRST_HF_Decoder_V2_reference/ # 已审计的 NO-GO 历史设计输入
-├── artifacts/              # 外部 checkpoint 的大小、SHA-256 与发布状态
-├── tools/                  # 只读 artifact 校验工具
+├── artifacts/              # checkpoint manifest、环境与 V3.3 预检证据
+├── tools/                  # artifact 校验及 V3.3 诊断、canary、授权与 finalizer
 ├── results/                   # 每个数据集各一个 EviSIRST 最终权重
 │   ├── NUAA-SIRST/EviSIRST.pth.tar
 │   ├── NUDT-SIRST/EviSIRST.pth.tar
@@ -72,7 +79,11 @@ EviSIRST_main/
 ├── train_sctransnet_sbsc_v31_validation.py # C³-SBSC V3.1 validation 入口
 ├── train_sctransnet_sbsc_v32_validation.py # C³-SBSC V3.2 validation 入口
 ├── train_sctransnet_sbsc_v32_img_idx_test_selected.py # V3.2 三数据集 optimistic 正式入口
+├── train_sctransnet_sbsc_v33_img_idx_test_selected.py # V3.3 冻结授权正式入口
 ├── EviSIRST_C3-SBSC_V32三数据集结果诊断与V33定向修复方案.md # V3.2 诊断/V3.3 草案
+├── EviSIRST_C3-SBSC_V32三数据集最终诊断与V33定向修改方案.md # 已否决旧方案
+├── EviSIRST_C3-SBSC_V32审阅纠正与V33可实施修正版方案.md # 审阅修正版
+├── EviSIRST_C3-SBSC_V33_P0修正_实现授权与正式训练方案.md # V3.3 前置合同
 ├── train_irstd_complete_target_v1.py # IRSTD complete-target 单变量实验
 ├── train_irstd_weighted_ds_v1.py # 仅在前驱门失败后解锁的 weighted-DS 备用实验
 ├── run_irstd_complete_target_promotion_gate.py # 固定 validation promotion gate
@@ -106,11 +117,15 @@ python -m venv .venv
 source .venv/bin/activate
 # 先安装与本机 CPU/CUDA 兼容的 PyTorch
 python -m pip install -r requirements.txt
-python -m pytest -q -m "not integration"
+python -m pytest -q \
+  tests/test_sctransnet_sbsc_v33.py \
+  tests/test_sbsc_v33_test_selection.py
 ```
 
-上述测试不依赖外部 checkpoint；预训练权重仍需按 `artifacts/checkpoints.json`
-另行提供并校验。
+上述 V3.3 核心与 selector 测试不依赖外部 checkpoint。完整非 integration 测试还包含
+fail-closed 的 V3.3 baseline-authority/replay 用例，要求三个本地 SCTransNet checkpoint
+存在并与 `experiments/sbsc_v33_baseline_authority_manifest.json` 的 SHA-256 一致；这些权重
+未随仓库发布。其他预训练权重仍需按 `artifacts/checkpoints.json` 另行提供并校验。
 
 ## 加载模型
 
@@ -186,32 +201,60 @@ cd /home/ly/EviSIRST_main
 历史论文权重的训练图曾注册四个零权重 TSS tensor，并在推理导出时删除；因此该干净入口
 保持最终模型与分割训练配方，但不声称逐位复现历史 checkpoint。
 
-### C³-SBSC V3.1/V3.2 研究分支
+### C³-SBSC V3.1/V3.2/V3.3 研究分支
 
 C³-SBSC 是以 SCTransNet 为真正 baseline 的独立研究分支，不是当前发布的 EviSIRST V3
 推理图。V3.1 在第二个 SCTB 中以 tri-support 和 certified dual-risk projection 替换一个
-SSCA；V3.2 在冻结 V3.1 solver 的基础上加入 4,245 参数的 learned tri-evidence router。
-核心实现分别位于 `experiments/sctransnet_sbsc_v31.py` 和
-`experiments/sctransnet_sbsc_v32.py`。
+SSCA；V3.2 在冻结 V3.1 solver 的基础上加入 4,245 参数的 learned tri-evidence router；
+V3.3 保持 513 个 state keys 和 11,330,188 个参数，将该 router 改为逐 token 角色互斥、
+mass-aware availability，并显式路由 dual、hard-only、background-only 与 identity 四种
+投影模式。三版核心分别位于 `experiments/sctransnet_sbsc_v31.py`、
+`experiments/sctransnet_sbsc_v32.py` 和 `experiments/sctransnet_sbsc_v33.py`。
 
-三数据集正式 V3.2 入口固定 `architecture_seed=42`、`run_seed=42`、1000 epochs，且
-epoch 500–1000 每轮都在完整原始 test split 上评测并选模：
+V3.3 在正式训练前完成并冻结了以下证据链：
+
+- V3.1/V3.2/V3.3 回归白名单：607 passed；
+- 三数据集 train-only fresh-state 梯度诊断：授权 `router_value_gradient_mode=live`；
+- IRSTD-1K 20-epoch train-only canary v2：`PASS`；
+- V3.2/V3.3 配对资源 benchmark v2：硬门 `PASS`；
+- IRSTD-1K `sbsc_v33_third` formal-launch authorization：`PASS`。
+
+冻结的 IRSTD 正式入口只接受 `architecture_seed=42`、`run_seed=42`、1000 epochs 和
+`sbsc_v33_third`，并在启动前复核 method config、baseline authority、梯度授权、canary、
+资源报告及其 SHA-256：
 
 ```bash
 /home/ly/BasicIRSTD/infrarenet/bin/python \
-  train_sctransnet_sbsc_v32_img_idx_test_selected.py \
+  train_sctransnet_sbsc_v33_img_idx_test_selected.py \
   --dataset IRSTD-1K \
   --dataset-root /path/to/datasets \
   --device cuda:0
 ```
 
-该入口会分别保存 `best_mIoU` 与 `best_Pd`，但其选模协议明确是
-`selection_is_optimistic=true`、`unbiased_test_claim_supported=false`。当前本机三数据集
-运行均已完成 1000 epochs；运行目录、完整 history 和权重未纳入 Git。V3.2 的代码级诊断、
-双角色结果、selector 边界，以及尚未实现的 V3.3 Role-Exclusive Counter-Support Router
-方案见下列修订版文档。该文档冻结于 2026-08-27 17:16，NUDT 尚标为 e957 暂定快照；
-随后完成的 e1000 本地 summary 中两个 winner 及其指标均未改变：
-[C³-SBSC V3.2 三数据集结果诊断与 V3.3 定向修复方案](EviSIRST_C3-SBSC_V32三数据集结果诊断与V33定向修复方案.md)。
+该运行已完成，并在完整原始 `img_idx/test` 上执行 epoch 500–1000 共 501 次评测。以下两行
+分别对应两个独立物理 checkpoint，禁止跨权重拼接指标：
+
+| 角色 | Epoch | mIoU % | nIoU % | Pd % | Fa ×10⁻⁶ | F1 % | 对 SCTransNet 主指标 |
+|---|---:|---:|---:|---:|---:|---:|---|
+| `best_mIoU` | 552 | 66.2649 | 66.6905 | 94.9495 | 19.7377 | 79.7100 | mIoU −1.5008 pp，`FAIL` |
+| `best_Pd` | 526 | 61.8311 | 63.6898 | 96.6330 | 41.3354 | 76.4144 | Pd +3.3670 pp，`PASS` |
+
+因此 V3.3 未通过启动 NUAA/NUDT 所需的 IRSTD 双角色硬门，不是晋级模型。所有指标仍属于
+`test_selected=true`、`selection_is_optimistic=true` 的乐观证据，不支持 unbiased
+held-out-test claim。正式 checkpoint、完整 selection history 和 summary 保留在被忽略的
+`runs/sbsc_v33_third/formal/IRSTD-1K/`；Git 仅收录小型 canary ledger 和预检证据。
+
+研究文档按时间和约束关系阅读：
+
+- [V3.2 三数据集结果诊断与 V3.3 定向修复方案](EviSIRST_C3-SBSC_V32三数据集结果诊断与V33定向修复方案.md)：2026-08-27 历史快照；
+- [V3.2 三数据集最终诊断与 V3.3 定向修改方案](EviSIRST_C3-SBSC_V32三数据集最终诊断与V33定向修改方案.md)：已被后续审阅判定为 No-Go，不应直接执行；
+- [V3.2 审阅纠正与 V3.3 可实施修正版方案](EviSIRST_C3-SBSC_V32审阅纠正与V33可实施修正版方案.md)：修正真实 test-selected 轨道和四模式设计；
+- [V3.3 P0 修正、实现授权与正式训练方案](EviSIRST_C3-SBSC_V33_P0修正_实现授权与正式训练方案.md)：正式实现与运行前合同；其中“尚未实现/训练”是 2026-08-31 的历史状态。
+
+V3.3 authority/replay 测试需要本机存在 manifest 指定且 SHA-256 匹配的三个 SCTransNet
+baseline checkpoint；这些权重未随 Git 仓库发布。预检中的 `unit_test_report.json` 是
+write-once、哈希绑定的本机执行证据，会保留已验证解释器与运行环境路径，不应视为跨机器
+可直接复用的依赖锁文件。
 
 ### R1：仅用 validation 选择 checkpoint
 
@@ -480,7 +523,16 @@ mask。因此，尤其是 NUAA 和历史 Baseline 的 Pd/Fa，本脚本重测值
   --require
 ```
 
-不依赖外部 checkpoint 的单元测试：
+C³-SBSC V3.3 不依赖外部 checkpoint 的核心与 selector 测试：
+
+```bash
+/home/ly/BasicIRSTD/infrarenet/bin/python -m pytest -q \
+  tests/test_sctransnet_sbsc_v33.py \
+  tests/test_sbsc_v33_test_selection.py
+```
+
+完整非 integration 测试要求 V3.3 baseline authority manifest 中登记的三个物理
+SCTransNet checkpoint 已安装并通过 SHA-256 校验：
 
 ```bash
 /home/ly/BasicIRSTD/infrarenet/bin/python -m pytest -q -m "not integration"
@@ -493,7 +545,8 @@ mask。因此，尤其是 NUAA 和历史 Baseline 的 Pd/Fa，本脚本重测值
 /home/ly/BasicIRSTD/infrarenet/bin/python -m pytest -q -m artifact
 ```
 
-完整本地测试仍可执行；若 checkpoint 尚未发布/安装，相关 artifact case 会明确标为 skip：
+完整本地测试仍可执行。部分旧 artifact case 在 checkpoint 缺失时会 skip；V3.3 的
+fail-closed authority/replay case 会直接失败，以免把不完整证据链误报为通过：
 
 ```bash
 cd /home/ly/EviSIRST_main

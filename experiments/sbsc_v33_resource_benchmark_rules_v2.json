@@ -1,0 +1,216 @@
+{
+  "schema": "sctransnet_sbsc_v33/resource_benchmark_rules/v2",
+  "status": "frozen",
+  "scope": "paired_irstd_1k_train_only_fp32_training_step_resources_strict_replay",
+  "write_once": true,
+  "superseded_v1_evidence": {
+    "reason": "v1 lacked an exact post-write report replay validator and allowed conditional final gain-gradient absence",
+    "tool_path": "tools/benchmark_sbsc_v33_resources.py",
+    "tool_sha256": "e664c028d9a2a3aef10c3aafcfd2627cbad56918a74901f3ff93d7dc799aae54",
+    "rules_path": "experiments/sbsc_v33_resource_benchmark_rules.json",
+    "rules_sha256": "110f26c67afc3b873943c62210082a285362be33d29328707c7aeacb40a3622c",
+    "tests_path": "tests/test_sbsc_v33_resource_benchmark.py",
+    "tests_sha256": "87b8d2f80393493dcdb8e4c94157db33e45dc95dcf9f71acb72cf2c3192ae95e",
+    "report_path": "artifacts/sbsc_v33_preflight/paired_resource_benchmark.json",
+    "report_sha256": "09ba93e16865bd884c97a1d235856b781c9df6c20ac395c7a61e6ed5bdbe08c0",
+    "report_schema": "sctransnet_sbsc_v33/resource_benchmark_report/v1",
+    "required_status": "PASS",
+    "required_hard_gate_pass": true,
+    "required_verdict": "GO"
+  },
+  "identity": {
+    "dataset": "IRSTD-1K",
+    "data_role": "train",
+    "split": "datasets/IRSTD-1K/img_idx/train_IRSTD-1K.txt",
+    "sample_count": 800,
+    "architecture_seed": 42,
+    "run_seed": 42,
+    "batch_size": 16,
+    "patch_size": 256,
+    "workers": 0,
+    "dataset_epoch": 1,
+    "precision": "FP32",
+    "autocast": false,
+    "gradient_scaler": false,
+    "fresh_initialization": true,
+    "parent_checkpoint": null,
+    "resume": false
+  },
+  "models": [
+    {
+      "order": 0,
+      "role": "original_v3_2",
+      "method": "sbsc_v32",
+      "model": "SCTransNet-C3-SBSC-V3.2",
+      "model_schema": "sctransnet_sbsc_v32/learned_tri_evidence_dual_risk_projection/v1",
+      "builder": "experiments.sctransnet_sbsc_v32.build_sctransnet_sbsc_v32_method",
+      "loss_schema": "sum_of_six_BCELoss_mean_terms_plus_unit_weight_normalized_spatial_router_ce",
+      "router_value_gradient_mode": null,
+      "balance_mode": null,
+      "state_key_count": 513,
+      "parameter_count": 11330188,
+      "active_parameter_tensor_count": 367
+    },
+    {
+      "order": 1,
+      "role": "candidate_v3_3",
+      "method": "sbsc_v33_third",
+      "model": "SCTransNet-C3-SBSC-V3.3",
+      "model_schema": "sctransnet_sbsc_v33/role_exclusive_mass_aware_mode_routed/v1",
+      "builder": "experiments.sctransnet_sbsc_v33.build_sctransnet_sbsc_v33_method",
+      "loss_schema": "sum_of_six_BCELoss_mean_terms_plus_unit_weight_mean_of_four_role_axis_router_ce",
+      "router_value_gradient_mode": "live",
+      "balance_mode": "one_third_two_thirds",
+      "state_key_count": 513,
+      "parameter_count": 11330188,
+      "active_parameter_tensor_count": 367
+    }
+  ],
+  "optimizer": {
+    "name": "Adam",
+    "parameter_scope": "all_requires_grad_after_structural_inactive_freeze",
+    "base_lr": 0.001,
+    "betas": [0.9, 0.999],
+    "eps": 1e-08,
+    "weight_decay": 0.0,
+    "amsgrad": false,
+    "zero_grad_set_to_none": true
+  },
+  "measurement": {
+    "model_order": ["sbsc_v32", "sbsc_v33_third"],
+    "batch_order_algorithm": "sha256_lexicographic_over_800_indices/v1",
+    "batch_order_domain_separator": "sctransnet_sbsc_v33_resource_benchmark/v1",
+    "batch_plan_sha256": "35120f3888b178c6df619e5eee243468ee319eef63cf0feac19c6010b0bceb7d",
+    "warmup_steps_per_model": 4,
+    "measured_steps_per_model": 12,
+    "total_steps_per_model": 16,
+    "warmup_samples_per_model": 64,
+    "measured_samples_per_model": 192,
+    "total_samples_per_model": 256,
+    "same_materialized_cpu_batches_for_both_models": true,
+    "input_tensor_hash_required_per_batch": true,
+    "final_step_all_active_gradients_present_and_finite": true,
+    "conditional_final_gain_gradient_absence_allowed": false,
+    "timer": "python_perf_counter_with_cuda_synchronize_before_and_after_each_step",
+    "throughput_unit": "samples_per_second",
+    "throughput_denominator": "sum_of_12_measured_complete_step_wall_seconds",
+    "cuda_peak_metrics": [
+      "max_memory_allocated_bytes",
+      "max_memory_reserved_bytes"
+    ],
+    "cuda_peak_reset": "once_after_model_and_optimizer_materialization_before_warmup",
+    "cuda_peak_window": "four_warmup_plus_twelve_measured_complete_steps",
+    "timed_complete_step_region": [
+      "cpu_to_cuda_input_and_target_transfer",
+      "optimizer_zero_grad",
+      "six_output_forward",
+      "segmentation_and_router_loss",
+      "single_combined_backward",
+      "adam_step",
+      "model_constraint_projection",
+      "cuda_synchronize"
+    ]
+  },
+  "authority_bindings": {
+    "baseline": {
+      "path": "experiments/sbsc_v33_baseline_authority_manifest.json",
+      "sha256": "24c0bf8d4398efd4016ba9825ec782a899665f57739a7bd5de13699a71ae0872"
+    },
+    "gradient": {
+      "path": "experiments/sbsc_v33_gradient_authorization.json",
+      "sha256": "532f9e0f7b0979e2658a4635de37830e6b379bf24ed312975bdd85f3d86a033a",
+      "authorized_router_value_gradient_mode": "live"
+    },
+    "v2_canary": {
+      "report_path": "runs/sbsc_v33_third/canary_v2/IRSTD-1K/report.json",
+      "report_schema": "sctransnet_sbsc_v33/canary_report/v2",
+      "report_sha256": "5226e11896c241cd235c8e1689a4c5f7678b86a143823a1fd4c6bf2efc04a34c",
+      "manifest_path": "runs/sbsc_v33_third/canary_v2/IRSTD-1K/manifest.json",
+      "manifest_schema": "sctransnet_sbsc_v33/canary_manifest/v2",
+      "manifest_sha256": "c986f19557415b6808802cd3f7608a06de70004035b8bb6748032930e80c9810",
+      "rules_path": "experiments/sbsc_v33_canary_rules_v2.json",
+      "rules_schema": "sctransnet_sbsc_v33/canary_rules/v2",
+      "rules_sha256": "b2fc34a711cd8a6fc8ce0e69b4015b8a300c040acaef37d1922354627ae0f2ba",
+      "method_config_sha256": "73e86c18ba5324240513916d30bad7e50bd448b7686f175dde79d4694665f7ab",
+      "training_source_manifest_sha256": "3bec27c79f433e8e0ce58ad7fc4f1628ab908743ac4383e552ae5d7b50418bd2",
+      "required_status": "PASS",
+      "required_hard_gate_pass": true,
+      "required_verdict": "GO"
+    }
+  },
+  "source_manifest": {
+    "schema": "sctransnet_sbsc_v33/source_manifest/v1",
+    "binding": "runtime_complete_v2_dependency_manifest",
+    "physical_sha256_and_size_required_for_every_record": true,
+    "aggregate_canonical_sha256_required": true
+  },
+  "hard_gate_order": [
+    "identity",
+    "same_input",
+    "finite",
+    "complete_measurement",
+    "no_oom",
+    "peak_within_device"
+  ],
+  "hard_gates": {
+    "identity": {
+      "rules_authorities_v1_evidence_data_models_optimizer_runtime_and_fp32_must_match": true
+    },
+    "same_input": {
+      "batch_plan_and_all_16_input_target_hashes_must_match": true
+    },
+    "finite": {
+      "losses_all_final_active_gradients_parameters_optimizer_state_timings_and_throughput_must_be_finite": true,
+      "final_gain_gradient_must_be_present": true
+    },
+    "complete_measurement": {
+      "warmup_steps_per_model": 4,
+      "measured_steps_per_model": 12,
+      "measured_samples_per_model": 192
+    },
+    "no_oom": {
+      "cuda_out_of_memory_count_per_model": 0
+    },
+    "peak_within_device": {
+      "max_memory_allocated_not_above_device_total": true,
+      "max_memory_reserved_not_above_device_total": true
+    }
+  },
+  "warning_diagnostics": {
+    "record_total_elapsed_seconds": true,
+    "record_v33_to_v32_elapsed_ratio": true,
+    "record_v33_to_v32_throughput_ratio": true,
+    "record_v33_to_v32_peak_allocated_ratio": true,
+    "record_v33_to_v32_peak_reserved_ratio": true,
+    "v33_faster_than_v32_required": false,
+    "ratio_thresholds": null,
+    "affects_verdict": false
+  },
+  "report_replay": {
+    "post_measurement_pre_write_reload_rules_and_authorities": true,
+    "post_measurement_snapshot_must_canonically_equal_startup_snapshot": true,
+    "write_once_before_reload": true,
+    "reload_with_strict_json": true,
+    "exact_top_level_and_nested_field_sets": true,
+    "independently_recompute_hard_gate": true,
+    "independently_recompute_status": true,
+    "validate_authority_and_v1_physical_evidence": true,
+    "validate_source_manifest_against_current_physical_sources": true,
+    "validate_runtime_data_batch_and_model_records": true,
+    "validate_artifact_boundaries": true,
+    "exit_zero_only_for_replayed_pass": true
+  },
+  "artifact_boundaries": {
+    "validation_dataset_constructed": false,
+    "validation_loader_constructed": false,
+    "test_dataset_constructed": false,
+    "test_loader_constructed": false,
+    "evaluation_called": false,
+    "performance_metric_computed": false,
+    "model_selection": null,
+    "checkpoint_written": false,
+    "model_state_serialized": false,
+    "formal_weights_reusable": false,
+    "report_path": "artifacts/sbsc_v33_preflight/paired_resource_benchmark_v2.json"
+  }
+}
