@@ -19,7 +19,7 @@ SCTransNet + TPD8-MPRS-DCH + NER4 Tail-Aware + QFG2-CROA
 `TSS-off` 只是历史训练条件，不属于模型结构；正式 V3 推理图有 564 个 state keys、
 10,870,130 个参数，并且没有 TSS 模块。
 
-> 当前实验状态（2026-09-03）：HF-Decoder V1 已在 Seed-42 配对 validation 判定中
+> 当前实验状态（2026-09-07）：HF-Decoder V1 已在 Seed-42 配对 validation 判定中
 > `STOP`；SCTransNet-SBSC V2 也已在未访问 official test 的配对 validation 实验中
 > 判定失败并归档。基于 SCTransNet e670 与 SBSC V2.1 e543 的 V3.1 静态语义筛查未找到
 > 四项预注册方向 bootstrap 下界全正的候选，因此停止继续枚举静态 Q/K 公式。C³-SBSC
@@ -30,8 +30,9 @@ SCTransNet + TPD8-MPRS-DCH + NER4 Tail-Aware + QFG2-CROA
 > mode-routed 实现和完整预检链已经完成；IRSTD-1K `sbsc_v33_third` 也已跑满 1000 epochs。
 > 其 `best_mIoU` 角色为 e552 / 66.2649%，未超过 SCTransNet 67.7657%，判定 `FAIL`；
 > `best_Pd` 角色为 e526 / 96.6330%，超过 SCTransNet 93.2660%，判定 `PASS`。双角色门未
-> 同时通过，因此 V3.3 不晋级 NUAA/NUDT，也不授权正式消融或论文主模型替换。运行
-> checkpoint、完整 history 与 formal summary 仍被 Git 忽略；公开的是实现、冻结合同、
+> 同时通过，因此 V3.3 不晋级 NUAA/NUDT，也不授权正式消融或论文主模型替换。后续
+> V3.4-CAST 当前仅是约束对齐直通投影的设计方案，尚未实现、授权或训练。运行 checkpoint、
+> 完整 history 与 formal summary 仍被 Git 忽略；公开的是实现、冻结合同、
 > 预检证据和研究决策文档。PSBFR、CP-HF-S2 与 DCS-PG 仍属于隔离实现或受控实验协议；
 > 它们都不是当前发布的 EviSIRST V3。运行授权、证据边界与结果状态以对应方案、协议和
 > `*_AUTHORIZATION.json` 为准。
@@ -84,6 +85,7 @@ EviSIRST_main/
 ├── EviSIRST_C3-SBSC_V32三数据集最终诊断与V33定向修改方案.md # 已否决旧方案
 ├── EviSIRST_C3-SBSC_V32审阅纠正与V33可实施修正版方案.md # 审阅修正版
 ├── EviSIRST_C3-SBSC_V33_P0修正_实现授权与正式训练方案.md # V3.3 前置合同
+├── EviSIRST_C3-SBSC_V33投稿判定与V34_CAST定向修改方案.md # V3.3 判定/V3.4 设计合同
 ├── train_irstd_complete_target_v1.py # IRSTD complete-target 单变量实验
 ├── train_irstd_weighted_ds_v1.py # 仅在前驱门失败后解锁的 weighted-DS 备用实验
 ├── run_irstd_complete_target_promotion_gate.py # 固定 validation promotion gate
@@ -243,6 +245,8 @@ V3.3 在正式训练前完成并冻结了以下证据链：
 `test_selected=true`、`selection_is_optimistic=true` 的乐观证据，不支持 unbiased
 held-out-test claim。正式 checkpoint、完整 selection history 和 summary 保留在被忽略的
 `runs/sbsc_v33_third/formal/IRSTD-1K/`；Git 仅收录小型 canary ledger 和预检证据。
+基于这一 No-Go 判定形成的 V3.4-CAST 只修正 backward surrogate，规划保持 V3.3
+正式 forward 数值和参数量不变；它目前是待实现、待单测和待训练的候选方案，不是结果声明。
 
 研究文档按时间和约束关系阅读：
 
@@ -250,6 +254,7 @@ held-out-test claim。正式 checkpoint、完整 selection history 和 summary �
 - [V3.2 三数据集最终诊断与 V3.3 定向修改方案](EviSIRST_C3-SBSC_V32三数据集最终诊断与V33定向修改方案.md)：已被后续审阅判定为 No-Go，不应直接执行；
 - [V3.2 审阅纠正与 V3.3 可实施修正版方案](EviSIRST_C3-SBSC_V32审阅纠正与V33可实施修正版方案.md)：修正真实 test-selected 轨道和四模式设计；
 - [V3.3 P0 修正、实现授权与正式训练方案](EviSIRST_C3-SBSC_V33_P0修正_实现授权与正式训练方案.md)：正式实现与运行前合同；其中“尚未实现/训练”是 2026-08-31 的历史状态。
+- [V3.3 投稿判定与 V3.4-CAST 定向修改方案（未实施研究提案）](EviSIRST_C3-SBSC_V33投稿判定与V34_CAST定向修改方案.md)：基于已核验的 IRSTD-1K 结果记录 V3.3 No-Go 理由与 V3.4 待实现合同；其中 NUAA/NUDT 数值在模型身份和 SHA 审计前仅是待核验用户输入，不代表 V3.4 已产生实验结果。
 
 V3.3 authority/replay 测试需要本机存在 manifest 指定且 SHA-256 匹配的三个 SCTransNet
 baseline checkpoint；这些权重未随 Git 仓库发布。预检中的 `unit_test_report.json` 是
