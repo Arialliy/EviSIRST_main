@@ -8,16 +8,16 @@ target_venue:
   year: ""
   mode: "review"
 stage:
-  current: "r1_validation_protocol_ready"
-  gate: "single_seed_full_validation_pilot_before_three_runtime_replicates"
-  updated_at: "2026-08-11"
+  current: "cast_ret_r2_a1_external_formal_irstd_resumed_nudt_started_no_final_metrics"
+  gate: "each_run_completes_1000_epochs_and_tests_every_epoch_500_through_1000_then_reports_separate_best_miou_and_best_pd"
+  updated_at: "2026-09-09"
 artifacts:
   manuscript: ""
   bibliography: ""
   figures: ""
   tables: "data/model_vs_baseline.csv"
   experiments: "experiments/"
-  reviews: ""
+  reviews: "EviSIRST_CAST_RET_R2_A1_实施与预检结果.md"
   submission: ""
 claims: []
 experiments: []

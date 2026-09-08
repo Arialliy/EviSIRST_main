@@ -19,7 +19,7 @@ SCTransNet + TPD8-MPRS-DCH + NER4 Tail-Aware + QFG2-CROA
 `TSS-off` 只是历史训练条件，不属于模型结构；正式 V3 推理图有 564 个 state keys、
 10,870,130 个参数，并且没有 TSS 模块。
 
-> 当前实验状态（2026-09-08）：HF-Decoder V1 已在 Seed-42 配对 validation 判定中
+> 当前实验状态（2026-09-09）：HF-Decoder V1 已在 Seed-42 配对 validation 判定中
 > `STOP`；SCTransNet-SBSC V2 也已在未访问 official test 的配对 validation 实验中
 > 判定失败并归档。基于 SCTransNet e670 与 SBSC V2.1 e543 的 V3.1 静态语义筛查未找到
 > 四项预注册方向 bootstrap 下界全正的候选，因此停止继续枚举静态 Q/K 公式。C³-SBSC
@@ -36,7 +36,10 @@ SCTransNet + TPD8-MPRS-DCH + NER4 Tail-Aware + QFG2-CROA
 > source manifest 与 e700/e531 summary/checkpoint 身份一致，但这些源码与证据尚未公开，
 > 且结果仍是 optimistic/test-selected，不能视为 GitHub 可独立重放或无偏的正式结果。
 > WDS-v1 已在未推送的本地 `v34-wds` 分支实现并通过 canary，但正式运行尚无完整 summary，
-> 也未进入 `main`；V3.5-SOCRT 仍未实施。V3.3 运行 checkpoint、
+> 也未进入 `main`；V3.5-SOCRT 仍未实施。CAST-RET-R2 A1 同样只在独立本地工作树实现；
+> 预检和恢复检查已通过。2026-09-09 的运行快照显示 IRSTD 在恢复续训、NUDT 已启动，
+> 但本仓库尚无任一运行的 1000-epoch 完成 summary、最终双角色指标或可重放源码包，
+> 不能声称 A1 已产生性能改善。V3.3 运行 checkpoint、
 > 完整 history 与 formal summary 仍被 Git 忽略；公开的是实现、冻结合同、
 > 预检证据和研究决策文档。PSBFR、CP-HF-S2 与 DCS-PG 仍属于隔离实现或受控实验协议；
 > 它们都不是当前发布的 EviSIRST V3。运行授权、证据边界与结果状态以对应方案、协议和
@@ -92,6 +95,10 @@ EviSIRST_main/
 ├── EviSIRST_C3-SBSC_V33_P0修正_实现授权与正式训练方案.md # V3.3 前置合同
 ├── EviSIRST_C3-SBSC_V33投稿判定与V34_CAST定向修改方案.md # V3.3 判定/V3.4 设计合同
 ├── EviSIRST_C3-SBSC_V34_CAST结果诊断与下一阶段修改方案.md # 本地核验 V3.4 诊断/WDS 合同
+├── EviSIRST_CAST_RET_IRSTD_Plan.md # CAST-RET 历史初稿与代码附录
+├── EviSIRST_CAST_RET_Review_and_Frozen_Protocol.md # 接口审阅与冻结协议
+├── EviSIRST_CAST_RET_R2_Plan_and_Code.md # R2 预接入设计与代码附录
+├── EviSIRST_CAST_RET_R2_A1_实施与预检结果.md # 本地 A1 预检/运行索引
 ├── train_irstd_complete_target_v1.py # IRSTD complete-target 单变量实验
 ├── train_irstd_weighted_ds_v1.py # 仅在前驱门失败后解锁的 weighted-DS 备用实验
 ├── run_irstd_complete_target_promotion_gate.py # 固定 validation promotion gate
@@ -266,6 +273,10 @@ held-out-test claim。正式 checkpoint、完整 selection history 和 summary �
 - [V3.3 P0 修正、实现授权与正式训练方案](EviSIRST_C3-SBSC_V33_P0修正_实现授权与正式训练方案.md)：正式实现与运行前合同；其中“尚未实现/训练”是 2026-08-31 的历史状态。
 - [V3.3 投稿判定与 V3.4-CAST 定向修改方案（未实施研究提案）](EviSIRST_C3-SBSC_V33投稿判定与V34_CAST定向修改方案.md)：基于已核验的 IRSTD-1K 结果记录 V3.3 No-Go 理由与 V3.4 待实现合同；其中 NUAA/NUDT 数值在模型身份和 SHA 审计前仅是待核验用户输入，不代表 V3.4 已产生实验结果。
 - [V3.4-CAST 结果诊断与下一阶段修改方案（本地核验、尚未公开复现）](EviSIRST_C3-SBSC_V34_CAST结果诊断与下一阶段修改方案.md)：复盘本地 `v34-cast@99e3bed` 的 IRSTD e700/e531，并给出 WDS-v1/SOCRT 后续合同；源码与结果身份已在本地闭环，但当前 `main` 未收录相关源码和正式证据，且结果为 optimistic/test-selected，不构成公共无偏结果声明。
+- [CAST-RET IRSTD 初版方案（已被后续审阅与 R2 取代）](EviSIRST_CAST_RET_IRSTD_Plan.md)：以未公开的无 WDS CAST 为锚点，提出训练期风险—误差同源修复及代码附录；其初版接口、灰度标签和实验协议与真实实现冲突，不得直接用于训练。
+- [CAST-RET 审阅与冻结协议（历史审阅）](EviSIRST_CAST_RET_Review_and_Frozen_Protocol.md)：记录真实 V3.4 接口、灰度标签、梯度和热路径审阅，其中“runner 待接入”已被后续 A1 阶段取代。
+- [CAST-RET-R2 修订方案与代码（预接入设计快照）](EviSIRST_CAST_RET_R2_Plan_and_Code.md)：将 A1 限定为像素新增项的未抵消梯度预算，把混合 token H/B 修复保留为后续单独消融；内嵌合成 CPU 测试不代表真实模型联调或收益。
+- [CAST-RET-R2 A1 实施与预检结果入口](EviSIRST_CAST_RET_R2_A1_实施与预检结果.md)：公开记录外部本地工作树的预检、恢复检查和易变运行快照；本仓库未包含 A1 源码、权重或完成结果。
 
 V3.3 authority/replay 测试需要本机存在 manifest 指定且 SHA-256 匹配的三个 SCTransNet
 baseline checkpoint；这些权重未随 Git 仓库发布。预检中的 `unit_test_report.json` 是
