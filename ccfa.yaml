@@ -8,8 +8,8 @@ target_venue:
   year: ""
   mode: "review"
 stage:
-  current: "cast_ret_r2_a1_external_formal_irstd_resumed_nudt_started_no_final_metrics"
-  gate: "each_run_completes_1000_epochs_and_tests_every_epoch_500_through_1000_then_reports_separate_best_miou_and_best_pd"
+  current: "cast_ret_r2_a1_stopped_irstd_e874_nudt_e641_cel_external_preflight_complete_formal_not_started"
+  gate: "not_reached_each_run_would_complete_1000_epochs_and_test_every_epoch_500_through_1000_then_report_separate_best_miou_and_best_pd"
   updated_at: "2026-09-09"
 artifacts:
   manuscript: ""
@@ -17,7 +17,7 @@ artifacts:
   figures: ""
   tables: "data/model_vs_baseline.csv"
   experiments: "experiments/"
-  reviews: "EviSIRST_CAST_RET_R2_A1_实施与预检结果.md"
+  reviews: "EviSIRST_A1_训练收尾与CEL定向优化方案_20260909.md"
   submission: ""
 claims: []
 experiments: []

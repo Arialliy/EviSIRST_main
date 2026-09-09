@@ -36,10 +36,14 @@ SCTransNet + TPD8-MPRS-DCH + NER4 Tail-Aware + QFG2-CROA
 > source manifest 与 e700/e531 summary/checkpoint 身份一致，但这些源码与证据尚未公开，
 > 且结果仍是 optimistic/test-selected，不能视为 GitHub 可独立重放或无偏的正式结果。
 > WDS-v1 已在未推送的本地 `v34-wds` 分支实现并通过 canary，但正式运行尚无完整 summary，
-> 也未进入 `main`；V3.5-SOCRT 仍未实施。CAST-RET-R2 A1 同样只在独立本地工作树实现；
-> 预检和恢复检查已通过。2026-09-09 的运行快照显示 IRSTD 在恢复续训、NUDT 已启动，
-> 但本仓库尚无任一运行的 1000-epoch 完成 summary、最终双角色指标或可重放源码包，
-> 不能声称 A1 已产生性能改善。V3.3 运行 checkpoint、
+> 也未进入 `main`；较早的 V3.5-SOCRT 候选仍未实施。CAST-RET-R2 A1 同样只在独立本地工作树实现；
+> 预检和恢复检查已通过。2026-09-09 用户主动停止 A1，IRSTD 与 NUDT 的最后保存
+> epoch 分别为 874 和 641，都未达到 1000 epochs。独立的 V3.5-CEL 候选已在外部本地
+> 工作树完成实现与启动前检查，但依赖 A1 的自动接续队列已在正式训练启动前暂停；
+> 它与未实施的 SOCRT 不是同一方法，`V3.5` 标签仍需在恢复研究前最终冻结。本仓库没有
+> A1/CEL 的可重放源码包、完成 summary 或最终
+> 双角色指标，不能声称它们已证明冻结协议下的全面或最终性能改善；A1 的中间
+> test-selected 快照只用于受限的权衡诊断。V3.3 运行 checkpoint、
 > 完整 history 与 formal summary 仍被 Git 忽略；公开的是实现、冻结合同、
 > 预检证据和研究决策文档。PSBFR、CP-HF-S2 与 DCS-PG 仍属于隔离实现或受控实验协议；
 > 它们都不是当前发布的 EviSIRST V3。运行授权、证据边界与结果状态以对应方案、协议和
@@ -99,6 +103,7 @@ EviSIRST_main/
 ├── EviSIRST_CAST_RET_Review_and_Frozen_Protocol.md # 接口审阅与冻结协议
 ├── EviSIRST_CAST_RET_R2_Plan_and_Code.md # R2 预接入设计与代码附录
 ├── EviSIRST_CAST_RET_R2_A1_实施与预检结果.md # 本地 A1 预检/运行索引
+├── EviSIRST_A1_训练收尾与CEL定向优化方案_20260909.md # A1 停止快照/V3.5-CEL 提案
 ├── train_irstd_complete_target_v1.py # IRSTD complete-target 单变量实验
 ├── train_irstd_weighted_ds_v1.py # 仅在前驱门失败后解锁的 weighted-DS 备用实验
 ├── run_irstd_complete_target_promotion_gate.py # 固定 validation promotion gate
@@ -277,6 +282,7 @@ held-out-test claim。正式 checkpoint、完整 selection history 和 summary �
 - [CAST-RET 审阅与冻结协议（历史审阅）](EviSIRST_CAST_RET_Review_and_Frozen_Protocol.md)：记录真实 V3.4 接口、灰度标签、梯度和热路径审阅，其中“runner 待接入”已被后续 A1 阶段取代。
 - [CAST-RET-R2 修订方案与代码（预接入设计快照）](EviSIRST_CAST_RET_R2_Plan_and_Code.md)：将 A1 限定为像素新增项的未抵消梯度预算，把混合 token H/B 修复保留为后续单独消融；内嵌合成 CPU 测试不代表真实模型联调或收益。
 - [CAST-RET-R2 A1 实施与预检结果入口](EviSIRST_CAST_RET_R2_A1_实施与预检结果.md)：公开记录外部本地工作树的预检、恢复检查和易变运行快照；本仓库未包含 A1 源码、权重或完成结果。
+- [A1 训练停止快照与 V3.5-CEL 定向优化方案（本地已实现/预检，未公开或正式训练）](EviSIRST_A1_训练收尾与CEL定向优化方案_20260909.md)：记录 A1 在 IRSTD e874、NUDT e641 主动停止的最终状态；CEL 已在外部本地工作树实现并通过启动前检查，但正式训练未启动，本仓库也未收录其源码或完整证据。
 
 V3.3 authority/replay 测试需要本机存在 manifest 指定且 SHA-256 匹配的三个 SCTransNet
 baseline checkpoint；这些权重未随 Git 仓库发布。预检中的 `unit_test_report.json` 是
