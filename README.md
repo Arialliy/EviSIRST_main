@@ -19,7 +19,7 @@ SCTransNet + TPD8-MPRS-DCH + NER4 Tail-Aware + QFG2-CROA
 `TSS-off` 只是历史训练条件，不属于模型结构；正式 V3 推理图有 564 个 state keys、
 10,870,130 个参数，并且没有 TSS 模块。
 
-> 当前实验状态（2026-09-09）：HF-Decoder V1 已在 Seed-42 配对 validation 判定中
+> 当前实验状态（2026-09-10）：HF-Decoder V1 已在 Seed-42 配对 validation 判定中
 > `STOP`；SCTransNet-SBSC V2 也已在未访问 official test 的配对 validation 实验中
 > 判定失败并归档。基于 SCTransNet e670 与 SBSC V2.1 e543 的 V3.1 静态语义筛查未找到
 > 四项预注册方向 bootstrap 下界全正的候选，因此停止继续枚举静态 Q/K 公式。C³-SBSC
@@ -43,7 +43,12 @@ SCTransNet + TPD8-MPRS-DCH + NER4 Tail-Aware + QFG2-CROA
 > 它与未实施的 SOCRT 不是同一方法，`V3.5` 标签仍需在恢复研究前最终冻结。本仓库没有
 > A1/CEL 的可重放源码包、完成 summary 或最终
 > 双角色指标，不能声称它们已证明冻结协议下的全面或最终性能改善；A1 的中间
-> test-selected 快照只用于受限的权衡诊断。V3.3 运行 checkpoint、
+> test-selected 快照只用于受限的权衡诊断。CAST-CIT 也仅存在于未随
+> `main` 发布的外部本地工作树；stage2 实现及 CPU/CUDA/断点恢复预检已通过。
+> 2026-09-10 00:01（UTC+8）已从 seed42 启动 IRSTD 和 NUDT 的 1000-epoch 运行；
+> 17:33 快照分别为 e812/1000 和 e637/1000，NUAA 尚待 NUDT 成功结束后接续。
+> 两路都尚无完成 summary，逐轮 test 观测仍是 optimistic/test-selected 中途证据，
+> 不作最终性能声明。V3.3 运行 checkpoint、
 > 完整 history 与 formal summary 仍被 Git 忽略；公开的是实现、冻结合同、
 > 预检证据和研究决策文档。PSBFR、CP-HF-S2 与 DCS-PG 仍属于隔离实现或受控实验协议；
 > 它们都不是当前发布的 EviSIRST V3。运行授权、证据边界与结果状态以对应方案、协议和
@@ -104,6 +109,10 @@ EviSIRST_main/
 ├── EviSIRST_CAST_RET_R2_Plan_and_Code.md # R2 预接入设计与代码附录
 ├── EviSIRST_CAST_RET_R2_A1_实施与预检结果.md # 本地 A1 预检/运行索引
 ├── EviSIRST_A1_训练收尾与CEL定向优化方案_20260909.md # A1 停止快照/V3.5-CEL 提案
+├── EviSIRST_IRSTD_问题定位诊断_20260909.md # A1/CAST 配对诊断与 CEL 裁决
+├── EviSIRST_CAST_CIT_IRSTD_Plan_and_Code.md # CIT 历史设计与代码附录
+├── EviSIRST_CAST_CIT_预检结果与长训前判定_20260909.md # CIT 本地预检摘要
+├── EviSIRST_CAST_CIT_GPU23_*.md # CIT 已覆盖运维快照/直接启动记录
 ├── train_irstd_complete_target_v1.py # IRSTD complete-target 单变量实验
 ├── train_irstd_weighted_ds_v1.py # 仅在前驱门失败后解锁的 weighted-DS 备用实验
 ├── run_irstd_complete_target_promotion_gate.py # 固定 validation promotion gate
@@ -283,6 +292,14 @@ held-out-test claim。正式 checkpoint、完整 selection history 和 summary �
 - [CAST-RET-R2 修订方案与代码（预接入设计快照）](EviSIRST_CAST_RET_R2_Plan_and_Code.md)：将 A1 限定为像素新增项的未抵消梯度预算，把混合 token H/B 修复保留为后续单独消融；内嵌合成 CPU 测试不代表真实模型联调或收益。
 - [CAST-RET-R2 A1 实施与预检结果入口](EviSIRST_CAST_RET_R2_A1_实施与预检结果.md)：公开记录外部本地工作树的预检、恢复检查和易变运行快照；本仓库未包含 A1 源码、权重或完成结果。
 - [A1 训练停止快照与 V3.5-CEL 定向优化方案（本地已实现/预检，未公开或正式训练）](EviSIRST_A1_训练收尾与CEL定向优化方案_20260909.md)：记录 A1 在 IRSTD e874、NUDT e641 主动停止的最终状态；CEL 已在外部本地工作树实现并通过启动前检查，但正式训练未启动，本仓库也未收录其源码或完整证据。
+- [IRSTD 问题定位诊断：先定位，再裁决 CEL](EviSIRST_IRSTD_问题定位诊断_20260909.md)：将 A1 双角色和 CAST e700 末级干预分开复核；结果不支持把最后 CCA 直接定为唯一瓶颈，CEL 仍是未验证候选。
+- [CAST-CIT IRSTD 历史设计与代码附录](EviSIRST_CAST_CIT_IRSTD_Plan_and_Code.md)：记录候选机制的形成过程；附录不是当前在训源码，不得作为可重放发布。
+- [CAST-CIT 预检结果与长训前判定](EviSIRST_CAST_CIT_预检结果与长训前判定_20260909.md)：发布 CPU/CUDA 与 stage2 机制预检摘要；原始 artifact 和现行源码仍在外部本地工作树。
+- [CAST-CIT GPU2/3 直接长训启动记录](EviSIRST_CAST_CIT_GPU23_直接长训启动记录_20260910.md)：当前运行的带时间戳启动记录；其余 GPU2/3 文档是已失败或已退役队列的历史运维快照。
+
+CAST-CIT 的当前训练源码、checkpoint、history 和 summary 都未收录在本仓库。上述
+2026-09-10 运行状态只是带时间戳的本地快照，干净克隆无法独立重放或校验它；
+项目发布主张仍以本仓库已公开且可审计的内容为准。
 
 V3.3 authority/replay 测试需要本机存在 manifest 指定且 SHA-256 匹配的三个 SCTransNet
 baseline checkpoint；这些权重未随 Git 仓库发布。预检中的 `unit_test_report.json` 是
